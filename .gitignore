@@ -1,0 +1,76 @@
+# Dependencies
+/vendor/
+
+# Generated code and metadata
+/generated/*
+!/generated/.gitkeep
+
+# Cache, logs, sessions and temporary files
+/var/cache/
+/var/page_cache/
+/var/di/
+/var/generation/
+/var/log/
+/var/report/
+/var/session/
+/var/tmp/
+/var/view_preprocessed/
+
+# Media uploads - exclude all uploaded media
+/pub/media/*
+!/pub/media/.htaccess
+
+# Static content generated during deployment
+/pub/static/*
+!/pub/static/.htaccess
+
+# Local configuration and secrets
+/app/etc/env.php
+/app/etc/config.php
+/auth.json
+/.env
+/.env.*
+!/.env.example
+
+# IDE and editor files
+/.idea/
+/.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.orig
+
+# Test and build artifacts
+/.phpunit.result.cache
+/.phpunit.cache/
+/coverage/
+/build/
+
+# Local development tools
+/.docker/
+/docker-compose.override.yml
+
+# Backup archives
+*.zip
+*.tar
+*.tar.gz
+*.sql
+*.sql.gz
+
+# Node.js dependencies and build output
+/node_modules/
+/.npm/
+
+# Keep custom Magento modules tracked
+!/app/code/
