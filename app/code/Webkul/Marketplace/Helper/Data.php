@@ -61,6 +61,51 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 	protected $_sellerCollectionFactory;
 
     /**
+     * @var MpProductCollection
+     */
+    protected $_mpProductCollectionFactory;
+
+    /**
+     * @var MpFeedbackCollection
+     */
+    protected $_mpFeedbackCollectionFactory;
+
+    /**
+     * @var ProductCollection
+     */
+    protected $_productCollectionFactory;
+
+    /**
+     * @var \\Magento\\Framework\\App\\ResourceConnection
+     */
+    protected $_resource;
+
+    /**
+     * @var \\Magento\\Framework\\Locale\\FormatInterface
+     */
+    protected $_localeFormat;
+
+    /**
+     * @var \\Magento\\Indexer\\Model\\IndexerFactory
+     */
+    protected $indexerFactory;
+
+    /**
+     * @var \\Magento\\Indexer\\Model\\Indexer\\CollectionFactory
+     */
+    protected $indexerCollectionFactory;
+
+    /**
+     * @var VendorMappingCollection
+     */
+    protected $mappingColl;
+
+    /**
+     * @var \\Webkul\\MpAssignProduct\\Model\\ItemsFactory
+     */
+    protected $assignItemsFactory;
+
+    /**
      * @var \Magento\Customer\Model\SessionFactory
      */
     protected $_customerSessionFactory;
