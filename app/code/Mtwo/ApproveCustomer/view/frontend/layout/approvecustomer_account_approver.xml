@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+			<update handle="customer_account"/>
+     <head>
+        <title>Create Approvers Login</title>
+      </head>
+    <body> 
+        <referenceContainer name="content">
+            <block class="Mtwo\ApproveCustomer\Block\Index\CreateApprover" name="approvecustomer_index_create_approver" template="Mtwo_ApproveCustomer::create_approver.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

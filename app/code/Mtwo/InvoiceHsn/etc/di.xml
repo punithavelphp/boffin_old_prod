@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <!-- Plugin for adding HSN code to invoice items - DISABLED, using template override instead -->
+    <!--
+    <type name="Magento\Sales\Block\Adminhtml\Order\Invoice\View\Items">
+        <plugin name="mtwo_invoice_hsn_items" 
+                type="Mtwo\InvoiceHsn\Plugin\Sales\Block\Adminhtml\Order\Invoice\View\Items" 
+                sortOrder="10"/>
+    </type>
+    -->
+    
+    <!-- Plugin for validating HSN codes during invoice creation -->
+    <type name="Magento\Sales\Model\Order\Invoice">
+        <plugin name="mtwo_invoice_hsn_validation" 
+                type="Mtwo\InvoiceHsn\Plugin\Sales\Model\Order\InvoiceValidation" 
+                sortOrder="10"/>
+    </type>
+    
+    <!-- Plugin for validating HSN codes in admin controller -->
+    <type name="Magento\Sales\Controller\Adminhtml\Order\Invoice\Save">
+        <plugin name="mtwo_invoice_hsn_controller_validation" 
+                type="Mtwo\InvoiceHsn\Plugin\Sales\Controller\Adminhtml\Order\Invoice\Save" 
+                sortOrder="10"/>
+    </type>
+    
+</config>

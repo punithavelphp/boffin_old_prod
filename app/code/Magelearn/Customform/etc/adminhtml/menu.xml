@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+ 		<add id="Magelearn_Customform::manage_mlcustomform" title="Manage Enquires" module="Magelearn_Customform" sortOrder="9999" resource="Magelearn_Customform::manage_mlcustomform" parent="Sparsh_ProductInquiry::top_level" action="mladmincustomform/customform"/>
+	</menu>
+</config>

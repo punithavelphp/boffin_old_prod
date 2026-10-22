@@ -1,0 +1,28 @@
+{
+    "name": "mtwo/invoice-hsn",
+    "description": "Magento 2 module for HSN code management in adminhtml invoices",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mtwo",
+            "email": "info@mtwo.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "~7.3.0||~7.4.0||~8.1.0",
+        "magento/framework": "*",
+        "magento/module-sales": "*",
+        "magento/module-catalog": "*",
+        "magento/module-backend": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Mtwo\\InvoiceHsn\\": ""
+        }
+    }
+}

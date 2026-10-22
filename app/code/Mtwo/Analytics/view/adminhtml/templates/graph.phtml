@@ -1,0 +1,529 @@
+<?php
+$ordersAnalytics = $this->helper('Mtwo\Analytics\Helper\Data')->getOrdersAnalytics();
+ 
+
+?>
+<p>Orders By Institute</p>
+<table border="1" class="table-sortable" id="table1">
+	<thead> 
+		<tr>
+			<th>Name</th>
+			<th>Count</th>
+			<th>Amount</th>
+		</tr>
+	</thead> 
+	<tbody> 
+		<?php foreach($ordersAnalytics['institute'] as $key => $orders){  ?>
+		<tr>
+			<td><?php echo $orders['name'] ?></td>
+			<td><?php echo $orders['order_count'] ?></td>
+			<td data-val="<?php echo $orders['order_amount'] ?>"><?php echo number_format($orders['order_amount'],'2',".") ?></td>
+		</tr>
+		<?php } ?>
+	</tbody> 
+</table>
+
+<p>Orders By Corporate</p>
+<table border="1" class="table-sortable" id="table_corporate">
+	<thead> 
+		<tr>
+			<th>Name</th>
+			<th>Count</th>
+			<th>Amount</th>
+		</tr>
+	</thead> 
+	<tbody> 
+		<?php foreach($ordersAnalytics['corporate'] as $key => $orders){  ?>
+		<tr>
+			<td><?php echo $orders['name'] ?></td>
+			<td><?php echo $orders['order_count'] ?></td>
+			<td data-val="<?php echo $orders['order_amount'] ?>"><?php echo number_format($orders['order_amount'],'2',".") ?></td>
+		</tr>
+		<?php } ?>
+	</tbody> 
+</table> 
+
+
+<p>Orders By State</p>
+
+<table border="1" id="table3">
+	<thead> 
+		<tr>
+			<th>Name</th>
+			<th>Count</th>
+			<th>Amount</th>
+		</tr>
+	</thead> 
+	<tbody> 
+		<?php foreach($ordersAnalytics['state'] as $key=>$orders){  ?>
+		<tr>
+			<td><?php echo $orders['name'] ?></td>
+			<td><?php echo $orders['order_count'] ?></td>
+			<td data-val="<?php echo $orders['order_amount'] ?>"><?php echo number_format($orders['order_amount'],'2',".") ?></td>
+		</tr>
+		<?php } ?>
+	</tbody> 
+</table>
+
+<p>Orders By Status</p>
+<table border="1" cellpadding="10" id="table4">
+	<thead> 
+		<tr>
+			<th>Name</th>
+			<th>Count</th>
+			<th>Amount</th>
+		</tr>
+	</thead> 
+	<tbody> 
+		<?php foreach($ordersAnalytics['status'] as $key => $orders){  ?>
+		<tr>
+			<td><?php echo $orders['name'] ?></td>
+			<td><?php echo $orders['order_count'] ?></td>
+			<td data-val="<?php echo $orders['order_amount'] ?>"><?php echo number_format($orders['order_amount'],'2',".") ?></td>
+		</tr>
+		<?php } ?>
+	</tbody> 
+</table> 
+
+<p>Orders By Customer</p>
+<table border="1" id="table5">
+	<thead> 
+		<tr>
+			<th>Name</th>
+			<th>Count</th>
+			<th>Amount</th>
+		</tr>
+	</thead> 
+	<tbody> 
+		<?php foreach($ordersAnalytics['customer'] as $key=>$orders){  ?>
+		<tr>
+			<td><?php echo $orders['name'] ?></td>
+			<td><?php echo $orders['order_count'] ?></td>
+			<td><?php echo number_format($orders['order_amount'],'2',".") ?></td>
+		</tr>
+		<?php } ?>
+	</tbody> 
+</table>
+
+
+
+<style type="text/css">
+	.jqplot-point-label {white-space: nowrap;}
+	.jqplot-highlighter-tooltip {
+		background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+		color: #000;                                /* Black text for contrast */
+		border: 1px solid #ddd;                     /* Light border for better visibility */
+		padding: 5px;                               /* Add padding inside the tooltip */
+		border-radius: 4px;                         /* Optional: Rounded corners */
+		font-size: 10pt;                            /* Adjust font size */
+		z-index: 1000;                              /* Ensure tooltip appears above other elements */
+	}
+	table td{
+		border:1px solid black;	
+	}
+	table {
+		border-collapse: collapse; /* Ensures borders don't double up */
+	}
+	td,th {
+		padding: 10px; /* Adds 10px padding to all table cells */
+	}
+	th, .tablesorter-header-inner,.tablesorter-default th, .tablesorter-default thead td,.tablesorter-default .header, .tablesorter-default .tablesorter-header {
+		background-color: #4CAF50; /* Green background */
+		color: white; /* White text */
+	}
+
+
+
+</style>
+<link rel="stylesheet" href="https://mottie.github.io/tablesorter/css/theme.default.css">
+<!-- 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/jquery.jqplot.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.barRenderer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.pointLabels.min.js"></script> 
+-->
+
+<div id="chart1" ></div></br></br>
+<div id="chart2" ></div></br></br>
+<div id="chart3" ></div></br></br>
+
+<div id="chart4" ></div></br></br>
+<div id="chart5" ></div></br></br>
+<div id="chart6" ></div></br></br>
+<div id="chart7" ></div></br></br>
+
+
+
+<script>
+
+	/*
+	require([
+		'jquery',
+		'jqChart',
+	], function($,Chart) {  
+		const ctx = document.getElementById('myChart');
+		new Chart(ctx, {
+			type: 'bar', // Can be 'line', 'pie', 'doughnut', etc.
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"], // Labels for the chart
+				datasets: [{
+					label: 'Orders',
+					data: [65, 59, 20, 81, 56, 55, 40], // Data for the chart
+					backgroundColor: 'rgba(75, 192, 192, 0.2)',
+					borderColor: 'rgba(75, 192, 192, 1)',
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+
+
+	});
+*/
+
+
+
+	require([
+		'jquery',
+		'jqplot',
+		'jqplotBarRenderer',
+		'jqplotCategoryAxisRenderer',
+		'jqplotPointLabels',
+		'jqplotcanvasAxisTickRenderer',
+		'jqplotcanvasFontRenderer',
+		'jqplotcanvasAxisLabelRenderer',
+		'jqplotdateAxisRenderer',
+		'jqplothighlighter',
+		'tableSort'
+	], function($) {
+
+		$("#table1").tablesorter();
+		$("#table_corporate").tablesorter();
+		$("#table3").tablesorter();
+		$("#table4").tablesorter();
+		$("#table5").tablesorter();
+
+		var months = [];
+		var quarter = [];
+		var year = [];
+		var orderCounts = [];
+		var orderCountsQuarter = [];
+		var orderCountsYear = [];
+
+		var orderAmount = [];
+		var orderAmountQuarter = [];
+		var orderAmountYear = [];
+
+		<?php  
+		$max = $this->helper('Mtwo\Analytics\Helper\Data')->getMax($ordersAnalytics['monthly']);
+		
+	 
+		foreach ($ordersAnalytics['monthly'] as $month=> $data) { ?>
+		months.push('<?php echo $month." "; ?>');
+		orderCounts.push('<?php echo $data ?>');
+		orderAmount.push(<?php echo $ordersAnalytics['monthly_amount'][$month] ?>);
+		orderCountMax = '<?php echo $max; ?>';
+		<?php }
+		$max = $this->helper('Mtwo\Analytics\Helper\Data')->getMax($ordersAnalytics['quarter']);
+
+		foreach ($ordersAnalytics['quarter'] as $quarter=> $data) { ?>
+		quarter.push('<?php echo $quarter." "; ?>');
+		orderCountsQuarter.push('<?php echo $data ?>');
+		orderAmountQuarter.push(<?php echo $ordersAnalytics['quarter_amount'][$quarter] ?>);
+				orderQuarterMax = '<?php echo $max; ?>';
+
+		<?php }
+				$max = $this->helper('Mtwo\Analytics\Helper\Data')->getMax($ordersAnalytics['yearly']);
+
+		foreach ($ordersAnalytics['yearly'] as $yearly=> $data) { ?>
+		year.push('<?php echo $yearly." "; ?>');
+		orderCountsYear.push('<?php echo $data ?>');
+		orderAmountYear.push(<?php echo $ordersAnalytics['yearly_amount'][$yearly] ?>);
+						orderYearMax = '<?php echo $max; ?>';
+
+		<?php } ?>
+
+		$(document).ready(function () {
+
+
+
+
+			$.jqplot('chart1', [orderCounts], {
+				title: 'Orders Per Month',
+				seriesDefaults: {
+					renderer: $.jqplot.BarRenderer,
+					rendererOptions: {
+						barWidth: 30,
+						barPadding: 10
+					},
+					pointLabels: { show: true }
+				},
+				axes: {
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: months,
+						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							angle: -45,
+							fontSize: '12pt',       // Increase font size for clarity
+							fontFamily: 'Arial',
+							labelPosition: 'auto',   // Adjust positioning
+							labelPadding: 15,        // Increase padding to prevent clipping
+							textColor: '#000',       // Dark color for readability
+							showMark: true,          // Show tick marks
+							showGridline: false      // Hide gridline if distracting
+						}
+					},
+					yaxis: {
+						min: 0,
+						max: orderCountMax
+					}
+				},
+				highlighter: {
+					show: true,
+					tooltipLocation: 'n', // Position above the bar
+					tooltipAxes: 'y',     // Show y-axis values
+					useAxesFormatters: false,
+					tooltipFormatString: '%s orders',
+					tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
+						// Customize tooltip to show month and order count
+						return months[pointIndex] + ' - ' + orderCounts[pointIndex] + ' orders';
+					}
+				}
+			});
+			$.jqplot('chart2', [orderCountsQuarter], {
+				title: 'Orders Per Quarter',
+				seriesDefaults: {
+					renderer: $.jqplot.BarRenderer,
+					rendererOptions: {
+						barWidth: 30,
+						barPadding: 10
+					},
+					pointLabels: { show: true }
+				},
+				axes: {
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: quarter,
+						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							angle: -45,
+							fontSize: '12pt',       // Increase font size for clarity
+							fontFamily: 'Arial',
+							labelPosition: 'auto',   // Adjust positioning
+							labelPadding: 15,        // Increase padding to prevent clipping
+							textColor: '#000',       // Dark color for readability
+							showMark: true,          // Show tick marks
+							showGridline: false      // Hide gridline if distracting
+						}
+					},
+					yaxis: {
+						min: 0,
+						max: orderQuarterMax
+
+					}
+				},
+				highlighter: {
+					show: true,
+					tooltipLocation: 'n', // Position above the bar
+					tooltipAxes: 'y',     // Show y-axis values
+					useAxesFormatters: false,
+					tooltipFormatString: '%s orders',
+					tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
+						// Customize tooltip to show month and order count
+						return quarter[pointIndex] + ' - ' + orderCountsQuarter[pointIndex] + ' orders';
+					}
+				}
+			});
+			$.jqplot('chart3', [orderCountsYear], {
+				title: 'Orders Per Year',
+				seriesDefaults: {
+					renderer: $.jqplot.BarRenderer,
+					rendererOptions: {
+						barWidth: 30,
+						barPadding: 10
+					},
+					pointLabels: { show: true }
+				},
+				axes: {
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: year,
+						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							angle: -45,
+							fontSize: '12pt',       // Increase font size for clarity
+							fontFamily: 'Arial',
+							labelPosition: 'auto',   // Adjust positioning
+							labelPadding: 15,        // Increase padding to prevent clipping
+							textColor: '#000',       // Dark color for readability
+							showMark: true,          // Show tick marks
+							showGridline: false      // Hide gridline if distracting
+						}
+					},
+					yaxis: {
+						min: 0,
+						max: orderYearMax
+					}
+				},
+				highlighter: {
+					show: true,
+					tooltipLocation: 'n', // Position above the bar
+					tooltipAxes: 'y',     // Show y-axis values
+					useAxesFormatters: false,
+					tooltipFormatString: '%s orders',
+					tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
+						// Customize tooltip to show month and order count
+						return year[pointIndex] + ' - ' + orderCountsYear[pointIndex] + ' orders';
+					}
+				}
+			});
+
+			/*** ------------------ ***/
+
+
+			$.jqplot('chart4', [orderAmount], {
+				title: 'Order Amount Per Month',
+				seriesDefaults: {
+					renderer: $.jqplot.BarRenderer,
+					rendererOptions: {
+						barWidth: 30,
+						barPadding: 10
+					},
+					pointLabels: { show: true }
+				},
+				axes: {
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: months,
+						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							angle: -45,
+							fontSize: '12pt',       // Increase font size for clarity
+							fontFamily: 'Arial',
+							labelPosition: 'auto',   // Adjust positioning
+							labelPadding: 15,        // Increase padding to prevent clipping
+							textColor: '#000',       // Dark color for readability
+							showMark: true,          // Show tick marks
+							showGridline: false      // Hide gridline if distracting
+						}
+					},
+					yaxis: {
+						min: 0
+					}
+				},
+				highlighter: {
+					show: true,
+					tooltipLocation: 'n', // Position above the bar
+					tooltipAxes: 'y',     // Show y-axis values
+					useAxesFormatters: false,
+					tooltipFormatString: '%s orders',
+					tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
+						// Customize tooltip to show month and order count
+						return months[pointIndex] + ' - ' + orderAmount[pointIndex] + ' orders';
+					}
+				}
+			});
+
+			$.jqplot('chart5', [orderAmountQuarter], {
+				title: 'Order Amount Per Quarter',
+				seriesDefaults: {
+					renderer: $.jqplot.BarRenderer,
+					rendererOptions: {
+						barWidth: 30,
+						barPadding: 10
+					},
+					pointLabels: { show: true }
+				},
+				axes: {
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: quarter,
+						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							angle: -45,
+							fontSize: '12pt',       // Increase font size for clarity
+							fontFamily: 'Arial',
+							labelPosition: 'auto',   // Adjust positioning
+							labelPadding: 15,        // Increase padding to prevent clipping
+							textColor: '#000',       // Dark color for readability
+							showMark: true,          // Show tick marks
+							showGridline: false      // Hide gridline if distracting
+						}
+					},
+					yaxis: {
+						min: 0
+					}
+				},
+				highlighter: {
+					show: true,
+					tooltipLocation: 'n', // Position above the bar
+					tooltipAxes: 'y',     // Show y-axis values
+					useAxesFormatters: false,
+					tooltipFormatString: '%s orders',
+					tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
+						// Customize tooltip to show month and order count
+						return quarter[pointIndex] + ' - ' + orderAmountQuarter[pointIndex] + ' orders';
+					}
+				}
+			});
+			$.jqplot('chart6', [orderAmountYear], {
+				title: 'Order Amount Per Year',
+				seriesDefaults: {
+					renderer: $.jqplot.BarRenderer,
+					rendererOptions: {
+						barWidth: 30,
+						barPadding: 10
+					},
+					pointLabels: { show: true }
+				},
+				axes: {
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: year,
+						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							angle: -45,
+							fontSize: '12pt',       // Increase font size for clarity
+							fontFamily: 'Arial',
+							labelPosition: 'auto',   // Adjust positioning
+							labelPadding: 15,        // Increase padding to prevent clipping
+							textColor: '#000',       // Dark color for readability
+							showMark: true,          // Show tick marks
+							showGridline: false      // Hide gridline if distracting
+						}
+					},
+					yaxis: {
+						min: 0
+					}
+				},
+				highlighter: {
+					show: true,
+					tooltipLocation: 'n', // Position above the bar
+					tooltipAxes: 'y',     // Show y-axis values
+					useAxesFormatters: false,
+					tooltipFormatString: '%s orders',
+					tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
+						// Customize tooltip to show month and order count
+						return year[pointIndex] + ' - ' + orderAmountYear[pointIndex] + ' orders';
+					}
+				}
+			});
+
+
+		});
+	});
+</script>

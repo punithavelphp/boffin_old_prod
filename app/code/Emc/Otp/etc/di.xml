@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * PHP version 7
+ * @category  EMC
+ * @package  Emc_Otp
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Generate Otp Interface Implementation -->
+    <preference for="Emc\Otp\Api\GenerateOtpInterface"
+                type="Emc\Otp\Model\GenerateOtp" />
+     
+    <!-- Generate Login Interface Implementation -->
+    <preference for="Emc\Otp\Api\OtpLoginInterface"
+                type="Emc\Otp\Model\OtpLogin" />
+
+</config>

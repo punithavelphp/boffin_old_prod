@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+	<router id="admin">
+		<route id="freebies" frontName="freebies">
+			<module name="Mtwo_Coins" before="Magento_Backend"/>
+		</route>
+		<route frontName="mtwo_coins" id="mtwo_coins">
+			<module before="Magento_Backend" name="Mtwo_Coins"/>
+		</route>
+	</router>
+</config>

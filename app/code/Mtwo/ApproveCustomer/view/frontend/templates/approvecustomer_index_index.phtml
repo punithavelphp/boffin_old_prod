@@ -1,0 +1,92 @@
+<?php
+// get custom data
+$custom_data = $block->getCustomData();
+$groupDataArray = $block->getCustomerGroups();
+echo '<hr>';
+ ?>
+<fieldset class="fieldset">
+    <?php
+    if (count($custom_data)) {
+        ?>
+        <div class="table-wrapper custom-data ">
+            <table class="data table table-data-items ">
+                 <thead>
+                    <tr>
+                        <th scope="col" class="col name"><?= $block->escapeHtml('ID') ?></th>
+                        <th scope="col" class="col orders"><?= $block->escapeHtml('Email') ?></th>
+                        <th scope="col" class="col orderitem"><?= $block->escapeHtml('Name') ?></th>
+						<th scope="col" class="col orderitem"><?= $block->escapeHtml('Mobile') ?></th>
+						<th scope="col" class="col orderitem"><?= $block->escapeHtml('Group') ?></th>
+						<th scope="col" class="col orderitem"><?= $block->escapeHtml('Status') ?></th>
+						<th scope="col" colspan="2" class="col orderitem"><?= $block->escapeHtml('Action') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+					<?php if($this->getRequest()->getParam('group') == 'purchasedept'){
+								$groupAppend = 'group/purchasedept';
+						}else{
+			$groupAppend = '';
+		}
+							?>
+                <?php foreach ($custom_data as $item): ?>
+                    <tr>
+                        <td data-th="Name" class="col name">
+                         <span><?= $block->escapeHtml($item->getId()) ?></span>
+                        </td>
+                        <td data-th="Orders" class="col orders">
+                            <span><?= $block->escapeHtml($item->getEmail()) ?></span>
+                        </td>
+                        <td data-th="Items" class="col orderitem">
+                            <span><?= $block->escapeHtml($item->getFirstname().' '.$item->getLastname()) ?></span>
+                        </td>
+						 <td data-th="Items" class="col orderitem">
+                            <span><?= $block->escapeHtml($item->getData('mobilenumber')) ?></span>
+                        </td>
+						 <td data-th="Items" class="col orderitem">
+                            <span><?= $block->escapeHtml($groupDataArray[$item->getData('group_id')]) ?></span>
+                        </td>
+						<td>
+						<?php 
+							if($item->getData('is_approved') == 'approved')	{
+								$status = 'Approved';
+							}else if($item->getData('is_approved') == 'notapproved'){
+								$status = 'Rejected';
+							}else{
+								$status = 'Pending';
+							}
+							echo $status;  
+						?>
+						</td>
+						<td data-th="Name" class="col name" >
+							
+ 							<button class="small-btn"><a class="button    " href="<?php echo $this->getUrl('approvecustomer/account/edit/customer/'.$item->getId()).$groupAppend; ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Edit</a></button> 
+						</td>
+ 						<td data-th="Name" class="col name" >
+							<?php if($item->getData('is_approved') == 'pending'){ ?>
+							<button class="small-btn"><a class="button   " href="<?php echo $this->getUrl('approvecustomer/index/approve/status/approved/customer/'.$item->getId()).$groupAppend; ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Approve</a></button> &nbsp; 
+							<button class="small-btn"><a class="button  " href="<?php echo $this->getUrl('approvecustomer/index/approve/status/notapproved/customer/'.$item->getId()).$groupAppend; ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Reject</a></button>
+							<?php } else { ?>
+ 								<?php if($item->getData('is_approved') == 'approved')	{ ?>
+								<button class="small-btn"><a class="button" href="<?php echo $this->getUrl('approvecustomer/index/approve/status/notapproved/customer/'.$item->getId()).$groupAppend; ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Reject</a></button>
+								<?php } else{ ?>
+								<button class="small-btn"><a class="button " href="<?php echo $this->getUrl('approvecustomer/index/approve/status/approved/customer/'.$item->getId()).$groupAppend; ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Approve</a></button> &nbsp; 
+								<?php } ?>
+							<?php }  ?>
+						</td>
+                    </tr> 
+					
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom">
+                    <?= $block->getPagerHtml() ?>
+                </div>
+        <?php endif ?>
+    <?php } else { ?>
+                <div class="message info empty">
+                    <span><?= $block->escapeHtml('You have no data.') ?></span>
+                </div>
+    <?php  } ?>
+</fieldset>

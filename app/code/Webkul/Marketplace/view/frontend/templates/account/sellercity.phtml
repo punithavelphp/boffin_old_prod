@@ -1,0 +1,49 @@
+<?php
+ 
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+
+$session = $objectManager->create('Magento\Customer\Model\Session');
+
+  $sellerId = $session->getCustomerId();
+
+    $romCities = $objectManager->create('Eadesigndev\RomCity\Model\Cities')->getCityArray();
+	
+		$sellerCityData = $objectManager->create('Mtwo\Approver\Model\SellerCity')->getCollection()->addFieldToFilter('seller_id',$sellerId);
+		    $regionNames = $objectManager->create('PHPCuong\Region\Model\RegionName')->getCollection();
+
+
+foreach($regionNames as $regionName){
+	$regionNameArray[$regionName->getRegionId()] = $regionName->getName();
+ } 
+
+ $sellerCities = [];
+ 
+foreach($sellerCityData as $sellerCity){
+	$sellerCities[$sellerCity->getCityId()] = $sellerCity->getCityId();
+ } 
+ 
+?>
+                                        <form id="review-form" method="post" action="<?= $block->escapeUrl($block->getUrl('marketplace/account/saveSellerCity', ['_secure' => $this->getRequest()->isSecure()])) ?>"  >
+                                            <?= $block->getBlockHtml('formkey'); ?>
+
+	<?php 
+	foreach($romCities as $regionId=>$romCityArray){
+		 if(!isset($regionNameArray[$regionId])){
+			 continue;
+			 
+		 }
+		?>
+			<h2><?php echo $regionNameArray[$regionId]; ?></h2>
+		<select multiple  id="city_<?php echo $regionId; ?>" name="city[]" >
+			<option value="">SELECT</option>
+		<?php foreach($romCityArray as $key=>$val){  ?>
+			<option value="<?php echo $key; ?>" <?php if(isset($sellerCities[$key])) echo 'selected'; ?>><?php echo $val; ?></option>
+			<?php } ?>
+	</select>
+
+	<?php 
+	}
+	?>
+<input type="submit" style="float:right;" value="Submit" class="action tocart primary primary progress submitbtn"  id="frmSubmit" name="frmSubmit">
+

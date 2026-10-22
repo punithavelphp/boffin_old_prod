@@ -1,0 +1,24 @@
+<!--@subject {{trans "Order Approved - %order_number" order_number=$order_number}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "Dear "}} {{var customer_name}},</p>
+<p>
+ {{trans "Your order %order_number " order_number=$order_number}} {{trans "has been approved."}}
+</p>
+<p> 
+ {{trans "Please pay RS %payment_amount" payment_amount=$payment_amount}} {{trans 'by clicking the <a href="%payment_link">link</a>' payment_link=$payment_link |raw}}
+</p>
+<p>
+ {{trans "or copy and past the link in your browser %payment_link" payment_link=$payment_link}}
+</p>
+
+
+{{var store_name}}
+{{template config_path="design/email/footer_template"}}

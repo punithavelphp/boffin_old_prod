@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="magelearn_customform" resource="default" engine="innodb" comment="Magelearn Customform Table">
+		<column xsi:type="smallint" name="id" padding="6" unsigned="true" nullable="false" identity="true" comment="ID"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="id"/>
+		</constraint>
+		<column name="first_name" nullable="false" xsi:type="text" comment="First Name"/>
+		<column name="last_name" nullable="false" xsi:type="text" comment="Last Name"/>
+		<column name="email" nullable="false" xsi:type="text" comment="Email"/>
+		<column name="phone" nullable="false" xsi:type="int" padding="10" default="0" identity="false" comment="Phone"/>
+		<column name="message" nullable="true" xsi:type="text" comment="Message"/>
+		<column name="status" padding="11" unsigned="false" nullable="false" xsi:type="int" default="1" identity="false" comment="Customform Status"/>
+		<column name="image" nullable="true" xsi:type="text" comment="Image"/>
+		<column name="brand" nullable="true" xsi:type="text" comment="Brand"/>
+		<column name="products" nullable="true" xsi:type="text" comment="Products"/>
+		<column name="created_at" nullable="false" xsi:type="datetime" comment="Created Date" default="CURRENT_TIMESTAMP"/>
+		<index referenceId="MAGELEARN_CUSTOMFORM_FIRST_NAME" indexType="fulltext">
+	        <column name="first_name"/>
+	    </index>
+	    <index referenceId="MAGELEARN_CUSTOMFORM_LAST_NAME" indexType="fulltext">
+	        <column name="last_name"/>
+	    </index>
+	    <index referenceId="MAGELEARN_CUSTOMFORM_EMAIL" indexType="fulltext">
+	        <column name="email"/>
+	    </index>
+	    <index referenceId="MAGELEARN_CUSTOMFORM_MESSAGE" indexType="fulltext">
+	        <column name="message"/>
+	    </index>
+	    <index referenceId="MAGELEARN_CUSTOMFORM_IMAGE" indexType="fulltext">
+	        <column name="image"/>
+	    </index>
+	</table>
+</schema>

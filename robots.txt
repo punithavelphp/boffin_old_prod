@@ -1,0 +1,40 @@
+User-agent: *
+Allow: /
+
+# Directories not to crawl (system, backend, dev tools)
+Disallow: /app/
+Disallow: /bin/
+Disallow: /dev/
+Disallow: /lib/
+Disallow: /phpserver/
+Disallow: /setup/
+Disallow: /update/
+Disallow: /var/
+Disallow: /errors/
+Disallow: /includes/
+
+# Magento front-end actions that are user-specific or shouldn’t be indexed
+Disallow: /customer/
+Disallow: /checkout/
+Disallow: /wishlist/
+Disallow: /catalogsearch/
+Disallow: /sendfriend/
+Disallow: /newsletter/
+Disallow: /review/
+Disallow: /search/
+Disallow: /cart/
+Disallow: /account/
+
+# Prevent indexing of URLs with certain parameters (duplicate content / session IDs)
+Disallow: /*?dir=
+Disallow: /*?dir=asc
+Disallow: /*?dir=desc
+Disallow: /*?limit=
+Disallow: /*?mode=
+Disallow: /*?price=
+Disallow: /*?p=
+Disallow: /*?SID=
+
+# Sitemap locations
+Sitemap: https://boffinbutler.com/sitemap.xml
+Sitemap: https://boffinbutler.com/sitemap.xml.gz

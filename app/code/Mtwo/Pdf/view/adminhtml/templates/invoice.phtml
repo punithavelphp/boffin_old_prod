@@ -1,0 +1,321 @@
+<?php
+$sellerid = $this->getIsSeller();
+$sellerOrder = $this->getOrder(); 
+$sellerinvoice = $this->getInvoice();
+$headingText = $this->getHeadingText();
+$sellerDetails = $this->getSellerDetails($sellerid);
+/**  PUNI CODE STARTS HERE **/
+$productBySeller = array();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+// $customersession = $objectManager->get('Magento\Customer\Model\Session');
+//	$customerid = $customersession->getCustomer()->getId();
+
+$addressRenderer = $objectManager->get('Magento\Sales\Model\Order\Address\Renderer');
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$tableName = $resource->getTableName('marketplace_saleslist');
+$query = "Select * FROM " . $tableName."  where order_id = '".$sellerOrder->getId()."' and seller_id = '".$sellerid."'"; 
+$result = $connection->fetchAll($query); 
+foreach($result as $res){
+	$productBySeller[$res['mageproduct_id']] = $res['mageproduct_id'];
+}
+
+
+$orderRegion = $sellerOrder->getShippingAddress()->getRegionId();
+$sellerRegion = $sellerDetails->getRegionId();
+
+$customerid = $sellerOrder->getCustomerId();
+$customer_gstn = '';
+if($customerid != null){
+	$customer = $objectManager->get('Magento\Customer\Model\Customer')->load($customerid);
+	  $customer_gstn = $customer->getData('gstin_number'); 
+	//die;
+}
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+
+$URL_TYPE_MEDIA = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+	->getStore()
+	->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$signImage = '';
+if($sellerDetails->getSignPic() != ''){
+	$signImage = $URL_TYPE_MEDIA.'avatar/'.$sellerDetails->getSignPic();
+}
+//  $logo = $this->insertLogo($sellerid);  
+$logo =  $this->insertStoreLogo();
+ 
+/* $billingAddress = $this->_formatAddress(
+	$addressRenderer->format($sellerOrder->getBillingAddress(), 'pdf' ) 
+); */
+	$billingAddress   = '';
+	$sellerBilling   = $sellerOrder->getBillingAddress();
+	$street 		 = $sellerBilling->getStreet();
+	$billingAddress  = $sellerBilling->getData('firstname').' '.$sellerBilling->getData('lastname').'<br>';
+	if(!empty($sellerBilling->getData('company'))){
+		$billingAddress .= $sellerBilling->getData('company').'<br>';
+	}
+	if(isset($street[0]) && !empty($street[0])){
+		$billingAddress .= $street[0].'<br>';
+		}
+	if(isset($street[1]) && !empty($street[1])){
+		$billingAddress .= $street[1].'<br>';
+	}
+	if(!empty($sellerBilling->getData('city'))){
+		$billingAddress .= $sellerBilling->getData('city').'<br>';
+	}
+	if(!empty($sellerBilling->getData('region'))){
+		$billingAddress .= $sellerBilling->getData('region').' - '.$sellerBilling->getData('postcode').'<br>';
+	}
+	$billingAddress .= 'INDIA';
+   
+   
+   
+//print_r($sellerOrder->getShippingAddress());
+/*$shippingAddress = $this->_formatAddress(
+	$addressRenderer->format(
+		$sellerOrder->getShippingAddress(),
+		'pdf'
+	)
+);	*/
+   
+   $shippingAddress   = '';
+$sellershipping   = $sellerOrder->getShippingAddress();
+$street 		 = $sellershipping->getStreet();
+$shippingAddress  = $sellershipping->getData('firstname').' '.$sellershipping->getData('lastname').'<br>';
+if(!empty($sellershipping->getData('company'))){
+	$shippingAddress .= $sellershipping->getData('company').'<br>';
+}
+if(isset($street[0]) && !empty($street[0])){
+$shippingAddress .= $street[0].'<br>';
+	}
+if(isset($street[1]) && !empty($street[1])){
+$shippingAddress .= $street[1].'<br>';
+		}
+if(!empty($sellershipping->getData('city'))){
+$shippingAddress .= $sellershipping->getData('city').'<br>';
+	}
+if(!empty($sellershipping->getData('region'))){
+$shippingAddress .= $sellershipping->getData('region').' - '.$sellershipping->getData('postcode').'<br>';
+}
+$shippingAddress .= 'INDIA';
+$igst = true;
+if($orderRegion == $sellerRegion) {
+		$igst = false;
+}
+?>
+<div class="invoice" style="color: #000000; font-size:8px; position: relative;">
+
+        <!-- Header -->
+        <table class="header" cellspacing="0" cellpadding="0" style="width: 100%;">
+            <tr>
+                <td align="left">
+                    <a class="logo"  title="Boffinbuttler pvt ltd" aria-label="store logo" style="display: inline-block; margin-bottom: 2px; width: 80px;">
+                        <?php if($logo) { ?>
+                             <img src="<?php echo $logo; ?>" title="Boffinbuttler" alt="boffinbuttler" width="80" style="display: block; margin-bottom: 2px; width: 80px;" />
+                        <?php } ?>
+                    </a>
+                </td>
+                <td align="right">
+                    <p style="color:#000; font-size:10px;"><?php echo $headingText; ?><br><span style="display: block; color: #000000;"></span></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width: 100%; border-bottom: 2px solid #626ee2; margin-top:2px;">&nbsp;</td>
+            </tr>
+        </table>
+        <!-- Header -->
+        <!-- <table style="height:10px;"><tr><td></td></tr></table> -->
+        <!-- Sold -->
+        <table class="sold" cellspacing="0" cellpadding="6" style="width: 100%; font-size:8px; height:150px;">
+            <tr>
+                <td align="left" class="soldby"><strong>Sold By:</strong><div class="name" style="text-transform: uppercase;"><?php  echo $sellerDetails->getShopTitle() ?><br><?php echo $this->insertAddress($sellerid);?><strong>PAN No:</strong><?php echo $sellerDetails->getPan(); ?><br><strong>GST Registration No:</strong><?php  echo $sellerDetails->getGstin(); ?></div></td>
+                <td align="left" class="soldto"><p style="margin: 0; padding:0;"><strong>Order Number:</strong> <?php echo  $sellerOrder->getIncrementId(); ?><br>
+<strong>Order Date:</strong> <?php echo  date('d, F Y',strtotime($sellerOrder->getCreatedAt()));?><br><?php if(!empty($sellerinvoice->getData('po_number'))){ ?>
+<strong>Purchase Order Number:</strong> <?php echo  $sellerinvoice->getData('po_number'); ?><br>
+<strong>Purchase Order Date:</strong> <?php echo  date('d, F Y',strtotime($sellerinvoice->getData('po_date')));?><br>
+<?php } ?>
+<strong>Invoice Number:</strong> <?php echo $sellerinvoice->getIncrementId(); ?><br>
+<strong>Invoice Date:</strong> <?php echo  date('d, F Y',strtotime($sellerinvoice->getCreatedAt()));?></p></td>
+ 			</tr>
+        </table>
+        <!-- Sold -->
+        <!-- <table style="height:10px;"><tr><td></td></tr></table>-->
+        <!-- PAN-Sec -->
+        <table class="pan-sec" cellspacing="0" cellpadding="6" style="width: 100%; height: 100px; background-color: #f1f1f1;  font-size:8px;">
+            <tr>
+                <td class="pan" style="width: 50%; border-right: 3px solid #fff;" align="left"><strong>Sold To:</strong><div style="text-transform: uppercase; font-style: normal;"><?php  echo $billingAddress;
+					if(!empty($customer_gstn)) {
+							echo '<br>';echo 'GST No: '.$customer_gstn;
+					} ?></div></td>
+                <td class="ship" style="text-align: left; width: 50%;" align="left"><strong>Shipping Address:</strong><div style="text-transform: uppercase; font-style: normal;"><?php  echo $shippingAddress; ?></div></td>
+            </tr>
+        </table>
+        <!-- PAN-Sec -->
+        <!-- Order-Sec -->
+        
+        <!-- Order-Sec -->
+        <!--  <table style="height:10px;"><tr><td></td></tr></table>-->
+        <!-- Table-Sec-one -->
+          <!--  <table cellspacing="0" cellpadding="4" border="0" style="width: 100%; text-align: left; font-size:6px; ">
+            <tr style="font-size: 10px;">
+                <th style="text-align: left;">Payment Method: <?php $payment = $sellerOrder->getPayment(); $method = $payment->getMethodInstance(); echo $method->getTitle(); ?></th>
+                <th style="text-align: right;">Shipping Method:<?php echo $sellerOrder->getShippingDescription(); ?></th>
+            </tr>
+          
+        </table> -->
+        <!-- Table-Sec-one -->
+        <table style="height:10px;"><tr><td></td></tr></table>
+        <!-- Table-Sec-one -->
+        <table cellspacing="0" cellpadding="4" border="1" style="width: 100%; text-align: left; font-size:8px; border: 0px solid #000000;">
+            <thead>
+                <tr style="background-color: #f1f1f1; font-size: 8px;">
+                    <th width="30%">Item Description</th>
+                    <th width="15%">SKU</th>
+					<th width="15%">HSNCode</th>
+                    <th width="10%" align="right">Price (&#8377;)</th>
+                    <th width="9%" align="right">Qty</th>
+                    <th width="10%" align="right">Tax</th>
+                    <th width="11%" align="right">Subtotal (&#8377;)</th>
+                </tr>
+            </thead>
+            <tbody>
+				<?php
+				$discount = $sub_total = $row_total = $tax_amount  = $grant_total =$shipping_charge = $shipping_charge_tax = $shipping_charges = $shipping_charges_tax =  $shippingDivider = 0;
+				foreach ($sellerinvoice->getAllItems() as $item) {
+				if ($item->getOrderItem()->getParentItem()) {
+					continue;
+				}
+				$shippingDivider  += $item->getData('base_row_total_incl_tax');
+			}
+			foreach ($sellerinvoice->getAllItems() as $item) {
+				if ($item->getOrderItem()->getParentItem()) {
+					continue;
+				}
+				if(isset($productBySeller[$item->getProductId()]))
+				{
+					$discount += $item->getDiscountAmount();
+					$tax_amount += $item->getTaxAmount();
+					$row_total += $item->getRowTotal();
+					$sub_total += $item->getData('base_row_total_incl_tax');
+ 
+ 				}else {
+					continue;	
+				} 
+ 			?>
+                <tr>
+                    <td width="30%"><?php echo  ($item->getData('name')); ?></td>
+                    <td width="15%"><?php echo $item->getData('sku'); ?></td>
+					<td width="15%"><?php echo $this->getProduct($item->getData('product_id'))->getData('hsncode'); ?></td>
+                    <td width="10%" align="right">
+						<?php echo $sellerinvoice->getOrder()->formatPriceTxt($item->getData('base_price') ); ?>
+					</td>
+                    <td width="9%" align="right"><?php echo $item->getData('qty'); ?></td>
+                    <td width="10%" align="right"><?php echo $sellerinvoice->getOrder()->formatPriceTxt(($item->getData('tax_amount') + $item->getData('discount_tax_compensation_amount'))); ?></td>
+                    <td width="11%" align="right"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($item->getData('row_total')  + ($item->getData('tax_amount') + $item->getData('discount_tax_compensation_amount'))); ?></td>
+                </tr>
+				<?php }
+				if(empty($sellerinvoice->getData('shipping_tax_amount'))) {
+						$shipping_charges_tax = 0;
+					}else{
+						$shipping_charges_tax = $sellerinvoice->getData('shipping_tax_amount');
+					}
+					$shipping_charges = $sellerinvoice->getData('shipping_amount');
+ 					$grant_total = $sellerinvoice->getData('grand_total');
+			
+			?> 
+                <tr>
+                    <td colspan="6" align="right"><strong>Total Price</strong><br>Discount</td>
+                    <td align="right"><strong><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total); ?></strong><br><?php echo $sellerinvoice->getOrder()->formatPriceTxt($discount); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right"><strong>Total Price Excl.Tax</strong>
+						<?php if($igst) { ?>
+						<br>IGST
+					<?php } else{ ?>
+						<br>CGST
+						<br>SGST
+					<?php } ?>
+					</td>
+                    <td align="right">
+						<strong><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total-$tax_amount-$discount); ?></strong>
+							<br>
+						<?php if($igst) { ?>
+						<?php echo $sellerinvoice->getOrder()->formatPriceTxt($tax_amount); ?>
+						<?php } else{  ?>
+						<?php echo $sellerinvoice->getOrder()->formatPriceTxt($tax_amount/2); ?><br>
+						<?php echo $sellerinvoice->getOrder()->formatPriceTxt($tax_amount/2); ?>
+						<?php }   ?>
+					</td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right">							
+                            <strong>Total Price Incl.Tax</strong><br>
+							Shipping & Handling<br>
+							<?php if($igst) { ?> 
+								Shipping & Handling  IGST 
+							<?php } else { ?>
+							Shipping & Handling  CGST<br>
+							Shipping & Handling  SGST
+						<?php } ?>
+					</td>
+                    <td align="right">
+						<strong><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total-$discount); ?></strong>
+						<br><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges); ?>
+						<br><?php if($igst) { ?>
+							<?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges_tax); ?>
+						<?php } else{ ?>
+							<?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges_tax/2); ?>
+							<br><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges_tax/2); ?>
+						<?php } ?>
+					</td>
+                </tr>
+                <tr style="background-color: #fbfbfb;">
+                    <td colspan="5"><strong>Amount in Words: <br><?php echo ucWords($block->getIndianCurrency($grant_total)); ?>Only</strong></td>
+                    <td align="right"><strong>Grand Total</strong></td>
+                    <td align="right"><strong><?php echo $sellerinvoice->getOrder()->formatPriceTxt($grant_total); ?></strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Table-Sec-one -->
+        
+        <!-- Signature-Sec -->
+      <!--   <div class="sign" style="margin-top:8px;">
+            <table style="border:none; color: #000000; font-size:10px;">
+                <tr>
+                   <td style="text-align: left; margin-top:10px;">
+					   <p style="margin:0; padding:0;">
+						   <strong>Account Number:</strong> 065364700000042 <br>
+						   <strong>Account Name:</strong> Boffinbutler Private Limited<br>
+						   <strong>IFSC Code:</strong> YESB0000653<br>
+						   <strong>Bank:</strong> JAYANAGAR 9TH BLOCK -YES BANK
+					   </p>
+                    </td>
+                    <td style="text-align: right">
+                        <p style="font-size:6px;font-weight:bold;color:#626ee2; margin: 0;">For <?php echo $sellerDetails->getShopTitle(); ?></p>
+                        <h1 style="margin:0; padding:0;">
+                            <img  src="<?php echo $signImage; ?>" width="80" />
+                        </h1>
+                        <p style="font-size:6px; font-weight:bold;color:#000000; margin: 0;"><?php echo $sellerDetails->getAuthorityName(); ?></p>
+                    </td>
+                </tr>
+            </table>
+        </div>-->
+        <!-- Signature-Sec -->
+
+        <!-- Footer -->
+        <div style="background: #5e6ada; padding: 10px;">
+            <table style="border:none; color: #ffffff; font-size:8px;">
+               <!-- <tr>
+                    <td>This is computer generated invoice no signature required</td>
+                </tr> -->
+                <tr>
+                    <td>Corporate Address: #46, Velappar Nagar, Madhiraveedu, Thiruverkadu, Chennai - 600077</td>
+                </tr>
+            </table>          
+        </div>            
+        <!-- Footer -->
+
+
+        
+    </div>
+<?php  // die; ?>

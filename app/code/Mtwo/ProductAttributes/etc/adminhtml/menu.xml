@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Mtwo_ProductAttributes::parent" title="ProductAttributes" module="Mtwo_ProductAttributes" sortOrder="100" resource="Mtwo_ProductAttributes::parent"/>
+        <add id="Mtwo_ProductAttributes::index" title="Update City" module="Mtwo_ProductAttributes" sortOrder="10" action="productattributes/index" resource="Mtwo_ProductAttributes::index" parent="Mtwo_ProductAttributes::parent"/>
+		
+    </menu>
+</config>

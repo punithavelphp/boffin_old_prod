@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../Magento/Email/etc/email_templates.xsd">
+   <template id="payment_settings_custom_email_template" label="Order Approve/Payment Link Email" file="payment_email.html" type="html" module="Mtwo_ApproveOrder" area="frontend" />
+	<template id="payment_settings_custom_deny_email_template" label="Order Deny Email" file="order_deny.html" type="html" module="Mtwo_ApproveOrder" area="frontend" />
+	<template id="payment_settings_custom_faculty_email_template" label="Student Order Info to Faculty Template" file="faculty_email.html" type="html" module="Mtwo_ApproveOrder" area="frontend" /> 
+	<template id="payment_settings_custom_faculty_approve_student_template" label="Faculty Approve Student" file="faculty_approve_student_template.html" type="html" module="Mtwo_ApproveOrder" area="frontend" /> 
+
+
+</config>

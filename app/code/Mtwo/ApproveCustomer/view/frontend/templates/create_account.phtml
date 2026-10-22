@@ -1,0 +1,206 @@
+<?php
+// get custom data
+$frmData = $block->getFormData();
+$isLogged = $block->getIsLoggedIn();
+$groupId = $block->getGroupId();
+$employeeApprover = array();
+if($groupId == 3){
+	$approverCollection = array();
+	$customerId = $block->getCustomerId();
+	$approverCollection  = $this->getApproverCollection();	
+
+	if($this->getRequest()->getParam('customer') != ''){
+		$employeeApprover = $this->employeeApproverCollection($this->getRequest()->getParam('customer'));
+
+		foreach($employeeApprover as $employeeColl){
+			if(isset($approverCollection[$employeeColl->getManagerId()])){
+				unset($approverCollection[$employeeColl->getManagerId()]); 
+			}
+		}
+	}
+}
+?>
+<fieldset class="fieldset form-createpage-sections">
+	<?php
+	if ($isLogged) {
+	?>
+	<div class="table-wrapper custom-data ">
+		<form name="subFrm" id="subFrm" method="POST" action="<?php echo $this->getUrl('approvecustomer/account/save') ?>">
+			<div class="form-group">
+				<label for="firstname">First Name</label>
+				<input type="text" class="form-control" value="<?php echo $frmData->getFirstname(); ?>" id="firstname" name="firstname" placeholder="">
+				<input type="hidden" class="form-control" id="entity_id" name="entity_id" value="<?php echo $frmData->getEntityId(); ?>">
+
+				<input type="hidden" class="form-control" id="faculty_type" name="faculty_type" value="<?php echo $groupId; ?>">
+			</div>
+			<div class="form-group">
+				<label for="lastname">Last Name</label>
+				<input type="text" class="form-control" id="lastname"  value="<?php echo $frmData->getLastname(); ?>" name="lastname" placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="email_address">Email address</label>
+				<input type="email" class="form-control" name="email" value="<?php echo $frmData->getEmail(); ?>" id="email_address" placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="mobilenumber">Mobile</label>
+				<input type="text" class="form-control" name="mobilenumber" value="<?php echo $frmData->getMobilenumber(); ?>" id="mobilenumber" placeholder="">
+			</div>
+
+
+
+
+
+
+			<?php if($groupId == 3 || ($frmData->getGroupId() == 4 || $frmData->getGroupId() == 5)) {  ?>
+ 					<div class="form-group">
+						<label for="mobilenumber">Designation</label>
+						<input type="text" class="form-control" name="designation" value="<?php echo $frmData->getDesignation(); ?>" id="designation" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="role_dept">Department</label>
+						<input type="text" class="form-control" name="role_dept" value="<?php echo $frmData->getRoleDept(); ?>" id="role_dept" placeholder="">
+					</div>
+			<?php 
+			}  ?>
+			<?php if($groupId == 3) {  ?>
+			<?php if($frmData->getGroupId()) { ?>
+			<input type="hidden" class="form-control" id="group_id" name="group_id" value="<?php echo $frmData->getGroupId(); ?>">
+			<?php } else{ ?>
+			<input type="hidden" class="form-control" id="group_id" name="group_id" value="4">
+ 			<?php } ?>
+			<?php } elseif($groupId == 7) { ?>
+			<input type="hidden" class="form-control" id="group_id" name="group_id" value="2">
+			<?php }  else if($groupId == 2) { ?>
+			<?php if($this->getRequest()->getParam('group') == 'purchasedept') { ?>
+			<input type="hidden" class="form-control" id="group_id" name="group_id" value="7">
+			<?php } else { ?>
+			<input type="hidden" class="form-control" id="group_id" name="group_id" value="1">
+
+			<?php } ?>
+			<?php } ?>	
+			<!--   <div class="form-group">
+ <label for="roll_number">Student ID/Roll Number</label>
+ <input type="text" name="roll_number" value="<?php //echo $frmData->getRollNumber(); ?>" class="form-control" id="roll_number" placeholder="">
+  </div> -->
+			<button type="submit" class="btn action primary" style="float:right;">Submit</button><br><br>
+
+			<table class="dragger">
+				<tbody class="sortable drag-table">
+					<?php 
+		foreach($employeeApprover as $data){  
+			$nameData = $this->getCustomerDataById($data->getManagerId());
+			$name = $nameData['firstname'].' '.$nameData['lastname'];
+					?>
+					<tr class="drag-row" data-index="<?php echo $data->getId(); ?>" data-position="<?php echo $data->getPriority(); ?>">
+						<td ><?php echo $name;  ?>
+						</td>
+						<td>
+							<a href="<?php echo $this->getUrl('approvecustomer/account/delete/del/'.$data->getId().'/customer/'.$this->getRequest()->getParam('customer')); ?>?p=<?php echo $this->getRequest()->getParam('p'); ?>&limit=<?php echo $this->getRequest()->getParam('limit'); ?>" onclick="javascript:confirm('Are you sure to delete?')">Delete</a>
+						</td>
+					</tr>
+					<?php  } ?>
+				</tbody>
+			</table>
+
+
+
+
+			<?php if($groupId == 3) { ?>
+			<?php 
+
+
+			for($i=0;$i<count($approverCollection);$i++){ ?>
+			<div class="form-group">
+				<label for="approver_id" >Approver <?php echo $i+1 ?></label>
+				<select class="form-control" name="approver_id[<?php echo $i; ?>]" id="approver_id"  >
+					<option value="">Please Select</option>  
+					<?php foreach($approverCollection as $data){ 
+				$nameData = $this->getCustomerDataById($data['employee_id']);
+				if(!$nameData){
+					continue;	
+				}
+				$name = $nameData['firstname'].' '.$nameData['lastname'];
+					?>
+					<option value="<?php  echo $data['employee_id']; ?>" <?php if($frmData->getApproverId() != null && in_array($data['employee_id'],$frmData->getApproverId())) { echo 'selected'; }?>><?php  echo $name; ?></option> <?php } ?>
+				</select>
+			</div>
+			<?php } ?> 
+			<?php } ?>
+
+
+		</form>
+	</div>
+
+	<?php } else { ?>
+	<div class="message info empty">
+		<span><?= $block->escapeHtml('You have no data.') ?></span>
+	</div>
+	<?php  } ?>
+</fieldset>
+
+<style>
+	table.dragger {
+		margin-top: 25px !important;
+	}
+	.drag-table {
+		border: none;
+	}
+	tr.drag-row {
+		border: dashed #ededed 1.5px;
+		cursor: move;
+	}
+	tr.drag-row:hover {
+		background: #f4f4f4;
+		border-left:solid #b5b5b5 4px;
+	}
+</style>
+
+<script>
+
+	require([
+		'jquery',
+		'jquery/ui'
+	], function($){
+
+		$('.sortable').sortable({
+			update:function(event,ui){
+				$(this).children().each(function(index){
+					if($(this).attr('data-position') != (index+1)) {
+						$(this).attr('data-position', (index+1)).addClass('updated');
+
+					}
+				});
+				saveNewPositions();
+			}
+		});
+
+
+
+		function saveNewPositions(){
+			var positions = new Array();
+			$('.updated').each(function(){
+				positions.push([$(this).attr('data-index'), $(this).attr('data-position')]);
+				$(this).removeClass('updated');
+			});
+
+			$.ajax({
+				url :  '<?php echo $this->getUrl('approvecustomer/account/update'); ?>',
+				method:'POST',
+				dataType: 'text',
+				data:{update:1,positions:positions},
+				success:function(result){
+					alert(result);
+					$('.priority').children().each(function(index){
+						$(this).text($(this).attr('data-position'));
+					});
+
+				}
+			});
+		}
+
+
+	});
+
+
+</script>
+

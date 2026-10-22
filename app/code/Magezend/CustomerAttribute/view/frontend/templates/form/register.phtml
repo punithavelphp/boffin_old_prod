@@ -1,0 +1,1084 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+
+
+$requestParams = $this->getRequest()->getParams();
+$type = 0;
+if(isset($requestParams) && isset($requestParams['type'])) {
+	$type = $requestParams['type'];
+}
+
+if($type > 5) {
+	$type = 0;
+}
+if($type == 2) {
+	$title = "Create New Employer Account";
+}elseif($type == 1) {
+	$title = "Create New Purchase Department";
+}elseif($type == 4) {
+	$title = "Create New Seller Registration";
+}elseif($type == 3) {
+	$title = "Create New Faculty Registration";
+}elseif($type == 5) {
+	$title = "Create New Student Registration";
+}else{
+	$title = "Create New Faculty Account";
+}
+?>
+<?= $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.register.extra') ?>
+<?php if($type == 0) { ?>
+
+<h2 style="text-align:center;" class="reg-title">CREATE ACCOUNT</h2>
+
+<div class="row">
+
+	<div class="reg_form_selection">
+		<!-- <select  id="seller_buyer"  title="State" class="validate-select required-entry" style="" aria-required="true" defaultvalue="0">
+ <option value="">Please select User type.</option>
+ <option value="1">Buyer</option>
+ <option value="2">Seller</option>
+   </select> -->
+
+
+		<div>
+			<div class="form_body_content">
+				<div class="row-flex">
+					<div class="section_body buyer_section bf-6">
+						<img src="https://boffinbutler.com/media/wysiwyg/buyer-icon-clipart.png" alt="am buyer" style="width: 92px;
+																														margin-bottom: 10px;"/>
+
+						<div class="row">
+							<button class="action primary"  style="font-size:19px;"  id="seller_buyer" href="javascript:void(0)">BUYER</button>
+						</div>
+
+
+						<div class="sec_2">
+							<div class="row row-flex select-area">
+								<label class="reg-form-label">Organization:</label>
+								<select id="registeras">
+									<option value="select">-Select Option-</option>
+									<option value="corporate">Corporate</option>
+									<option value="Institute">Institute</option>
+								</select>
+							</div>
+
+							<div class="row row-flex  select-area sec_last" style="display:none;">
+								<label class="reg-form-label">Register as:</label>
+								<select id="department_change">
+									<option value="select">-Select Option-</option>
+									<option value="faculty">Faculty</option>
+									<option value="purchase">Purchase Department</option>
+									<option value="student">Student</option>
+								</select>
+							</div>
+							<!--<div class="bf-6">
+  <a class="" data-opt="3" href="<?php //echo $this->getUrl('customer/account/create') ?>?type=2"> 
+  <button class="action primary"  data-opt="3" href="<?php echo $this->getUrl('customer/account/create') ?>?type=2">Corporate</button>
+  </a>
+	</div>
+	<div class="bf-6">
+  <a class="" id="buyer_seller_type" data-opt="4"  href="javascript:void(0)"> 
+  <button class="action primary"  id="buyer_seller_type" data-opt="4"  href="javascript:void(0)">Institute</button>
+  </a>
+	</div>-->
+
+						</div>
+						<!--<div class="row row-flex sec_3">
+	<div class="bf-6">
+  <a class="" data-opt="5"  href="<?php //echo $this->getUrl('customer/account/create') ?>?type=3" >
+  <button class="action primary"  data-opt="3" href="<?php //echo $this->getUrl('customer/account/create') ?>?type=2">Faculty</button>
+  </a>
+	</div>
+	<div class="bf-6">
+  <a class="" data-opt="6" href="<?php //echo $this->getUrl('customer/account/create') ?>?type=1" > 
+  <button class="action primary"  id="buyer_seller_type" data-opt="4"  href="javascript:void(0)">Purchase Department</button>
+  </a>
+	</div>
+
+   </div>-->
+
+					</div>
+					<div class="section_body  seller_section bf-6">
+						<img src="https://boffinbutler.com/media/wysiwyg/seller-icon-clipart.png" alt="am buyer" style="width: 92px;
+																														margin-bottom: 10px;"/>
+						<div class="row">
+							<a href="<?php echo $this->getUrl('customer/account/create') ?>?type=4" data-opt="2">
+								<button class="action primary" style="font-size:19px;">SELLER</button>
+							</a>
+						</div>
+						<!--<a href="<?php //echo $this->getUrl('customer/account/create') ?>?type=4" data-opt="2">
+	<button  class="action primary" >SELLER</button>
+   </a>-->
+					</div>			
+				</div>
+			</div>
+		</div>
+
+		<!--<div class="sec_1">
+ <a class="" id="seller_buyer" href="javascript:void(0)">  <span>Buyer</span> </a>
+ <a class="" href="<?php echo $this->getUrl('customer/account/create') ?>?type=4" data-opt="2">  <span>Seller</span> </a>
+
+   </div>
+
+   <div class="sec_2" style="display:none;">
+ <a class="" data-opt="3" href="<?php echo $this->getUrl('customer/account/create') ?>?type=2">  <span>Corporate</span> </a>
+ <a class="" id="buyer_seller_type" data-opt="4"  href="javascript:void(0)">  <span>Institute</span> </a>
+   </div>
+
+   <div class="sec_3" style="display:none;">
+ <a class="" data-opt="5"  href="<?php echo $this->getUrl('customer/account/create') ?>?type=3" >  <span>Faculty</span> </a>
+ <a class="" data-opt="6" href="<?php echo $this->getUrl('customer/account/create') ?>?type=1" >  <span>Purchase Department</span> </a>
+   </div>-->
+
+
+
+		<!--
+   <select id="buyer_seller_type"  title="State" class="validate-select " style="display:none;" aria-required="true" defaultvalue="0">
+   </select>
+   <select id="buyer_type"  title="State" class="validate-select " style="display:none" aria-required="true" defaultvalue="0">
+   </select>
+   <select id="buyer_institute"  title="State" class="validate-select " style="display:none" aria-required="true" defaultvalue="0">
+   </select> -->
+	</div>
+
+</div>
+<?php } else { ?>
+<h2 class="legend"><span><?= $block->escapeHtml(__($title)) ?></span></h2>&nbsp;<a href="<?= $block->escapeUrl($block->getUrl('customer/account/create')) ?>">Change Form</a>
+<br><br>
+<div class="page-title-wrapper newtitle">
+	<h1 class="page-title">
+		<span class="base" data-ui-id="page-title-wrapper"><?php echo $title; ?></span>    </h1>
+</div>
+<form class="form form-split-container form-create-account" action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+	<?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+
+
+	<div class="row forms-page row-flex">
+		<div class="col-md-70 form-left-container">
+			<div class="row row-flex">
+				<div class="form-left-colm">
+					<fieldset class="fieldset create info fieldset-padding">
+						<legend class="legend form-section-title" ><span><?= $block->escapeHtml(__('Personal Information')) ?></span></legend><br>
+
+						<input type="hidden" name="success_url" value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>">
+						<input type="hidden" name="error_url" value="<?= $block->escapeUrl($block->getErrorUrl()) ?>">
+						<?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+						<?php if ($block->isNewsletterEnabled()): ?>
+						<div class="field choice newsletter">
+							<input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+							<label for="is_subscribed" class="label"><span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span></label>
+						</div>
+						<?php /* Extensions placeholder */ ?>
+						<?= $block->getChildHtml('customer.form.register.newsletter') ?>
+						<?php endif ?>
+
+						<?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+						<?php if ($_dob->isEnabled()): ?>
+						<?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
+						<?php endif ?>
+
+						<?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+						<?php if ($_taxvat->isEnabled()): ?>
+						<?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+						<?php endif ?>
+
+						<?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+						<?php if ($_gender->isEnabled()): ?>
+						<?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+						<?php endif ?>
+
+						<div class="field required">
+							<label for="email_address" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+							<div class="control">
+								<input type="email" name="email" autocomplete="email" id="email_address" value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
+							</div>
+						</div>
+						<div class="field password required">
+							<label for="password" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+							<div class="control">
+								<input type="password" name="password" id="password"
+									   title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+									   class="input-text"
+									   data-password-min-length="<?= $block->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+									   data-password-min-character-sets="<?= $block->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+									   data-validate="{required:true, 'validate-customer-password':true}"
+									   autocomplete="off">
+								<div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+									<div id="password-strength-meter" class="password-strength-meter">
+										<?= $block->escapeHtml(__('Password Strength')) ?>:
+										<span id="password-strength-meter-label" data-role="password-strength-meter-label">
+											<?= $block->escapeHtml(__('No Password')) ?>
+										</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="field confirmation required">
+							<label for="password-confirmation" class="label"><span><?= $block->escapeHtml(__('Confirm Password')) ?></span></label>
+							<div class="control">
+								<input type="password" name="password_confirmation" title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+							</div>
+						</div>
+						<?= $block->getChildHtml('form_additional_info') ?>
+					</fieldset>
+					<!-- custom attributes -->
+					<?php $attributeHelper = $this->helper('Magezend\CustomerAttribute\Helper\Customerattribute'); ?>
+					<?php $attributeCollection = $attributeHelper->getUserDefinedAttribures() ?>
+					<?php if ($attributeCollection->count() > 0) : ?>
+
+					<fieldset class="fieldset create info fieldset-padding">
+
+						<!-- For all user defined attributes -->
+						<?php
+			 
+			  $req = array();
+			  foreach ($attributeCollection as $attribute):
+
+
+						?>
+						<!-- For all user defined attributes which are set for customer create account -->
+						<?php if ($attributeHelper->isAttribureForCustomerAccountCreate($attribute->getAttributeCode())): ?>
+						<?php $frontEndLabel = $attribute->getStoreLabel($attributeHelper->getStoreId()); ?>
+						<?php $getAttributeCodeFunction = "get" . str_replace(' ', '', ucwords(str_replace('_', ' ', $attribute->getAttributeCode()))); ?>
+						<?php $fieldRequiredClass = ($attribute->getIsRequired()) ? 'data-validate="{required:true}"' : '' ?>
+						<?php $fieldFrontendClass = ($attribute->getFrontendClass()) ? $attribute->getFrontendClass() : '' ?>
+						<?php $fieldValue = ($block->getFormData()->getData($attribute->getAttributeCode()))
+							? $block->getFormData()->getData($attribute->getAttributeCode()) : $attribute->getDefaultValue() ?>
+						<?php $hideIsTrue = 1;
+			  if($type == 1) {
+				  if($attribute->getAttributeCode() == 'mobilenumber' || $attribute->getAttributeCode() == 'otp' || $attribute->getAttributeCode() == 'institute' || $attribute->getAttributeCode() == 'department'  || $attribute->getAttributeCode() == 'in_charge_id_card'   || $attribute->getAttributeCode() == 'terms_condition') {
+					  $hideIsTrue = 0;
+				  }
+			  } else if($type == 2) {
+				  if($attribute->getAttributeCode() == 'mobilenumber' || $attribute->getAttributeCode() == 'otp' || $attribute->getAttributeCode() == 'gstin_number' || $attribute->getAttributeCode() == 'cin'   || $attribute->getAttributeCode() == 'terms_condition' ||  $attribute->getAttributeCode() == 'gstin_certificate' ||  $attribute->getAttributeCode() == 'cin_certificate' ) {
+					  $hideIsTrue = 0;
+				  }
+			  } else if($type == 3) {
+				  if($attribute->getAttributeCode() == 'mobilenumber' || $attribute->getAttributeCode() == 'otp' ||  $attribute->getAttributeCode() == 'institute' || $attribute->getAttributeCode() == 'department' || $attribute->getAttributeCode() == 'faculty_idcard' || $attribute->getAttributeCode() == 'terms_condition') {
+					  $hideIsTrue = 0;
+				  }
+			 } else if($type == 5) {
+				  
+				  if($attribute->getAttributeCode() == 'mobilenumber' || $attribute->getAttributeCode() == 'otp' ||  $attribute->getAttributeCode() == 'institute' || $attribute->getAttributeCode() == 'department' || $attribute->getAttributeCode() == 'student_idcard' || $attribute->getAttributeCode() == 'terms_condition' || $attribute->getAttributeCode() == 'faculty_email' || $attribute->getAttributeCode() == 'faculty_mobile' || $attribute->getAttributeCode() == 'faculty_firstname' || $attribute->getAttributeCode() == 'faculty_lastname' || $attribute->getAttributeCode() == 'faculty') {
+					  $hideIsTrue = 0;
+					   $req['faculty'] = 1;
+					  $req['faculty_email'] = 1;
+					  $req['faculty_mobile']= 1;
+					  $req['faculty_firstname']= 1;
+					  $req['faculty_lastname']= 1;
+					  $fieldRequiredClass = ($attribute->getIsRequired() || isset($req[$attribute->getAttributeCode()])) ? 'data-validate="{required:true}"' : '' ;
+ 				  }	  
+			  }else if($type == 4) {
+				  if($attribute->getAttributeCode() == 'mobilenumber' || $attribute->getAttributeCode() == 'otp' ||  $attribute->getAttributeCode() == 'gstin_number'  ||  $attribute->getAttributeCode() == 'cin' ||  $attribute->getAttributeCode() == 'shop_title' ||   $attribute->getAttributeCode() == 'profileurl'  || $attribute->getAttributeCode() == 'terms_condition' ||  $attribute->getAttributeCode() == 'gstin_certificate' ||  $attribute->getAttributeCode() == 'cin_certificate' ) {
+					  $hideIsTrue = 0;
+				  }
+			  } else {
+				  if($attribute->getAttributeCode() == 'mobilenumber' || $attribute->getAttributeCode() == 'otp' ||  $attribute->getAttributeCode() == 'institute' || $attribute->getAttributeCode() == 'department' || $attribute->getAttributeCode() == 'faculty_idcard' || $attribute->getAttributeCode() == 'terms_condition') {
+					  $hideIsTrue = 0;
+				  }
+			  } 
+
+
+			  $skiphideIsTrue = 1;
+			  if($attribute->getAttributeCode() == 'user_type') {
+				  $valueText = $type;
+				  $skiphideIsTrue = 0;
+			  } else {
+				  $valueText = $block->escapeHtml($fieldValue);
+			  }
+
+			  if($hideIsTrue == 1 && $skiphideIsTrue == 1){
+				  continue;
+			  }
+
+						?>
+
+
+
+
+
+						<?php   if ($attribute->getFrontendInput() == 'text'): ?>
+						<?php if($attribute->getAttributeCode() == 'otp') { ?>
+
+						<input type="text" readonly name="<?php echo $attribute->getAttributeCode(); ?>" style="width:0px;height:0px;visibility:hidden;border:none;"
+							   id="<?php echo $attribute->getAttributeCode(); ?>"
+							   value="<?php echo $valueText ?>"
+							   title="<?php echo __($frontEndLabel) ?>"
+							   class="input-text <?php echo $fieldFrontendClass; ?>"  data-msg-required="Please Verify Mobilenumber" data-validate="{required:true}" >
+
+
+						<?php }else{
+							 
+						?>
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display ': ''?> <?php if($hideIsTrue == 0) { ?> <?php echo $attribute->getAttributeCode(); ?> <?php } ?> <?php if ($attribute->getIsRequired() || isset($req[$attribute->getAttributeCode()])): ?>required<?php endif; ?>">
+							<label for="<?php echo $attribute->getAttributeCode(); ?>"
+								   class="label"><span><?php /* @escapeNotVerified */
+									echo __($frontEndLabel) ?></span></label>
+							<div class="control">
+								<input type="text" name="<?php echo $attribute->getAttributeCode(); ?>" 
+									   id="<?php echo $attribute->getAttributeCode(); ?>"
+									   value="<?php echo $valueText ?>"
+									   title="<?php echo __($frontEndLabel) ?>"
+									   class="input-text <?php echo $fieldFrontendClass; ?>" <?php echo $fieldRequiredClass; ?>>
+								<?php if($attribute->getAttributeCode() == 'mobilenumber'){ ?>
+
+								<button class="mini-btn" href="javascript:void(0)" id="triggerOtpCheckout" style="display: none">Send OTP</a>
+								<span id="triggerOtpCheckout_message" style="display: none"></span>
+								<?php } ?>
+								<?php if($attribute->getAttributeCode() == 'profileurl' && $hideIsTrue == 0) { ?>
+								<input type="hidden" name="is_seller" id="is_seller" value="1" />
+								<?php } ?>
+
+							</div>
+						</div>
+						<?php } ?>
+						<?php elseif ($attribute->getFrontendInput() == 'image'): ?>
+
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display ': ''?> <?php if($hideIsTrue == 0) { ?> <?php echo $attribute->getAttributeCode(); ?> <?php } ?> <?php if ($attribute->getIsRequired()): ?>required<?php endif; ?>">
+							<label for="<?php echo $attribute->getAttributeCode(); ?>"
+								   class="label"><span><?php /* @escapeNotVerified */
+			  echo __($frontEndLabel) ?></span></label>
+							<div class="control">
+								<input type="file" name="<?php echo $attribute->getAttributeCode(); ?>" 
+									   id="<?php echo $attribute->getAttributeCode(); ?>"
+									   value="<?php echo $valueText ?>"
+									   title="<?php echo __($frontEndLabel) ?>"
+									   class=" <?php echo $fieldFrontendClass; ?>" <?php echo $fieldRequiredClass; ?>>
+
+							</div>
+						</div>
+						<?php elseif ($attribute->getFrontendInput() == 'textarea'): ?>
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display': ''?> <?php echo $attribute->getAttributeCode(); ?> <?php if ($attribute->getIsRequired()): ?>required<?php endif; ?>">
+							<label for="<?php echo $attribute->getAttributeCode(); ?>"
+								   class="label"><span><?php /* @escapeNotVerified */
+			  echo __($frontEndLabel) ?></span></label>
+							<div class="control">
+								<textarea class="textarea" cols="15" rows="2" title="<?php echo __($frontEndLabel); ?>"
+										  name="<?php echo $attribute->getAttributeCode(); ?>"
+										  id="<?php echo $attribute->getAttributeCode(); ?>" <?php echo $fieldRequiredClass; ?>><?php echo $block->escapeHtml($fieldValue); ?></textarea>
+							</div>
+						</div>
+						<?php elseif ($attribute->getFrontendInput() == 'date'): ?>
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display': ''?> <?php echo $attribute->getAttributeCode(); ?> <?php if ($attribute->getIsRequired()): ?>required<?php endif; ?>">
+							<label for="<?php echo $attribute->getAttributeCode(); ?>"
+								   class="label"><span><?php /* @escapeNotVerified */
+			  echo __($frontEndLabel) ?></span></label>
+							<div class="control">
+								<input type="text" style="width:110px !important;" class="input-text"
+									   title="<?php echo __($frontEndLabel); ?>"
+									   value="<?php echo $block->escapeHtml($fieldValue) ?>"
+									   id="<?php echo $attribute->getAttributeCode(); ?>"
+									   name="<?php echo $attribute->getAttributeCode(); ?>" <?php echo $fieldRequiredClass; ?>>
+								<br><span>(mm/dd/yy)</span>
+							</div>
+						</div>
+						<?php elseif ($attribute->getFrontendInput() == 'boolean'): ?>
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display': ''?> <?php echo $attribute->getAttributeCode(); ?> <?php if ($attribute->getIsRequired()): ?>required<?php endif; ?>">
+
+							<div class="control">
+
+								<?php $options = $attributeHelper->getAttributeOptions($attribute->getAttributeCode()); ?>
+
+								<input <?php echo $fieldRequiredClass; ?> type="checkbox"  id="<?php echo $attribute->getAttributeCode();?>"
+									   name="<?php echo $attribute->getAttributeCode(); ?>"
+									   value="1" />  <label for="<?php echo $attribute->getAttributeCode(); ?>"
+															class="label"><span><?php /* @escapeNotVerified */
+			  if($type == 4){
+				  echo  'I agree to the <a href="'.$this->getUrl().'seller-agreement"  target="blank">Terms</a> & <a href="'.$this->getUrl().'privacy-policy-page" target="blank">Privacy Policy</a>' ;
+			  }else{ 
+				  echo  'I agree to the <a href="'.$this->getUrl().'buyer-agreement"  target="blank">Terms</a> & <a href="'.$this->getUrl().'privacy-policy-page" target="blank">Privacy Policy</a>' ;
+			  } ?>
+								</span></label>
+
+							</div>
+						</div>
+						<div>
+							Please note that our products are meant for lab/research use only. Individuals ordering for personal use are requested to avoid creating an account. We do not facilitate shipments to residential addresses.
+						</div>
+
+
+						<?php elseif ($attribute->getFrontendInput() == 'select'): ?>
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display': ''?> <?php echo $attribute->getAttributeCode(); ?> <?php if ($attribute->getIsRequired()): ?>required<?php endif; ?>" data-validate="{required:true}">
+							<label for="<?php echo $attribute->getAttributeCode(); ?>"
+								   class="label"><span><?php /* @escapeNotVerified */
+			  echo __($frontEndLabel) ?></span></label>
+							<div class="control">
+								<select id="<?php echo $attribute->getAttributeCode(); ?>"
+										name="<?php echo $attribute->getAttributeCode(); ?>"
+										class="required-entry"
+										title="<?php echo __($frontEndLabel); ?>" <?php echo $fieldRequiredClass; ?>  >
+									<?php $options = $attributeHelper->getAttributeOptions($attribute->getAttributeCode()); ?>
+									<option value=""><?php echo  'Please Select '.$frontEndLabel; ?></option>
+									<?php foreach ($options as $option): if($option['value'] == '' ) continue; ?>
+									<option
+											value="<?php echo $option['value'] ?>"<?php if ($option['value'] == $fieldValue && $fieldValue != '') echo ' selected="selected"' ?>><?php echo $option['label']; ?></option>
+									<?php endforeach; ?>
+								</select>
+
+							</div>
+							<?php if($attribute->getAttributeCode() == 'department') { ?>
+
+							<div style="display:none;" class="control department_others" >
+								<br>
+								<input type="text" name="department_others" class="required-entry"  id="department_others" />
+							</div>
+							<?php   } ?>
+							<?php if($attribute->getAttributeCode() == 'institute') { ?>
+
+							<div style="display:none;" class="control institute_others" >
+								<br>
+								<input type="text" name="institute_others" class="required-entry"  id="institute_others" />
+							</div>
+							<?php   } ?>
+						</div>
+						<?php elseif ($attribute->getFrontendInput() == 'multiselect'): ?>
+						<div
+							 class="field <?= ($hideIsTrue == 1) ? 'no-display': ''?> <?php echo $attribute->getAttributeCode(); ?> <?php if ($attribute->getIsRequired()): ?>required<?php endif; ?>">
+							<label for="<?php echo $attribute->getAttributeCode(); ?>"
+								   class="label"><span><?php /* @escapeNotVerified */
+			  echo __($frontEndLabel) ?></span></label>
+							<div class="control">
+								<select multiple="multiple" size="5" id="<?php echo $attribute->getAttributeCode(); ?>"
+										name="<?php echo $attribute->getAttributeCode(); ?>[]"
+										title="<?php echo __($frontEndLabel); ?>"
+										class="multiselect" <?php echo $fieldRequiredClass; ?>>
+									<?php $options = $attributeHelper->getAttributeOptions($attribute->getAttributeCode()); ?>
+									<?php foreach ($options as $option): ?>
+									<?php $selectedOptions = is_array($fieldValue) ? $fieldValue : explode(',', $fieldValue); ?>
+									<option value="<?php echo $option['value'] ?>"
+											<?php if (in_array($option['value'], $selectedOptions)) echo ' selected="selected"' ?>>
+										<?php echo $option['label']; ?>
+									</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+						<?php endif; ?>
+						<?php endif; ?>
+						<?php endforeach; ?>
+					</fieldset>
+
+
+					<?php endif; ?>
+					<!-- end custom attributes -->
+
+				</div>
+
+
+				<div class="form-right-colm">
+					<?php if($type  != 0) {   ?>
+					<?php if ($block->getShowAddressFields()): ?>
+					<fieldset class="fieldset address fieldset-padding">
+						<legend class="legend form-section-title"><span><?= $block->escapeHtml(__('Address Information')) ?></span></legend><br>
+						<input type="hidden" name="create_address" value="1" />
+						<?php $_company = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Company') ?>
+						<?php if ($type == 2 && $_company->isEnabled()): ?>
+						<?= $_company->setCompany($block->getFormData()->getCompany())->toHtml() ?>
+						<?php endif ?>
+
+						<?php $_telephone = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Telephone') ?>
+						<?php if ($_telephone->isEnabled()): ?>
+						<?= $_telephone->setTelephone($block->getFormData()->getTelephone())->toHtml() ?>
+						<?php endif ?>
+
+						<?php $_fax = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Fax') ?>
+						<?php if ($_fax->isEnabled()): ?>
+						<?= $_fax->setFax($block->getFormData()->getFax())->toHtml() ?>
+						<?php endif ?>
+
+						<?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+						<?php 
+										   if(($type == 2) || ($type == 4)){
+											   $street_address_label = 'Registered Address';	
+										   }else{
+											   $street_address_label = 'Delivery Address';
+
+										   }
+
+						?>
+						<div class="field street required">
+							<label for="street_1" class="label"><span><?= $block->escapeHtml(__($street_address_label)) ?></span></label>
+							<div class="control">
+								<input type="text" name="street[]" value="<?= $block->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>" title="<?= $block->escapeHtmlAttr(__('Street Address')) ?>" id="street_1" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
+								<div class="nested">
+									<?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+									<?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+									<div class="field additional">
+										<label class="label" for="street_<?= /* @noEscape */ $_i ?>">
+											<span><?= $block->escapeHtml(__('Address')) ?></span>
+										</label>
+										<div class="control">
+											<input type="text" name="street[]" value="<?= $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" title="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>" id="street_<?= /* @noEscape */ $_i ?>" class="input-text <?= $block->escapeHtmlAttr($_streetValidationClass) ?>">
+										</div>
+									</div>
+									<?php endfor; ?>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="field country required">
+							<label for="country" class="label"><span><?= $block->escapeHtml(__('Country')) ?></span></label>
+							<div class="control">
+								<?= $block->getCountryHtmlSelect() ?>
+							</div>
+						</div>
+						<div class="field region required">
+							<label for="region_id" class="label"><span><?= $block->escapeHtml(__('State')) ?></span></label>
+							<div class="control">
+								<select id="region_id" name="region_id" title="<?= $block->escapeHtmlAttr(__('State')) ?>" class="validate-select" style="display:none;">
+									<option value=""><?= $block->escapeHtml(__('Please select a  state.')) ?></option>
+								</select>
+								<input type="text" id="region" name="region" value="<?= $block->escapeHtml($block->getRegion()) ?>" title="<?= $block->escapeHtmlAttr(__('State')) ?>" class="input-text <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region')) ?>" style="display:none;">
+							</div>
+						</div>
+
+						<div class="field required">
+							<label for="city" class="label"><span><?= $block->escapeHtml(__('City')) ?></span></label>
+							<div class="control">
+								<input type="text" name="city" value="<?= $block->escapeHtmlAttr($block->getFormData()->getCity()) ?>" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city')) ?>" id="city">
+							</div>
+						</div>
+
+						<div class="field zip required">
+							<label for="zip" class="label"><span><?= $block->escapeHtml(__('Postal Code')) ?></span></label>
+							<div class="control">
+								<input type="text" name="postcode" value="<?= $block->escapeHtmlAttr($block->getFormData()->getPostcode()) ?>" title="<?= $block->escapeHtmlAttr(__('Postal Code')) ?>" id="zip" class="input-text validate-zip-international <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode')) ?>">
+							</div>
+						</div>
+
+						<?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
+						<?php if ($addressAttributes): ?>
+						<?php $addressAttributes->setEntityType('customer_address'); ?>
+						<?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+						<?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
+						<?= $addressAttributes->setShowContainer(false)->toHtml() ?>
+						<?php endif;?>
+						<input type="hidden" name="default_billing" value="1">
+						<input type="hidden" name="default_shipping" value="1">
+					</fieldset>
+					<?php endif; ?>
+					<?php } ?>
+				</div>
+
+			</div>
+			<div class="actions-toolbar create_btn">
+				<div class="primary">
+					<button type="submit" class="action submit primary" title="<?= $block->escapeHtmlAttr(__('Create an Account')) ?>"><span><?= $block->escapeHtml(__('Create an Account')) ?></span></button>
+				</div>
+				<div class="secondary">
+					<a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+				</div>
+			</div>
+
+		</div>
+		<!--<div class="col-md-30 form-right-container">
+   <div class="btn-section-space text-center" >
+   <div class="secondary-quick-btn">
+ <button type="button" onclick="javascript:location.href='<?php echo $this->getUrl('customer/account/create'); ?>?type=3'" class="action submit secondary-btn" title="">Faculty Registration</button>
+   </div>
+   <div class="secondary-quick-btn" style=";">
+ <button type="button"  onclick="javascript:location.href='<?php echo $this->getUrl('customer/account/create'); ?>?type=1'"  class="action submit secondary-btn" title="" >Purchase Department</button>
+   </div> 
+   <div class="secondary-quick-btn">
+ <button type="button" onclick="javascript:location.href='<?php echo $this->getUrl('customer/account/create'); ?>?type=2'"  class="action submit secondary-btn" title="">Employer Registration</button>
+   </div>
+
+   <div class="secondary-quick-btn" style=";">
+ <button type="button"  onclick="javascript:location.href='<?php echo $this->getUrl('customer/account/create'); ?>?type=4'"  class="action submit secondary-btn" title="" >Seller Registration</button>
+   </div>
+  </div>
+ </div>-->
+	</div>
+
+</form>
+
+<div id="popup-modal-otp-form" style="display: none">
+	<div class="container new-login-area">
+		<form class="form " action="#" method="POST" id="otp-form-validate" autocomplete="off">
+
+			<div id='sign-in' class='login-setup-section'>
+
+			</div>
+			<div id='verify-otp' class="login-setup-section">
+				<!-- <i class="fa fa-chevron-left change-mobile-number" aria-hidden="true"></i> -->
+				<h3 class="request-otp-header">Verify OTP</h3>
+				<div id="message_otp"></div>
+
+				<div id="otp_div" class="inputs form-group login-label"> 
+					<input class="m-2 text-center form-control rounded otp_inp" name="otp_arr[]" type="number" oninput='digitValidate(this)' onkeyup='tabChange(1)' id="first" maxlength="1" />
+					<input class="m-2 text-center form-control rounded otp_inp" name="otp_arr[]" type="number" oninput='digitValidate(this)' onkeyup='tabChange(2)' id="second" maxlength="1" /> 
+					<input class="m-2 text-center form-control rounded otp_inp " name="otp_arr[]" type="number" oninput='digitValidate(this)' onkeyup='tabChange(3)' id="third" maxlength="1" /> 
+					<input class="m-2 text-center form-control rounded otp_inp" name="otp_arr[]" type="number" oninput='digitValidate(this)' onkeyup='tabChange(4)' id="fourth" maxlength="1" /> 
+				</div>
+				<div id="message_validate_otp"></div>
+
+
+				<div class="text-center mt-5">
+					<span class="d-block mobile-text" id="countdown"></span><br>
+					<span class="d-block mobile-text" id="resend" style="cursor:pointer"></span>
+					<span class="d-block mobile-text change-mobile-number" id="changephone"></span>
+				</div>
+				<button type="button" id="validate_otp" class="btn btn-default btn-lg btn-block request-otp ">Verify</button>
+			</div>
+			<div id='thanks-otp' class="login-setup-section">
+				<div id="message_thanks_otp"></div>
+			</div>
+		</form> </div>
+</div>
+<?php } ?>
+<script>
+	require([
+		'jquery',
+		'mage/mage'
+	], function($){
+
+
+
+
+		var typeOfUser = '<?= $type ?>';
+		var facultiesUrl = "<?php echo $this->getUrl().'rest/V1/faculties'?>";
+		if($('#institute').length>0){
+			$('#faculty').html(''); // initialise
+			$('#faculty').append('<option value="">Select</option>'); // initialise
+			$('.faculty_email').hide();
+			$('.faculty_firstname').hide();
+			$('.faculty_lastname').hide();
+			$('.faculty_mobile').hide();
+		}
+		$('.sec_2').hide();
+		$('.sec_3').hide();
+		$('.sec_last').hide();
+		$(document).on('click', '#seller_buyer', function(){
+			$('.sec_2').show();
+		});
+
+		$(document).on('change', '#registeras', function(){
+			if($("#registeras option:selected").val() == 'corporate') {
+				location.href= "<?php echo $this->getUrl('customer/account/create') ?>"+"?type=2";               
+				//	$('#buyer_seller_type').html();		
+				//$('#buyer_seller_type').append('<option value="">Please Select</option>');
+				//	$('#buyer_seller_type').append('<option value="1">Corporate</option>');
+				//	$('#buyer_seller_type').append('<option value="2">Institute</option>');
+			} else {
+				$('.sec_last').show();
+			}
+		});
+
+
+		$(document).on('change', '#department_change', function(){
+			if($("#department_change option:selected").val() == 'faculty') {
+				location.href= "<?php echo $this->getUrl('customer/account/create') ?>"+"?type=3";
+			}else if($("#department_change option:selected").val() == 'student') {
+				location.href= "<?php echo $this->getUrl('customer/account/create') ?>"+"?type=5";
+			} else {
+				location.href= "<?php echo $this->getUrl('customer/account/create') ?>"+"?type=1";
+			}
+		});
+
+
+		$(document).on('click', '#buyer_seller_type', function(){
+
+			$('.sec_3').show();
+
+		}); 
+
+
+
+		function getFaculties(institute){
+			$.ajax({
+				url: facultiesUrl+'/'+institute,
+				type: 'GET',
+				dataType: 'json',
+				complete: function(response) {             
+					// country = response.responseJSON.faculties;
+					console.log(response.responseJSON);   
+					data = response.responseJSON;
+					$('#faculty').html('');
+					$('#faculty').append('<option value="">Select</option>');
+					$.each(data, function(){
+						$('#faculty').append('<option value="'+ this.entity_id +'">'+ this.firstname +' '+this.lastname+'</option>');
+					}
+						  );
+					$('#faculty').append('<option value="0">Others</option>');
+					$('.faculty_email').hide();
+					$('.faculty_firstname').hide();
+					$('.faculty_lastname').hide();
+					$('.faculty_mobile').hide();
+				},
+				error: function (xhr, status, errorThrown) {
+					console.log('Error happens. Try again.');
+				}
+			});
+		}
+if($('#institute').length>0){
+		$(document).on('change', '#institute', function(){
+			$('.institute_others').val('');
+
+			if($("#institute option:selected").text() == 'Others') {
+				$('.institute_others').show();
+				
+				$('#faculty').html('');
+				$('#faculty').append('<option value="">Select</option>');
+				$('#faculty').append('<option value="0">Others</option>');
+				
+			} else {
+				var institute = $("#institute option:selected").val();
+				  getFaculties(institute);
+				$('.institute_others').hide();
+				$('.institute_others').val($("#institute option:selected").text());
+
+				//	$('#faculty').html("");
+				//	$('#faculty').show();
+			}
+
+		});
+		
+			$(document).on('change', '#department', function(){
+				$('.department_others').val('');
+				if($("#department option:selected").text().toLowerCase() == 'others') {
+					$('.department_others').show();
+				} else {
+					$('.department_others').hide();
+					$('.department_others').val($("#department option:selected").text());
+				}
+			});
+			$(document).on('change', '#faculty', function(){
+				//alert($("#faculty option:selected").text());
+				if($("#faculty option:selected").text() == 'Others') {
+					$('#faculty_email').val('');
+					$('#faculty_firstname').val('');
+					$('#faculty_lastname').val('');
+					$('#faculty_mobile').val('');
+					$('.faculty_email').show();
+					$('.faculty_firstname').show();
+					$('.faculty_lastname').show();
+					$('.faculty_mobile').show();
+				} else {
+					$('#faculty_email').val('FACULTYEXIST@FACULTYEXIST.com');
+					$('#faculty_firstname').val('FACULTYEXIST');
+					$('#faculty_lastname').val('FACULTYEXIST');
+					$('#faculty_mobile').val('FACULTYEXIST');
+					$('.faculty_email').hide();
+					$('.faculty_firstname').hide();
+					$('.faculty_lastname').hide();
+					$('.faculty_mobile').hide();
+				}
+			});
+		}
+		var dataForm = $('#form-validate');
+
+		<?php if($type > 0) { ?>
+		var ignore = <?= /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+
+		dataForm.mage('validation', {
+			<?php if ($_dob->isEnabled()): ?>
+			errorPlacement: function(error, element) {
+				if (element.prop('id').search('full') !== -1) {
+					var dobElement = $(element).parents('.customer-dob'),
+						errorClass = error.prop('class');
+					error.insertAfter(element.parent());
+					dobElement.find('.validate-custom').addClass(errorClass)
+						.after('<div class="' + errorClass + '"></div>');
+				}
+				else {
+					error.insertAfter(element);
+				}
+			},
+			ignore: ':hidden:not(' + ignore + ')'
+			<?php else: ?>
+			ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+			<?php endif ?>
+		}).find('input:text').attr('autocomplete', 'off');
+		<?php } ?>
+
+	});
+</script>
+<?php if ($block->getShowAddressFields()): ?>
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "defaultRegion": "<?= (int) $block->getFormData()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        }
+    }
+</script> 
+
+<script type="application/javascript">
+	var  mobileCountryCode;
+	var resendclicked = 0;
+	var  OTPTIMER = '<?php echo $block->getConfig('otp_settings/general_configuration/interval'); ?>';
+	var verfigyMobileText = '<?php echo __('Please verify Phone Number First.'); ?>';
+
+
+
+	let digitValidate = function(ele){
+		console.log(ele.value);
+		ele.value = ele.value.replace(/[^0-9]/g,'');
+	}
+
+	let tabChange = function(val){
+		let ele  = document.querySelectorAll('#otp_div > *[id]');;
+		if(ele[val-1].value != ''){
+			ele[val].focus()
+		}else if(ele[val-1].value == ''){
+			ele[val-2].focus()
+		}   
+	}
+
+
+	require([
+		'jquery',
+		'Magento_Ui/js/modal/modal'
+	], function ($, modal) {
+
+		var options = {
+			type: 'popup',
+			responsive: true,
+			innerScroll: true,
+			buttons: []
+		};
+		var popup = modal(options, $('#popup-modal-otp-form'));
+
+
+		let sT;
+		let timerOn = true;
+		function clearTimer() {
+			clearTimeout(sT);
+			document.getElementById("countdown").innerHTML = '';
+			document.getElementById("resend").innerHTML = '';
+		}
+
+
+
+		function timer(remaining) {
+			var m = Math.floor(remaining / 60);
+			var s = remaining % 60;
+			m = m < 10 ? "0" + m : m;
+			s = s < 10 ? "0" + s : s;
+			document.getElementById("countdown").innerHTML = `Time left: ${m} : ${s}`;
+			remaining -= 1;
+			if (remaining >= 0 && timerOn) {
+				sT = setTimeout(function () {
+					timer(remaining);
+				}, 1000);
+				document.getElementById("resend").innerHTML = '';
+				return;
+			}
+			if (!timerOn) {
+				return;
+			}
+			document.getElementById("resend").innerHTML = 'Dont receive the code? <span class="resend_link font-weight-bold text-color cursor">Resend</span>';
+		}
+
+
+		$(document).on('click', '#triggerOtpCheckout', function() {
+
+
+
+
+			$('#triggerOtpCheckout_message').html('');
+			if($("input[name='mobilenumber']").val() == ''){
+				$('#triggerOtpCheckout_message').html('Phone Number is required').addClass('error').removeClass('success').show();
+				$('.loading-mask').hide();
+				return;
+			}
+
+			mobilenumber_code =  $("input[name='mobilenumber_code']").val();
+			mobilenumber =  $("input[name='mobilenumber']").val();
+			var url = "<?= $block->getUrl('otp') ?>";
+
+			$('.loading-mask').show();
+
+			//	 $("#popup-modal-otp-form").html("sending..");
+			var r_dis = $(this);
+			// r_dis.hide();
+			if(resendclicked == 0){
+				$('#verify-otp').hide();
+				$('#thanks-otp').hide();
+				$("#popup-modal-otp-form").modal("openModal");
+				$('#sign-in').html('Sending OTP...').addClass('success').removeClass('error');
+			}
+
+			if(mobilenumber[0] == '+'){
+				mobilenumber = mobilenumber.replace('+'+mobilenumber_code, "");
+			}else{
+				mobilenumber = mobilenumber.replace(mobilenumber_code, "");
+			}
+
+
+			$.ajax({
+				url: url, // url where to submit the request
+				type : "POST", // type of action POST || GET
+				dataType : 'json', // data type
+				data : { 
+					'mobilenumber_code':  mobilenumber_code, 
+					'mobilenumber': mobilenumber, 
+					'type': 'CHANGEMOBILE',
+					'otp_arr[]': '',
+					'otp_arr[]': '',
+					'otp_arr[]': '',
+					'otp_arr[]': ''
+				},
+				success : function(result) {
+					//alert($("#modal_hidden").html());
+					//	 $("#popup-modal-otp-form").html($("#modal_hidden").html());
+					console.log(result.status);
+					// var resultData = jQuery.parseJSON(result);
+					var resultData = result;
+					if (resultData.status){
+						$('#message_validate_otp').html(resultData.message).addClass('success').removeClass('error');
+						clearTimer() ;
+						timer(OTPTIMER);
+						resendclicked = 0;
+						$('#sign-in').hide();
+						$('.otp_inp').val('');
+						$('#verify-otp').show();
+						$('#validate_otp').attr('disabled', false);
+						$("#otp_div #first").focus();
+						$('#thanks-otp').hide();
+
+					} else{
+						$('#sign-in').html(resultData.message).addClass('error').removeClass('success')
+						$('#message_validate_otp').html(resultData.message).addClass('error').removeClass('success');
+						if (resultData.exceed == true){
+							$('#sign-in').html(resultData.message).addClass('error').removeClass('success').show();
+						}
+						r_dis.show();
+					}
+
+				},
+				error: function(xhr, resp, text) {
+					//console.log(xhr, resp, text);
+				}
+			});
+			$('.loading-mask').hide();
+
+
+
+
+
+		}); 
+
+
+
+		$(document).on('click', '#resend', function(){
+			resendclicked = 1;
+			$('#triggerOtpCheckout').click();
+			$('#message_validate_otp').html('Sending OTP...');
+
+		});
+
+		$(document).on('click', '#validate_otp', function(){
+			$('#message_validate_otp').html('');
+			$(this).attr('disabled', 'disabled');
+			dis = $(this);
+			var validate_url = "<?= $block->getUrl('otp/validate') ?>";
+
+			mobilenumber_code =  $("input[name='mobilenumber_code']").val();
+			mobilenumber =  $("input[name='mobilenumber']").val();
+			if(mobilenumber[0] == '+'){
+				mobilenumber = mobilenumber.replace('+'+mobilenumber_code, "");
+			} 
+			mobilenumber = mobilenumber.replace(mobilenumber_code, "");
+			mobilenumber = mobilenumber.replace(" ", "");
+			$("input[name='mobilenumber']").val(mobilenumber);
+			otpval = $("#first").val()+''+$("#second").val()+''+$("#third").val()+''+$("#fourth").val();
+
+			$.ajax({
+				url: validate_url, // url where to submit the request
+				type : "POST", // type of action POST || GET
+				dataType : 'json', // data type
+				data : { 
+					'mobilenumber_code':  mobilenumber_code, 
+					'mobilenumber': mobilenumber, 
+					'otp_arr': otpval,
+					'type': 'CHANGEMOBILE',
+				},
+				success : function(result) {
+					// var resultData = jQuery.parseJSON(result);
+					var resultData = (result);
+					console.log(resultData);
+					if (resultData.status){
+						// dataForm.submit();
+						$('#sign-in').hide();
+						$('#verify-otp').hide();
+						$('#thanks-otp').show();
+						validateOtp  = 1;
+						$('#otp').val(otpval);
+						$('#triggerOtpCheckout').hide();
+						$('#message_thanks_otp').html(resultData.message).addClass('success').removeClass('error');
+						$("#popup-modal-otp-form").modal('closeModal');
+						$('#triggerOtpCheckout_message').text(resultData.message).show().addClass('success').removeClass('error');
+					} else{
+						$('.otp_inp').val('');
+						$('#message_validate_otp').html(resultData.message).addClass('error').removeClass('success');
+
+						dis.attr('disabled', false);
+					}
+
+
+				},
+				error: function(xhr, resp, text) {
+					console.log(xhr, resp, text);
+				}
+			});
+		}); 
+
+	});
+</script> 
+
+<style>
+	.reg_form_selection select{ width: 100%; margin: 10px;}
+	.form_body_content{border-radius:5px;}
+	.bf-6{width:49.5%;}
+	.bf-12{width:99.5%;}
+	.section_body h1{font-weight: 600;font-size: 40px;margin-bottom: 10px; color:#5e6ada;}
+	.section_body {	background:#fcfcfc;border-radius:5px; min-height:200px;margin: 0px 5px; border:dashed #d2d2d2 1px;text-align: center;padding: 62px 10px 10px 10px; margin-top: 10px !important;}
+	.sec_2{width: 50%; margin: 20px auto;}
+	.reg-form-label{width: 241px; text-align: center; position: relative; height: auto; align-self: center; font-weight: 600;}
+	.sec_3{width: 70%; margin-left:auto;}
+	.customer-account-create .page-title { display: none;}
+
+	@media all and (max-width: 768px) {
+		.bf-6 {width: 93.5% !important; margin-left: auto !important;}
+	}
+</style>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="AL\CustomLog\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="AL\CustomLog\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">dmsLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\PaymentHandler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="AL\CustomLog\Logger\PaymentLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">paymentLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\PaymentHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\PaybySelfHandler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="AL\CustomLog\Logger\PayBySelfLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">payBySelfLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\PaybySelfHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\ReturnUrlHandler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="AL\CustomLog\Logger\ReturnUrlLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">returnUrlLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\ReturnUrlHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\ShipmentHandler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="AL\CustomLog\Logger\ShipmentLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">shipmentLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\ShipmentHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\InvoiceLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">invoiceLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\InvoiceHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\PayoutLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">payoutLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\PayoutHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\ShipmentCancelLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">shipmentCancelLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\ShipmentCancelHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="AL\CustomLog\Logger\ErrorLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">errorLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">AL\CustomLog\Logger\ErrorHandler</item>
+            </argument>
+        </arguments>
+    </type>
+	 
+</config>

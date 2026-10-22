@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+			<update handle="customer_account"/>
+     <head>
+        <title>My Quote Request</title>
+      </head>
+    <body>
+       
+
+        <referenceContainer name="content">
+            <block class="Mtwo\Quote\Block\QuoteList" name="quote_list" template="Mtwo_Quote::list.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

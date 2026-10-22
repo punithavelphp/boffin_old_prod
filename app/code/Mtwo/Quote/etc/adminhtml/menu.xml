@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Mtwo_Quote::parent" title="Quote" module="Mtwo_Quote" sortOrder="100" resource="Mtwo_Quote::parent"/>
+		<add id="Mtwo_Quote::quote" title="Quote Request" module="Mtwo_Quote" sortOrder="20" parent="Mtwo_Quote::parent" action="quote/quote" resource="Mtwo_Quote::quote"/>
+
+    </menu>
+</config>

@@ -1,0 +1,171 @@
+<?php
+// get custom data
+$min_value = 1;
+$approverCount =    $block->getApproverCount();
+
+$maxApproverCount = $block->getMaxApproverCount();
+$frmData = $block->getFormData();
+$isLogged = $block->getIsLoggedIn();
+$groupid = $block->getGroupId();
+$approverCollectionDetails = array();
+ 
+	$approverCollectionIds = $block->getApproverCollection();
+ 
+	if(count($approverCollectionIds) > 0){
+		$approverCollectionDetailsArray = $block->getApproverDetails($approverCollectionIds);
+		
+		foreach($approverCollectionIds as $id=>$data){
+			if(isset($approverCollectionDetailsArray[$id])){
+				$approverCollectionDetails[$id] = $approverCollectionDetailsArray[$id];
+			}
+		}
+		
+ 		$min_value = count($approverCollectionDetails);
+		if($min_value > $maxApproverCount)
+			$min_value = $maxApproverCount;
+	}
+  
+
+?>
+<fieldset class="fieldset">
+    <?php
+	if($isLogged){ ?>
+ 
+		
+		<?php 
+		if (count($approverCollectionDetails)) {
+         ?>
+        <table class="main-table">
+         <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <!-- <th>Level</th> -->
+            <th >Action</th>
+         </tr>
+	              
+		<tbody>
+         <?php 
+ 
+			
+			foreach($approverCollectionDetails  as $key=>$approverCollection){ ?>
+        	<tr   data-index="<?php echo $approverCollectionIds[$key]['id']; ?>" data-position="<?php echo $approverCollectionIds[$key]['priority']; ?>" id="page_list">
+				<td><?php echo $approverCollection['firstname'].' '.$approverCollection['lastname']; ?></td>
+				<td><?php echo $approverCollection['email']; ?></td>
+			<!-- 	<td><?php //echo $approverCollectionIds[$key]['priority']; ?></td> -->
+ 				<td><a href="<?php echo $this->getUrl('approvecustomer/account/edit').'customer/'.$approverCollection['entity_id']; ?>" class="button">Edit</a></td>
+		<!-- 		<td><a onclick="javascript:confirm('Are you sure to Dis-Approve?')" href="<?php echo $this->getUrl('approvecustomer/account/unapprove'); ?>" class="button">Disapprove</a></td> -->
+			</tr>
+       <?php } ?>     
+               
+        
+    </tbody>
+</table>
+ 
+         <?php  } 
+				    ?>
+		<button type="button" class="btn-primary btn-sm float-right mt-10" onclick="javascript:document.getElementById('createApr').style.display='block'"> + Add Approver</button>
+	  <div class="table-wrapper custom-data " id="createApr" style="display:none">
+             	<form name="subFrm" id="subFrm" method="POST" action="<?php echo $this->getUrl('approvecustomer/account/save') ?>">
+			  <div class="form-group">
+				<label for="firstname">First Name</label>
+				<input type="text" class="form-control" value="<?php echo $frmData->getFirstname(); ?>" id="firstname" name="firstname" placeholder="First Name">
+				  <input type="hidden" class="form-control" id="faculty_type" name="faculty_type" value="<?php echo $groupid; ?>">
+				  <input type="hidden" class="form-control" id="redirect" name="redirect" value="approver">
+				  				  <input type="hidden" class="form-control" id="group_id" name="group_id" value="5">
+
+			  </div>
+			   <div class="form-group">
+				<label for="lastname">Last Name</label>
+				<input type="text" class="form-control" id="lastname"  value="<?php echo $frmData->getLastname(); ?>" name="lastname" placeholder="Last Name">
+			  </div>
+			 <div class="form-group">
+				<label for="email_address">Email address</label>
+				<input type="email" class="form-control" name="email" value="<?php echo $frmData->getEmail(); ?>" id="email_address" placeholder="Email Address">
+			  </div>
+			  <div class="form-group">
+				<label for="mobilenumber">Mobile</label>
+				<input type="text" class="form-control" name="mobilenumber" value="<?php echo $frmData->getMobilenumber(); ?>" id="mobilenumber" placeholder="Mobile Number">
+			  </div>
+					<div class="form-group">
+						<label for="mobilenumber">Designation</label>
+						<input type="text" class="form-control" name="designation" value="<?php echo $frmData->getDesignation(); ?>" id="designation" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="role_dept">Department</label>
+						<input type="text" class="form-control" name="role_dept" value="<?php echo $frmData->getRoleDept(); ?>" id="role_dept" placeholder="">
+					</div>
+			<!--   <div class="form-group">
+				<label for="roll_number">Student ID/Roll Number</label>
+				<input type="text" name="roll_number" value="<?php echo $frmData->getRollNumber(); ?>" class="form-control" id="roll_number" placeholder="">
+			  </div> -->
+					
+					<button type="submit" class="btn-primary btn-sm float-right mt-10">Submit</button>
+			</form>
+        </div>
+     <?php } else { ?>
+                <div class="message info empty">
+                    <span><?= $block->escapeHtml('You have no data.') ?></span>
+                </div>
+    <?php  } ?>
+</fieldset>
+
+
+<style type="text/css">
+   #page_list td
+   {
+    padding:16px;
+    background-color:#f9f9f9;
+    border:1px dotted #ccc;
+    cursor:move;
+    margin-top:12px;
+   }
+</style>
+
+<script>
+/*
+ require([
+        'jquery',
+	 'jquery/ui'
+     ], function($){
+
+    $('table tbody').sortable({
+      update:function(event,ui){
+        $(this).children().each(function(index){
+          if($(this).attr('data-position') != (index+1)) {
+            $(this).attr('data-position', (index+1)).addClass('updated');
+			  
+          }
+        });
+        saveNewPositions();
+      }
+    });
+	
+	
+	
+ function saveNewPositions(){
+    var positions = new Array();
+    $('.updated').each(function(){
+      positions.push([$(this).attr('data-index'), $(this).attr('data-position')]);
+      $(this).removeClass('updated');
+    });
+
+    $.ajax({
+      url :  '<?php echo $this->getUrl('approvecustomer/account/update'); ?>',
+      method:'POST',
+      dataType: 'text',
+      data:{update:1,positions:positions},
+      success:function(result){
+        alert(result);
+		   $('.priority').children().each(function(index){
+ 				$(this).text($(this).attr('data-position'));
+         });
+  		  
+      }
+    });
+  }
+	
+	
+  });
+*/
+ 
+</script>

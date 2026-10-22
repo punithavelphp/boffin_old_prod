@@ -1,0 +1,138 @@
+<?php
+/** @var \Mtwo\InstituteGst\Block\Adminhtml\Index $block */
+$institutes = $block->getInstituteData();
+
+$saveRowUrl = $block->getSaveRowUrl();
+?>
+
+<div class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= __('Institute GST Manager') ?></span>
+    </div>
+    
+    <div class="admin__data-grid-wrap">
+        <table class="admin__data-grid-table" id="institute-gst-table">
+            <thead>
+                <tr class="data-grid-tr">
+                    <th class="data-grid-th"><?= __('Institute Name') ?></th>
+                    <th class="data-grid-th"><?= __('GST Number') ?></th>
+                    <th class="data-grid-th"><?= __('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($institutes)): ?>
+                    <tr>
+                        <td colspan="3" class="empty-text"><?= __('No institutes found') ?></td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($institutes as $institute): ?>
+                        <tr class="data-grid-tr" data-institute-id="<?= (int)$institute['id'] ?>">
+                            <td class="data-grid-td">
+                                <span><?= $block->escapeHtml($institute['name']) ?></span>
+                            </td>
+                            <td class="data-grid-td">
+                                <input type="text" 
+                                       class="admin__control-text gst-input" 
+                                       value="<?= $block->escapeHtml($institute['gst_number']) ?>" 
+                                       maxlength="30"
+                                       placeholder="<?= __('Enter GST Number') ?>"/>
+                            </td>
+                            <td class="data-grid-td">
+                                <button type="button" 
+                                        class="action-primary save-row-btn" 
+                                        data-institute-id="<?= (int)$institute['id'] ?>"
+                                        title="<?= __('Save') ?>">
+                                    <span><?= __('Save') ?></span>
+                                </button>
+                                <span class="save-status" style="display:none; margin-left:10px;"></span>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+.admin__data-grid-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.admin__data-grid-table th,
+.admin__data-grid-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.admin__data-grid-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+.empty-text {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+.admin__control-text {
+    width: 100%;
+    max-width: 300px;
+}
+.save-row-btn {
+    padding: 5px 15px;
+    font-size: 12px;
+}
+.save-status.success {
+    color: #008000;
+}
+.save-status.error {
+    color: #ff0000;
+}
+</style>
+
+<script>
+require(['jquery', 'mage/url'], function($, urlBuilder) {
+    $(document).ready(function() {
+        $('.save-row-btn').on('click', function() {
+            var button = $(this);
+            var row = button.closest('tr');
+            var instituteId = button.data('institute-id');
+            var gstNumber = row.find('.gst-input').val();
+            var statusSpan = row.find('.save-status');
+            
+            button.prop('disabled', true).find('span').text('<?= __('Saving...') ?>');
+            statusSpan.hide();
+            
+            $.ajax({
+                url: '<?= $saveRowUrl ?>',
+                type: 'POST',
+                data: {
+                    institute_id: instituteId,
+                    gst_number: gstNumber,
+                    form_key: '<?= $block->getFormKey() ?>'
+                },
+                dataType: 'json',
+                success: function(response) {
+                    button.prop('disabled', false).find('span').text('<?= __('Save') ?>');
+                    
+                    if (response.success) {
+                        statusSpan.removeClass('error').addClass('success')
+                               .text('<?= __('Saved!') ?>').show();
+                        setTimeout(function() {
+                            statusSpan.fadeOut();
+                        }, 3000);
+                    } else {
+                        statusSpan.removeClass('success').addClass('error')
+                               .text(response.message || '<?= __('Error saving') ?>').show();
+                    }
+                },
+                error: function() {
+                    button.prop('disabled', false).find('span').text('<?= __('Save') ?>');
+                    statusSpan.removeClass('success').addClass('error')
+                           .text('<?= __('Error saving') ?>').show();
+                }
+            });
+        });
+    });
+});
+</script>

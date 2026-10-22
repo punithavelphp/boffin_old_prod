@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>   
+        <referenceBlock name="catalog.compare.link" remove="true" />
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="catalogsearch.product.addto.compare" remove="true"/>
+        <referenceBlock name="category.product.addto.compare" remove="true"/>
+        <referenceBlock name="crosssell.product.addto.compare" remove="true" />
+        <referenceBlock name="related.product.addto.compare" remove="true" />
+        <referenceBlock name="upsell.product.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceBlock name="cookie-status-check" remove="true"/>
+        <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
+        <referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
+
+     <referenceBlock name="customer_account_navigation">
+		  <block class="Mtwo\ApproveOrder\Block\CreateApproverLink" name="approvecustomer_custom_my_account_approver">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/account/approver</argument>
+                    <argument name="label" xsi:type="string">Add/List Approver</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		 <block class="Mtwo\ApproveOrder\Block\CreateCustomerLink" name="approvecustomer_custom_my_account_create">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/account/create/</argument>
+                    <argument name="label" xsi:type="string">Create Student</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		 <block class="Mtwo\ApproveOrder\Block\CreateFPOLink" name="approvecustomer_custom_my_account_fac_pd1">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/account/purchasedept/group/purchasedept</argument>
+                    <argument name="label" xsi:type="string">Create Purchase Department</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		 
+		  <block class="Mtwo\ApproveOrder\Block\ListFPOLink" name="approvecustomer_custom_my_account_fac_pd2">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/index/purchasedept/group/purchasedept</argument>
+                    <argument name="label" xsi:type="string">Purchase Department List</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		 
+		 <block class="Mtwo\ApproveOrder\Block\CreateFLink" name="approvecustomer_custom_fac_pd1">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/account/faculty</argument>
+                    <argument name="label" xsi:type="string">Create Faculty</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		 
+		  <block class="Mtwo\ApproveOrder\Block\ListFLink" name="approvecustomer_custom_fac_pd2">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/index/faculty/</argument>
+                    <argument name="label" xsi:type="string">Faculty List</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		 
+		  <block class="Mtwo\ApproveOrder\Block\CreatePDListLink" name="approvecustomer_custom_my_account_po">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/index/po/</argument>
+                    <argument name="label" xsi:type="string">List Purchase Department</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		  <block class="Mtwo\ApproveOrder\Block\CreatePDLink" name="approvecustomer_custom_my_account_create_pd">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/account/createpo/</argument>
+                    <argument name="label" xsi:type="string">Create Purchase Department</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		  <block class="Mtwo\ApproveOrder\Block\CustomerListLink" name="approvecustomer_custom_my_account">
+                <arguments>
+                    <argument name="path" xsi:type="string">approvecustomer/index/index</argument>
+                    <argument name="label" xsi:type="string">Students List</argument>
+                    <argument name="sortOrder" xsi:type="number">151</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+            <block class="Mtwo\ApproveOrder\Block\OrderListlink" name="magezon_tutorial_custom_my_account">
+                <arguments>
+                    <argument name="path" xsi:type="string">approveorder/index/index</argument>
+                    <argument name="label" xsi:type="string">Students Order</argument>
+                    <argument name="sortOrder" xsi:type="number">150</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+		  <block class="Mtwo\ApproveOrder\Block\PdOrderListlink" name="magezon_tutorial_custom_orders">
+                <arguments>
+                    <argument name="path" xsi:type="string">approveorder/index/orders</argument>
+                    <argument name="label" xsi:type="string">Faculty/Student Orders</argument>
+                    <argument name="sortOrder" xsi:type="number">150</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+  </body>
+</page>

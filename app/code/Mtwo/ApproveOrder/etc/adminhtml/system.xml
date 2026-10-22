@@ -1,0 +1,34 @@
+<?xml version="1.0"?> 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment_settings" translate="label" sortOrder="505" showInDefault="1" showInStore="1" showInWebsite="1">
+            <class>separator-top</class>
+            <label>Payment Mail Settings</label>
+		    <tab>mtwo_tab</tab>
+            <resource>Mtwo_ApproveOrder::config_approveorder</resource>
+           <group id="custom" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Custom Email Setting</label>
+                <field id="email_template" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+                    <label>Order Confirm Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                <comment/>
+                </field>
+			   <field id="deny_email_template" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+                    <label>Order Deny Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                <comment/>
+                </field>
+			   <field id="faculty_email_template" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+                    <label>Student Order Info to Faculty Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                <comment/>
+                </field>
+			    <field id="faculty_approve_student_template" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+                    <label>Approve Student Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                <comment/>
+                </field>
+             </group>
+       </section>
+    </system>
+</config>

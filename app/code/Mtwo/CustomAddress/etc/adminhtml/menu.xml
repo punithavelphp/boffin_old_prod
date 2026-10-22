@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Mtwo_CustomAddress::parent" title="CustomAddress" module="Mtwo_CustomAddress" sortOrder="100" resource="Mtwo_CustomAddress::parent"/>
+		<add id="Mtwo_CustomAddress::customaddress" title="CustomAddress Customaddress" module="Mtwo_CustomAddress" sortOrder="20" parent="Mtwo_CustomAddress::parent" action="customaddress/customaddress" resource="Mtwo_CustomAddress::customaddress"/>
+
+    </menu>
+</config>

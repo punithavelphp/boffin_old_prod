@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+	    <css src="Magelearn_Customform::css/custom_customform.css" />
+	    <script src="Magelearn_Customform::js/custom_customform.js"/>
+	</head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magelearn\Customform\Block\Customform" name="customform.form" template="customform.phtml">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

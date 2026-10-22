@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magecomp\Mobileloginfree\Block\Form\Register" name="customer_form_register" template="Magecomp_Mobileloginfree::form/register.phtml">
+                <container name="form.additional.info" as="form_additional_info"/>
+				
+            </block>
+			 <block class="Eadesigndev\RomCity\Block\Checkout\Cities" name="ity-updater" template="Eadesigndev_RomCity::city-updater.phtml">
+            </block>
+        </referenceContainer>
+		
+		        <referenceBlock name="customer_form_register">
+            <arguments>
+                <argument name="show_address_fields" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+
+    </body>
+</page>

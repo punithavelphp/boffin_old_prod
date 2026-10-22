@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+		<policy id="style-src">
+            <values>
+				<value id="google_analytics" type="host">www.google-analytics.com</value>
+                <value id="tawkto" type="host">*.tawk.to</value>
+                <value id="googleapis-font" type="host">fonts.googleapis.com</value>
+                <value id="jsdelivr-cdn" type="host">cdn.jsdelivr.net</value>
+            </values>
+        </policy>
+        <policy id="script-src">
+            <values>
+                <value id="tawkto" type="host">*.tawk.to</value>
+                <value id="jsdelivr-cdn" type="host">cdn.jsdelivr.net</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="tawkto" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="tawkto" type="host">*.tawk.to</value>
+                <value id="gstatic-fonts" type="host">fonts.gstatic.com</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="tawkto" type="host">*.tawk.to</value>
+                <value id="jsdelivr-cdn" type="host">cdn.jsdelivr.net</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="tawkto" type="host">*.tawk.to</value>
+                <value id="tawkto-wss" type="host">wss://*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="form-action">
+            <values>
+                <value id="tawkto" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+		 
+		
+		
+    </policies>
+</csp_whitelist>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+			<update handle="customer_account"/>
+     <head>
+        <title>Faculties/Students Order</title>
+      </head>
+    <body>
+ 
+        <referenceContainer name="content">
+            <block class="Mtwo\ApproveOrder\Block\Index\Orders" name="approveorder_index_orders" template="Mtwo_ApproveOrder::approveorder_index_orders.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

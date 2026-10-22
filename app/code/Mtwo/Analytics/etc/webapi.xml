@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/analytics" method="GET">
+		<service class="Mtwo\Analytics\Api\AnalyticsInterface" method="getAnalytics"/>
+		<resources>
+			<resource ref="anonymous" />
+		</resources> 
+	</route>
+	<route url="/V1/customer/analytics" method="GET">
+		<service class="Mtwo\Analytics\Api\AnalyticsInterface" method="getCustomerAnalytics"/>
+		<resources>
+			<resource ref="self" />
+		</resources>
+		<data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+	</route>
+</routes>

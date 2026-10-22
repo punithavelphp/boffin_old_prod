@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_product_add_before">
+        <observer name="restrictaddtocart" instance="Mtwo\Pdf\Observer\RestrictAddToCart" />
+    </event>
+<event name="email_order_set_template_vars_before">
+        <observer name="add_delivery_variable_to_shipment" 
+            instance="Mtwo\Pdf\Observer\ObserverforAddCustomVariable" />
+    </event>
+	<event name="sales_order_invoice_save_after">
+        <observer name="pdf_invoice_save_after" instance="Mtwo\Pdf\Observer\InvoiceSaveAfter" />
+    </event>
+</config>

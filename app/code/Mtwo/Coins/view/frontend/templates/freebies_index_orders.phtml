@@ -1,0 +1,66 @@
+<?php
+// get custom data
+$orders = $this->getCustomData();
+
+$statusArray = $this->getOptions();
+ $data = $this->getAvailableBalance();
+ 
+ ?>
+<fieldset class="fieldset">
+	<?php
+	if (1) {
+	?>
+	<div style="border:1px solid #5E6ADA;margin:20px 5px;padding:20px 5px;">
+		<span style="display:inline-block;text-align:left;width:30%;"><b>Total Earned : <?php echo $data['earned']; ?></b></span>&nbsp;
+		<span style="display:inline-block;text-align:left;width:30%"><b>Redeemed : <?php echo $data['redeemed']; ?></b></span>&nbsp;
+		<span style="display:inline-block;text-align:left;width:30%"><b>Total Balance : <?php echo $data['total']; ?></b></span>&nbsp;
+	</div>
+	<?php if($orders->getSize()) { ?>
+	<div class="table-wrapper custom-data ">
+		<table class="data table table-data-items ">
+			<thead>
+				<tr>
+					<th scope="col" class="col name"><?= $block->escapeHtml('Order ID') ?></th>
+					<th scope="col" class="col orders"><?= $block->escapeHtml('Product Name') ?></th>
+					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Qty') ?></th>
+					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Coins') ?></th>
+					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Status') ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($orders as $order){
+		$status = 'Order Placed';
+				if(isset($statusArray[$order->getData('status')])){
+ 						$status = $statusArray[$order->getData('status')]->getText();
+				}
+				?>
+				
+				<tr>
+					<td ><?= 'BB-'.$order->getData('orders_id') ?></td>
+					<td ><?= $order->getData('name') ?></td>
+					<td><?= $order->getData('quantity') ?></td>
+					<td><?= $order->getData('coins') ?></td>
+					<td><?= $status; ?></td>
+				</tr>
+		
+		 
+		
+	 <?php } ?>
+				 
+			</tbody>
+		</table>
+	</div>
+	 <?php } else { ?>
+	<div class="table-wrapper custom-data "><br><br>No Orders Found. Click <a target="_blank" href="https://boffinbutler.com/freebies/">here</a> to order freebies.<br><br></div>
+	 <?php } ?>
+	<?php if ($block->getPagerHtml()): ?>
+	<div class="order-products-toolbar toolbar bottom">
+		<?= $block->getPagerHtml() ?>
+	</div>
+	<?php endif ?>
+	<?php } else { ?>
+	<div class="message info empty">
+		<span><?= $block->escapeHtml('You have no data.') ?></span>
+	</div>
+	<?php  } ?>
+</fieldset>

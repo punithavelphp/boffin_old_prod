@@ -1,0 +1,10 @@
+<form class="import-csv-form" action="<?php echo $block->getUrl('manage_romcity/index/upload'); ?>" name="update_users" id="update_users" method="POST" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <div class="upload-btn-wrapper" style="text-align:center;margin-top:50px">
+        <label class="btn btn-primary" style="color:Black;font-size:16px">
+		<i style="margin-left:-16px;" class="fa fa-upload"></i> <?php echo $block->escapeHtml(__(' Upload Cities')); ?>
+            <input type="file" name="update_customercsv_file" id="update_customercsv_file" style="margin-left:33px;color:dodgerblue"/>
+			<input class="submitbtn" type="submit" value="Submit">
+    </div>
+    
+</form>

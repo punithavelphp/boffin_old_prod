@@ -1,0 +1,39 @@
+ 
+<div> 
+<form class="import-csv-form" action="<?php echo $block->getUploadFormAction(); ?>" name="update_users" id="update_users" method="POST" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <div class="upload-btn-wrapper" style="text-align:center;margin-top:50px">
+        <label class="btn btn-primary" style="color:Black;font-size:16px">
+		<i style="margin-left:-16px;" class="fa fa-upload"></i> <?php echo $block->escapeHtml(__(' Upload customers')); ?>
+            <input type="file" name="update_customercsv_file" id="update_customercsv_file" style="margin-left:33px;color:dodgerblue"/>
+			<input class="submitbtn" type="submit" value="Submit" />
+   
+     </div> 
+</form>
+</div> 
+
+<style>
+.submitbtn
+{
+    background-color: #eb5202;
+    border-color: #eb5202;
+    color: #ffffff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+	width:80px;
+	height:45px;
+	    font-size: 1.6rem;
+    letter-spacing: .025em;
+    padding-bottom: 0.6875em;
+    padding-top: 0.6875em;
+	border: 1px solid;
+	 font-weight: 600;	
+}
+.submitbtn:hover, .submitbtn:active, .submitbtn:focus {
+    background-color: #ba4000;
+    border-color: #b84002;
+    box-shadow: 0 0 0 1px #007bdb;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+</style>

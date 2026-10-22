@@ -1,0 +1,150 @@
+<?php
+$priceModel = $block->getPriceType('regular_price');
+$finalPriceModel = $block->getPriceType('final_price');
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+$schema = ($block->getZone() == 'item_view') ? true : false;
+$myhelper = $this->helper('Magecomp\Discountpercentage\Helper\Data');
+$taxHelper = $this->helper('Magento\Catalog\Helper\Data');
+$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+
+   
+$product = $finalPriceModel->getProduct();
+$excl_tax = $taxHelper->getTaxPrice($product, $product->getFinalPrice(), false);
+$inclu_tax = $taxHelper->getTaxPrice($product, $product->getFinalPrice(), true);
+$tax = $inclu_tax - $excl_tax;
+
+
+
+ ?>
+<?php if ($myhelper->isActive()): ?>
+    <?php if ($block->hasSpecialPrice()):
+ $item = $block->getSaleableItem();
+$old_excl_tax = $taxHelper->getTaxPrice($product, $item->getPrice(), false);
+$old_inclu_tax = $taxHelper->getTaxPrice($product, $item->getPrice(), true);
+$old_tax = $old_inclu_tax - $old_excl_tax;
+
+?>
+        <span class="special-price" style="display:none">
+        <?php echo $block->renderAmount($finalPriceModel->getAmount(), [
+            'display_label' => __('Special Price'),
+            'price_id' => $block->getPriceId('product-price-' . $idSuffix),
+            'price_type' => 'finalPrice',
+            'include_container' => true,
+            'schema' => $schema
+        ]); ?> (Incl. of all taxes)
+    </span>
+<span class="old-price" style="display:none">
+	<?php // $priceModel->getAmount() ?>
+        <strike><?php echo $block->renderAmount($priceModel->getAmount(), [
+                'display_label' => __('GST'),
+                'price_id' => $block->getPriceId('old-price-' . $idSuffix),
+                'price_type' => 'oldPrice',
+                'include_container' => true,
+                'skip_adjustments' => true
+            ]); ?></strike>
+    </span>
+
+<span class="old-price">
+	        <strike>
+
+<span class="price-container price-final_price tax weee">
+         <span id="<?php echo "xold-price-".$idSuffix."-widget-new-grid"; ?>"  class="price-wrapper "><span class="price"><?php  echo $priceHelper->currency($old_excl_tax,true,false); ?> + GST</span></span>
+        </span>
+</strike>
+    </span>
+<span>
+	<?php
+   
+    $_savePercent = 100 - round(((float)$item->getFinalPrice() / (float)$item->getPrice()) * 100);
+    echo '<b style="color:#008000">' . $_savePercent . '% off </b>';
+    ?>
+    </span><br>
+
+ 
+<span class="special-price incltax">
+		<span  class="price-wrapper "><span class="price"><?php  echo $priceHelper->currency($excl_tax,true,false); ?></span></span>
+		<span> + <?php echo $priceHelper->currency($tax,true,false); ?> GST
+	 </span>
+</span> <br>
+  <span class="incltaxtext">
+		<span class="priceholder"><?php  echo $priceHelper->currency($inclu_tax,true,false); ?></span><span class="pricetxt"> (Incl. of all taxes)</span>
+</span><br/>
+         
+
+    <?php else: ?>
+
+<span class="special-price incltax">
+		<span  class="price-wrapper "><span class="price"><?php  echo $priceHelper->currency($excl_tax,true,false); ?></span></span>
+		<span> + <?php echo $priceHelper->currency($tax,true,false); ?> GST
+	 </span>
+</span><br/>
+        <?php echo $block->renderAmount($finalPriceModel->getAmount(), [
+            'price_id' => $block->getPriceId('product-price-' . $idSuffix),
+            'price_type' => 'finalPrice',
+            'include_container' => false,
+            'schema' => $schema
+        ]); ?> (Incl. of all taxes)<br>
+		
+    <?php endif; ?>
+
+    <?php if ($block->showMinimalPrice()): ?>
+        <?php if ($block->getUseLinkForAsLowAs()): ?>
+            <a href="<?= $block->getSaleableItem()->getProductUrl() ?>" class="minimal-price-link">
+                <?= $block->renderAmountMinimal() ?>
+            </a>
+        <?php else: ?>
+            <span class="minimal-price-link">
+            <?= $block->renderAmountMinimal() ?>
+        </span>
+        <?php endif ?>
+    <?php endif; ?>
+<?php else: ?>
+    <?php if ($block->hasSpecialPrice()): ?>
+        <span class="special-price">
+        <?php echo $block->renderAmount($finalPriceModel->getAmount(), [
+            'display_label' => __('Special Price'),
+            'price_id' => $block->getPriceId('product-price-' . $idSuffix),
+            'price_type' => 'finalPrice',
+            'include_container' => true,
+            'schema' => $schema
+        ]); ?>
+    </span>
+        <span class="old-price">
+        <?php echo $block->renderAmount($priceModel->getAmount(), [
+            'display_label' => __('Regular Price'),
+            'price_id' => $block->getPriceId('old-price-' . $idSuffix),
+            'price_type' => 'oldPrice',
+            'include_container' => true,
+            'skip_adjustments' => true
+        ]); ?>
+    </span>
+    <?php else: ?>
+		<span>
+        <?php echo $block->renderAmount($finalPriceModel->getAmount(), [
+            'price_id' => $block->getPriceId('sproduct-price-' . $idSuffix),
+            'price_type' => 'finalPrice',
+            'include_container' => true,
+            'schema' => $schema
+        ]); ?> (Incl. of all taxes)
+		</span>
+		
+		<span class="incltax">
+		<span class="priceholder"><?php  echo $priceHelper->currency($excl_tax,true,false); ?></span>
+		<span class="pricetxt"> + <?php echo $priceHelper->currency($tax,true,false); ?> GST
+	 </span>
+</span><br/>
+		
+    <?php endif; ?>
+
+    <?php if ($block->showMinimalPrice()): ?>
+        <?php if ($block->getUseLinkForAsLowAs()): ?>
+            <a href="<?= $block->getSaleableItem()->getProductUrl() ?>" class="minimal-price-link">
+                <?= $block->renderAmountMinimal() ?>
+            </a>
+        <?php else: ?>
+            <span class="minimal-price-link">
+            <?= $block->renderAmountMinimal() ?>
+        </span>
+        <?php endif ?>
+    <?php endif; ?>
+<?php endif; ?>

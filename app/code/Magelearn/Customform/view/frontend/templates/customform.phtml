@@ -1,0 +1,258 @@
+<form class="form customform"
+      action="<?php echo $block->getBaseUrl().'customform/index/save'; ?>"
+      id="magelearn-customform-form"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      enctype="multipart/form-data"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+    	<!-- <legend class="legend"><span><?php //$block->escapeHtml(__('Customer inquiry Form ')) ?>
+ 			</span></legend>
+		
+		<br>
+        <div class="field note no-label"><?php //$block->escapeHtml(__('Fillup your inquiry form.')) ?></div> -->
+
+        <!-- Left -->
+        <div class="form_left">
+            <div class="field first_name required">
+                <label class="label" for="first_name"><span><?= $block->escapeHtml(__('First name:')) ?></span></label>
+                <div class="control">
+                    <input name="first_name" 
+                        id="first_name" 
+                        title="<?= $block->escapeHtmlAttr(__('First Name')) ?>" 
+                        class="input-text" 
+                        type="text" 
+                        data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field last_name required">
+                <label class="label" for="last_name"><span><?= $block->escapeHtml(__('Last name:')) ?></span></label>
+                <div class="control">
+                    <input name="last_name" 
+                        id="last_name" 
+                        title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>" 
+                        class="input-text" 
+                        type="text" 
+                        data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field email required">
+                <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                <div class="control">
+                    <input name="email" 
+                        id="email" 
+                        title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                        class="input-text" 
+                        type="email" 
+                        data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="field phone required">
+                <label class="label" for="phone"><span><?= $block->escapeHtml(__('Phone:')) ?></span></label>
+                <div class="control">
+                    <input name="phone" id="phone" title="<?= $block->escapeHtmlAttr(__('Phone')) ?>" class="input-text" type="text" data-validate="{required:true, 'validate-number':true}">
+                </div>
+            </div>
+            <div class="field message required">
+                <label class="label" for="message"><span><?= $block->escapeHtml(__('Message:')) ?></span></label>
+                <div class="control">
+                    <textarea name="message" id="message" title="<?= $block->escapeHtml(__('Message')) ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- Right -->
+        <div class="form_right">
+			 <div class="field phone">
+                <label class="label" for="brand"><span><?= $block->escapeHtml(__('Brand:')) ?></span></label>
+				 <?php $brands = $block->getBrands(); ?>
+                <div class="control-box">
+					<select name="brand" id="brand" class="control select">
+						<option value=''>Select Brand</option>
+						<?php foreach($brands as $brandkey=>$brand){ ?>
+							<option value='<?php echo $brandkey; ?>'><?php echo $brand; ?></option>
+						<?php } ?>
+						
+					</select>
+                </div>
+            </div>
+			
+			 <div class="field message ">
+                <label class="label" for="message"><span><?= $block->escapeHtml(__('Products List:')) ?></span></label>
+                <div class="control-box">
+                    <textarea class="control textarea" name="products" id="products" title="<?= $block->escapeHtml(__('Products List')) ?>" class="input-text"     ></textarea>
+                </div>
+            </div>
+			<p>Please Enter the Products List or Upload using CSV/EXCEL/PDF</p>
+            <div class="field image">
+                <label class="label" for="image"><span><?= $block->escapeHtml(__('Attachment:')) ?></span></label>
+                <div class="control upload">
+                    <input name="image" 
+                        id="image" 
+                            title="<?= $block->escapeHtmlAttr(__('Attachment')) ?>"
+                        class="input-text" 
+                        type="file" />
+                    <button class="upload-btn">Upload</button>
+                </div>
+            </div>
+        </div>
+        
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<style>
+    .fieldset {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin: 0;
+    }
+    .fieldset ~ .actions-toolbar {
+        text-align: center;
+    }
+    .fieldset .form_left .field {
+        margin-bottom: 20px;
+    }
+    .fieldset .form_left .field label {
+        font-size: 18px;
+        padding-bottom: 5px;
+        display: inline-block;
+    }
+    .fieldset .form_left .field .control input[type="text"], 
+    .fieldset .form_left .field .control input[type="password"], 
+    .fieldset .form_left .field .control input[type="url"], 
+    .fieldset .form_left .field .control input[type="tel"], 
+    .fieldset .form_left .field .control input[type="search"], 
+    .fieldset .form_left .field .control input[type="number"], 
+    .fieldset .form_left .field .control input[type*="date"], 
+    .fieldset .form_left .field .control input[type="email"],
+    .fieldset .form_left .field .control textarea {
+        border: 4px solid #ccc;
+        min-height: 50px;
+    }
+    .fieldset .form_left .field .control textarea {
+        min-height: 160px;
+        margin-bottom: 10px;
+    }
+    .actions-toolbar .primary {
+        float: none;
+        margin: 20px auto;
+        width: 100%;
+    }
+    .actions-toolbar .primary .submit {
+        background: #4753be;
+        border: none;
+        color: #ffffff;
+        border-radius: 10px;
+        font-size: 14px;
+        text-transform: uppercase;
+        width: 100%;
+        padding: 15px;
+    }
+    .fieldset .form_right .field {
+        text-align: left;
+        padding: 0;
+    }
+    .fieldset .form_right .field .label {
+        font-size: 18px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 5px;
+        display: block;
+        text-transform: none;
+    }
+    .fieldset .form_right .field .label span {
+        color: #ea8a1c;
+    }
+    .fieldset .form_right .field .control {
+        display: inline-block;
+        padding: 15px;
+        border: 4px solid #ccc;
+    }
+    .fieldset .form_right .field .control.select {
+        padding: 5px 15px;
+        text-align: left;
+        height: 50px;
+    }
+    .fieldset .form_right .field .control.textarea {
+        min-height: 160px;
+    }
+    .fieldset .form_right .field .control.upload {
+        width: 100%;
+    }
+    .fieldset .form_right .field .control .input-text {
+        font-size: 18px;
+        padding: 15px 0;
+        display: inline-block;
+    }
+    .fieldset .form_right .field .control .upload-btn {
+        background: #4753be;
+        border: none;
+        color: #ffffff;
+        border-radius: 10px;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-top: 8px;
+        width: 100%;
+    }
+    .page-main > .page-title-wrapper .page-title {
+        font-size: 28px;
+        border-bottom: 3px solid #ebebeb;
+        width: 100%;
+        margin: 0 auto 30px;
+        padding: 20px 0;
+        text-align: left;
+    }
+    .fieldset .form_right p {
+        text-align: left;
+        padding-bottom: 5px;
+        padding-top: 10px;
+    }
+    @media (max-width: 991px) {
+        .fieldset .form_right .field .control {
+            display: inline-block;
+            padding: 15px;
+            border: 4px solid #ccc;
+        }
+        .fieldset .form_right .field .control .input-text {
+            font-size: 20px;
+            padding: 0 0 20px;
+            display: block;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+        }
+    }
+    @media (min-width: 992px) {
+        .fieldset {
+            grid-template-columns: 1fr 1fr;
+        }
+        .fieldset ~ .actions-toolbar {
+            text-align: left;
+        }
+        .actions-toolbar .primary {
+            float: left;
+            margin: 0;
+        }
+        
+        .actions-toolbar .primary .submit {
+            width: auto;
+        }
+        .fieldset .form_right .field:first-child {
+            padding: 0;
+        }
+        .fieldset .form_right .field {
+            text-align: left;
+        }
+        .fieldset .form_right .field .control .upload-btn {
+            float: right;
+            width: auto;
+        }
+    }
+</style>

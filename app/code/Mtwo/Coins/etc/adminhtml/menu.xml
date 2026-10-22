@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Mtwo::top_level" title="Coins" module="Mtwo_Coins" sortOrder="11" resource="Magento_Backend::content"/>
+ 		<add id="Mtwo_Coins::mtwo_coins_catalog" title="Catalog" module="Mtwo_Coins" sortOrder="11" resource="Magento_Backend::content" parent="Mtwo::top_level" action="mtwo_coins/catalog/index"/>
+		<add id="Mtwo_Coins::mtwo_coins_orders" title="Orders" module="Mtwo_Coins" sortOrder="12" resource="Magento_Backend::content" parent="Mtwo::top_level" action="mtwo_coins/orders/index"/>
+		<add id="Mtwo_Coins::mtwo_coins_coins" title="Coins Earned" module="Mtwo_Coins" sortOrder="13" resource="Magento_Backend::content" parent="Mtwo::top_level" action="mtwo_coins/coins/index"/>
+	</menu>
+</config>

@@ -1,0 +1,159 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+$helper = $this->helper('Hiddentechies\Bizkick\Helper\Data');
+$showNewsletter = $helper->getConfigValue('bizkicksettings/newsletter_settings/enable');
+$showFooterColumns = $helper->getConfigValue('bizkicksettings/footer_columns/enable_footer_columns');
+$footerStColumnSelect = $helper->getConfigValue('bizkicksettings/footer_columns/footer_st_column_select');
+$footerStColumn = $helper->getConfigValue('bizkicksettings/footer_columns/footer_st_column');
+$footerNdColumn = $helper->getConfigValue('bizkicksettings/footer_columns/footer_nd_column');
+$footerRdColumn = $helper->getConfigValue('bizkicksettings/footer_columns/footer_rd_column');
+$address = $helper->getConfigValue('bizkicksettings/footer_contant/address');
+$email = $helper->getConfigValue('bizkicksettings/footer_contant/email');
+$phone = $helper->getConfigValue('bizkicksettings/footer_contant/phone');
+$enableFooterBottom = $helper->getConfigValue('bizkicksettings/footer_bottom/enable_footer_bottom');
+$copyrightText = $helper->getConfigValue('bizkicksettings/footer_bottom/copyright_text');
+$copyrightRightBlock = $helper->getConfigValue('bizkicksettings/footer_bottom/copyright_right_block');
+?>
+<div class="footer-top">
+    <?php if ($showNewsletter) { ?>
+        <div class="footer-newsletter">
+            <div class="page-main">
+                <?php echo $this->getChildHtml('form.subscribe'); ?>
+            </div>
+        </div>
+    <?php } ?>
+    <?php if ($showFooterColumns) { ?>
+        <div class="footer-links">
+            <div class="page-main">
+                <div class="footer-links-main">
+                    <div class="footer-links-column">
+                        <?php if ($footerStColumnSelect == 'quicklinks') { ?>
+                            <div class="footer-colum-title">
+                                <h3>
+                                    Quick Links
+                                </h3>
+                            </div>
+                            <div class="footer-column-content">
+                                <?php echo $this->getChildHtml('footer_links'); ?>
+                            </div>
+                        <?php } else { ?>
+                            <?php if ($footerStColumn != '') { ?>
+                                <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($footerStColumn)->toHtml(); ?>
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                    <div class="footer-links-column">
+                        <?php if ($footerNdColumn != '') { ?>
+                            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($footerNdColumn)->toHtml(); ?>
+                        <?php } ?>
+                    </div>
+                    <div class="footer-links-column">
+                        <?php if ($footerRdColumn != '') { ?>
+                            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($footerRdColumn)->toHtml(); ?>
+                        <?php } ?>
+                    </div>
+                    <div class="footer-links-column">
+                        <div class="footer-colum-title">
+                            <h3>
+                                Quick Contact
+                            </h3>
+                        </div>
+                        <div class="footer-column-content">
+                            <div class="content">
+                                <?php if ($address != '') { ?>
+                                    <p class="address">
+                                        <strong>
+                                            <em class="fa fa-home"></em>&nbsp;&nbsp;<span>Address: </span>
+                                        </strong> 
+                                        <span><?php echo $address; ?></span>
+                                    </p>
+                                <?php } ?>
+                                <?php if ($email != '') { ?>
+                                    <p class="email">
+                                        <strong>
+                                            <em class="fa fa-send"></em>&nbsp;&nbsp;<span>Mail us: </span>
+                                        </strong>
+                                        <span>
+                                            <a href="mailto:<?php echo $email; ?>" title="Mail to: <?php echo $email; ?>"><?php echo $email; ?></a>
+                                        </span>
+                                    </p>
+                                <?php } ?>
+                                <?php if ($phone != '') { ?>
+                                    <p class="phone">
+                                        <strong>
+                                            <em class="fa fa-phone"></em>&nbsp;&nbsp;<span>Phone: </span>
+                                        </strong>
+                                        <span><?php echo $phone; ?></span>
+                                    </p>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+<?php if ($enableFooterBottom) { ?>
+    <div class="footer-bottom">
+        <div class="page-main">
+            <div class="copuright-outer">
+                <small class="copyright">
+                    <span><?php /* @escapeNotVerified */ echo $copyrightText; ?></span>
+                </small>
+                <?php if ($copyrightRightBlock != '') { ?>
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($copyrightRightBlock)->toHtml(); ?>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<script type="text/javascript" xml="space">
+    require(['jquery'], function() {
+        var windowWidth = jQuery(window).width();
+        if (windowWidth < 768) {
+            jQuery('.footer-links-column .footer-column-content').hide();
+            jQuery(document).on('click', '.footer-links-column', function() {
+                jQuery(this).addClass('active-column');
+                jQuery(this).find('.footer-column-content').slideDown();
+            });
+            jQuery(document).on('click', '.footer-column-content', function(e) {
+                e.preventdefault();
+                return false;
+            });
+            jQuery(document).on('click', '.footer-links-column.active-column', function() {
+                jQuery(this).removeClass('active-column');
+                jQuery(this).find('.footer-column-content').slideUp();
+            });
+        }
+    });
+</script>
+<!--<script async src="https://s.widgetwhats.com/wwwa.js" data-wwwa="12890"></script><script async src='https://d2mpatx37cqexb.cloudfront.net/delightchat-whatsapp-widget/embeds/embed.min.js'></script> -->
+        <script>
+          var wa_btnSetting = {"btnColor":"#16BE45","ctaText":"","cornerRadius":40,"marginBottom":20,"marginLeft":20,"marginRight":20,"btnPosition":"left","whatsAppNumber":"919043717730","welcomeMessage":"Hello","zIndex":999999,"btnColorScheme":"light"};
+          window.onload = () => {
+            _waEmbed(wa_btnSetting);
+          };
+        </script>
+ 
+<!--Start of Tawk.to Script-->
+ 
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6482d375cc26a871b021818e/1h2fgk1bq';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->

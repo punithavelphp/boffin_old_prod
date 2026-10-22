@@ -1,0 +1,44 @@
+<?php
+// get custom data
+$frmData = $block->getFormData();
+$isLogged = $block->getIsLoggedIn();
+$groupId = $block->getGroupId();
+ ?>
+<fieldset class="fieldset form-createpage-sections">
+    <?php
+    if ($isLogged) {
+        ?>
+        <div class="table-wrapper custom-data ">
+             	<form name="subFrm" id="subFrm" method="POST" action="<?php echo $this->getUrl('approvecustomer/account/savepo') ?>">
+				  <div class="form-group">
+					<label for="firstname">First Name</label>
+					<input type="text" class="form-control" value="<?php echo $frmData->getFirstname(); ?>" id="firstname" name="firstname" placeholder="First Name">
+					<input type="hidden" class="form-control" id="entity_id" name="entity_id" value="<?php echo $frmData->getEntityId(); ?>">
+
+					  <input type="hidden" class="form-control" id="faculty_type" name="faculty_type" value="<?php echo $groupId; ?>">
+				  </div>
+				   <div class="form-group">
+					<label for="lastname">Last Name</label>
+					<input type="text" class="form-control" id="lastname"  value="<?php echo $frmData->getLastname(); ?>" name="lastname" placeholder="Last Name">
+				  </div>
+				 <div class="form-group">
+					<label for="email_address">Email address</label>
+					<input type="email" class="form-control" name="email" value="<?php echo $frmData->getEmail(); ?>" id="email_address" placeholder="Email Address">
+				  </div>
+				  <div class="form-group">
+					<label for="mobilenumber">Mobile</label>
+					<input type="text" class="form-control" name="mobilenumber" value="<?php echo $frmData->getMobilenumber(); ?>" id="mobilenumber" placeholder="Mobile Number">
+				  </div>
+					 
+					  <input type="hidden" class="form-control" id="group_id" name="group_id" value="6">
+ 
+ 					<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+        </div>
+        
+    <?php } else { ?>
+                <div class="message info empty">
+                    <span><?= $block->escapeHtml('You have no data.') ?></span>
+                </div>
+    <?php  } ?>
+</fieldset>

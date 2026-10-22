@@ -1,0 +1,269 @@
+<?php
+
+$quoteId = $this->getQuoteId();
+$quoteData  = $this->getQuoteData();
+ $customerShippingAddress = $this->getCustomerShippingAddress();
+$customerBillingAddress = $this->getCustomerBIllingAddress();
+$customer =  $this->getCustomer();
+$item = $quoteItems = $this->getQuoteItem();
+  
+$sellerid = $quoteItems->getData('sellerid');
+
+$product = $this->getProduct($quoteItems->getData('product_id'));
+$sellerDetails = $this->getSeller($sellerid);
+
+
+$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+
+$sellerOrder = $this->getOrder(); 
+$sellerinvoice = $this->getInvoice();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+ 
+$addressRenderer = $objectManager->get('Magento\Sales\Model\Order\Address\Renderer');
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection(); 
+
+$taxHelper = $this->helper('Magento\Catalog\Helper\Data');
+
+$orderRegion = $customerBillingAddress->getRegionId();
+$sellerRegion = $sellerDetails->getRegionId();
+
+$customer_gstn = '';
+if($customer->getData('gstin_number') != null){
+ 	  $customer_gstn = $customer->getData('gstin_number'); 
+}
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+
+$URL_TYPE_MEDIA = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+	->getStore()
+	->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$signImage = '';
+if($sellerDetails->getSignPic() != ''){
+	$signImage = $URL_TYPE_MEDIA.'avatar/'.$sellerDetails->getSignPic();
+}
+//  $logo = $this->insertLogo($sellerid);  
+$logo =  $this->insertStoreLogo();
+ $billingAddress = $this->_formatCustomerAddress(
+	$customerBillingAddress
+);
+$shippingAddress = $this->_formatCustomerAddress(
+ 		$customerShippingAddress 
+);	
+$igst = true;
+if($orderRegion == $sellerRegion) {
+		$igst = false;
+}
+?>
+<div class="invoice" style="color: #000000; font-size:8px;">
+
+        <!-- Header -->
+        <table class="header" cellspacing="0" cellpadding="0" style="width: 100%; border-bottom: 2px solid #626ee2; font-size:8px;">
+            <tr>
+                <td align="left">
+                    <a class="logo"  title="Boffinbuttler pvt ltd" aria-label="store logo" style="display: inline-block;">
+                        <?php if($logo) { ?>
+                             <img src="<?php echo $logo; ?>" title="Boffinbuttler" alt="boffinbuttler" width="100" />
+                        <?php } ?>
+                    </a>
+                </td>
+                <td align="right">
+                    <p style="color:#626ee2; font-size:8px;">Quote Request<br><span style="display: block; color: #000000;"></span></p>
+                </td>
+            </tr>
+        </table>
+        <!-- Header -->
+        <table style="height:10px;"><tr><td></td></tr></table>
+        <!-- Sold -->
+        <table class="sold" cellspacing="0" cellpadding="6" style="width: 100%; font-size:8px; height:250px;">
+            <tr>
+                <td align="left" class="soldby"><strong>Seller:</strong><div class="name" style="text-transform: uppercase;"><?php  echo  					$sellerDetails->getShopTitle() ?><br><?php echo $this->insertAddress($sellerid); ?>
+					<?php if(!empty($sellerDetails->getPan())){ ?>
+ 					<strong>PAN No:</strong><?php  echo $sellerDetails->getPan(); ?><br>
+					<?php } ?>
+                    <strong>GST Registration No:</strong><?php  echo $sellerDetails->getGstin(); ?>
+					</div>
+                </td>
+                <td align="right" class="soldto">
+                    <strong>Buyer:</strong>
+                    <div style="text-transform: uppercase; font-style: normal;">
+                        <?php foreach($billingAddress as $key=> $billingAddres) { ?>
+                            <?php if(trim($billingAddres) == '') continue; if($key > 0) echo '<br>'; ?>
+                            <?php echo $billingAddres; ?>
+                        <?php } ?>
+						<?php if(!empty($customer_gstn)) {
+							echo '<br>';echo 'GST No: '.$customer_gstn;
+						  } ?>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <!-- Sold -->
+        <table style="height:10px;"><tr><td></td></tr></table>
+        <!-- PAN-Sec -->
+        <table class="pan-sec" cellspacing="0" cellpadding="6" style="width: 100%; height: 200px; background-color: #f1f1f1;  font-size:8px;">
+            <tr>
+                <td class="pan" style="width: 50%; border-right: 3px solid #fff;" align="left">
+                    <p style="margin: 0; padding:0;">
+                      <strong>Quote Number:</strong> <?php  echo  $quoteId; ?><br>
+                      <strong>Quote Date:</strong> <?php  echo  date('d, F Y',strtotime($quoteData->getCreatedDate()));?><br>
+					  <strong>Valid For:</strong> 07 days
+                     </p>
+                </td>
+                <td class="ship" style="text-align: right; width: 50%;" align="right">
+                    <strong>Shipping Address:</strong><br>
+                     <address style="text-transform: uppercase; font-style: normal;">
+                    <?php foreach($shippingAddress as $key=> $billingAddres) { 
+                                if(trim($billingAddres) == '') continue; 
+                                if($key > 0) echo '<br>';
+                                echo $billingAddres; ?>
+                    <?php } ?>
+                    </address>
+                </td>
+            </tr>
+        </table>
+        <!-- PAN-Sec -->
+	        <table style="height:10px;"><tr><td></td></tr></table>
+
+        <!-- Order-Sec -->
+         <table cellspacing="0" cellpadding="4" border="2" style="width: 100%; text-align: left; font-size:8px; border: 2px solid #000000;">
+            <thead>
+                <tr style="background-color: #f1f1f1; font-size: 10px;">
+                    <th>Item Description</th> 
+					<th>SKU</th>
+					<th>Brand</th>
+					<th>Quantity<br>/ Pack</th>
+                  
+                    <th align="right">Price (&#8377;)</th>
+                    <th align="right">Required <br>Qty</th>
+                     <th align="right">Subtotal (&#8377;)</th>
+                </tr>
+            </thead>
+            <tbody>
+				<?php
+				$discount = $sub_total = $row_total = $tax_amount  = $grant_total =$shipping_charge = $shipping_charge_tax = $shipping_charges = $shipping_charges_tax =  $shippingDivider = 0;
+				 
+				
+				$old_excl_tax = $taxHelper->getTaxPrice($product, $product->getPrice(), false);
+				$old_inclu_tax = $taxHelper->getTaxPrice($product, $product->getPrice(), true);
+ 				
+				
+				
+		  			$qty = $item->getData('qty');
+					$row_total  = $qty * $old_excl_tax;
+				
+				
+				$discount =    round((float)$product->getFinalPrice() - (float)$product->getPrice());
+				
+				$discount = $discount * $qty;
+				$excl_tax = $taxHelper->getTaxPrice($product, $product->getFinalPrice(), false);
+				$inclu_tax = $taxHelper->getTaxPrice($product, $product->getFinalPrice(), true);
+				$tax = $inclu_tax - $excl_tax;
+				$tax_amount = $tax * $qty;
+				
+  			$grand_total_excl_tax = $excl_tax*$qty;
+				$grand_total = $inclu_tax*$qty;
+ 				 
+ 			?>
+                <tr>
+                    <td><?php echo $product->getData('name'); ?></td>
+					<td><?php echo $product->getData('sku'); ?></td>
+ 					 <td><?php echo $item->getData('brand'); ?></td>
+					<?php  if(!empty($product->getAttributeText('quantity_val'))) { ?>
+					<td><?php echo $product->getAttributeText('quantity_val'); ?></td>
+					<?php } 
+					else if(!empty($product->getAttributeText('packing'))) { ?>
+					<td><?php echo $product->getAttributeText('packing'); ?></td>
+					<?php } ?>
+                    
+                    <td align="right">
+						<?php echo $priceHelper->currency(($old_excl_tax),true,false); ?>
+					</td>
+                    <td align="right"><?php echo $item->getData('qty'); ?></td>
+                     <td align="right"><?php echo  $priceHelper->currency(($row_total),true,false ); ?></td>
+                </tr>
+				 
+                <tr>
+                    <td colspan="6" align="right"><strong>Total Price</strong><br>Discount</td>
+                    <td align="right"><strong><?php echo $priceHelper->currency(($row_total),true,false);; ?></strong><br><?php echo $priceHelper->currency(($discount),true,false);   ?></td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right"><strong>Total Price Excl.Tax</strong>
+						<?php if($igst) { ?>
+						<br>IGST
+					<?php } else{ ?>
+						<br>CGST
+						<br>SGST
+					<?php } ?>
+					</td>
+                    <td align="right">
+						<strong><?php echo $priceHelper->currency(($grand_total_excl_tax),true,false);; ?></strong>
+							<br>
+						<?php if($igst) { ?>
+						<?php echo  $priceHelper->currency(($tax_amount),true,false);  ?>
+						<?php } else{  ?>
+						<?php echo $priceHelper->currency(($tax_amount/2),true,false);  ?><br>
+						<?php echo $priceHelper->currency(($tax_amount/2),true,false); ?>
+						<?php }   ?>
+					</td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right">							
+                            <strong>Total Price Incl.Tax</strong> 
+							 
+					</td>
+                    <td align="right">
+						<strong><?php echo $priceHelper->currency(($grand_total),true,false); ?></strong>
+ 					</td>
+                </tr>
+				<?php
+				
+				$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currency = $objectManager->get('Magento\Directory\Model\Currency');
+ 					   $grand_total_words =  str_replace(',','',$currency->format($grand_total, ['display'=>1], false));
+				$grand_total_words =(int)$grand_total_words * 1;
+ 					   ?>
+                <tr style="background-color: #fbfbfb;">
+                    <td colspan="5"><strong>Amount in Words: <br><?php echo ucWords($block->getIndianCurrency($grand_total_words)); ?>Only</strong></td>
+                    <td align="right"><strong>Grand Total</strong></td>
+                    <td align="right"><strong><?php echo $priceHelper->currency(($grand_total),true,false); ?></strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Order-Sec -->
+        <table style="height:30px;"><tr><td></td></tr></table>
+        <!-- Table-Sec-one -->
+         
+        <!-- Table-Sec-one -->
+        <table style="height:10px;"><tr><td></td></tr></table>
+        <!-- Table-Sec-one -->
+        	<!-- ITEMS -->
+        <!-- Table-Sec-one -->
+
+        <!-- Signature-Sec -->
+        <div class="sign" style="margin-top:10px;">
+            <table style="border:none; color: #000000; font-size:8px;">
+                <tr>
+                    <td style="text-align: left; margin-top:10px;">
+                        <p style="margin:0; padding:0;"><strong>Account Number:</strong> 065364700000042 <br><strong>Account Name:</strong> Boffinbutler Private Limited<br><strong>IFSC Code:</strong> YESB0000653<br><strong>Bank:</strong> JAYANAGAR 9TH BLOCK -YES BANK
+							<br><br><br><strong>Payment Terms</strong>
+							<br><strong>Payment:</strong> With in 30 Days
+ 							<br><strong>Valid for:</strong> 15 days
+							<br><strong>Delivery :</strong> 2-3 weeks
+							<br><strong>Freight:</strong> Local Free
+						</p>
+                    </td>
+                    <td style="text-align: right">
+                        <p style="font-size:12px;font-weight:bold;color:#626ee2; margin: 0;">For <?php echo $sellerDetails->getShopTitle(); ?></p>
+                        <h1 style="margin:0; padding:0;">
+                            <img  src="<?php echo $signImage; ?>" width="120" />
+                        </h1>
+                        <p style="font-size:12px; font-weight:bold;color:#000000; margin: 0;"><?php echo $sellerDetails->getAuthorityName(); ?></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- Signature-Sec -->
+    </div>
+<?php // die; ?>

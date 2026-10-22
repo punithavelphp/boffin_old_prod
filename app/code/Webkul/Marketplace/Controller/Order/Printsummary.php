@@ -1,0 +1,44 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+namespace Webkul\Marketplace\Controller\Order;
+
+/**
+ * Webkul Marketplace Order Print Controller.
+ */
+class Printsummary extends \Webkul\Marketplace\Controller\Order
+{
+    /**
+     * Order details print page.
+     *
+     * @return \Magento\Framework\View\Result\Page
+     */
+    public function execute()
+    {
+        $helper = $this->helper;
+       
+            if ($order = $this->_initOrder()) {
+                /** @var \Magento\Framework\View\Result\Page $resultPage */
+                $resultPage = $this->_resultPageFactory->create();
+                $resultPage->getConfig()->getTitle()->set(
+                    __('Order #%1', $order->getRealOrderId())
+                );
+
+                return $resultPage;
+            } else {
+                return $this->resultRedirectFactory->create()->setPath(
+                    '*/*/history',
+                    ['_secure' => $this->getRequest()->isSecure()]
+                );
+            }
+        
+    }
+}

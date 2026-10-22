@@ -1,0 +1,96 @@
+<?php
+$custom_data = $block->getCustomData();
+?>
+<fieldset class="fieldset">
+	<?php
+	if (count($custom_data)) {
+	?>
+	<div class="table-wrapper custom-data ">
+		<table class="data table table-data-items ">
+			<thead>
+				<tr>
+					<th scope="col" class="col name"><?= $block->escapeHtml('Quote ID') ?></th>
+					<th scope="col" class="col orders"><?= $block->escapeHtml('Date') ?></th>
+ 					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Download') ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+		foreach ($custom_data as $item): 
+ 				?>
+				<tr>
+					<td data-th="Orders" class="col name" >
+						<span><?php echo $item->getId(); ?> </span>
+					</td>
+					<td data-th="Name" class="col orders">
+						<span><?= $block->escapeHtml($item->getData('created_date')) ?></span>
+					</td>
+					 
+					<td data-th="Items" class="col orderitem">
+						<a target="blank" href="<?php echo $this->getUrl('pdf/quote/request/quote_id/'.$item->getId()); ?>">Download</a>
+					</td>
+					 
+				</tr>
+				<tr>
+					<td data-th="Name" class="col name" colspan="4">
+
+						<table class="data table table-data-items " border="1">
+							<thead>
+								<tr>
+									<th scope="col" width="40%" class="col name"><?= $block->escapeHtml('Item') ?></th>
+									<th scope="col" width="20%" class="col name"><?= $block->escapeHtml('SKU') ?></th>
+									<th scope="col" width="20%" class="col orders"><?= $block->escapeHtml('Qty') ?></th>
+									<th scope="col" width="20%" class="col orders"><?= $block->escapeHtml('Unit Price') ?></th>
+  									<th scope="col" width="20%" class="col orders"><?= $block->escapeHtml('Total Price') ?></th>
+
+								</tr>
+							</thead>
+							<tbody> 
+								<?php 
+					$quoteItems = $this->getQuoteItems($item->getId());
+					foreach ($quoteItems as $quote_item):
+								$product = $this->getProduct($quote_item->getData('product_id'));
+								?>
+								<tr>
+									<td data-th="Orders" class="col orders">
+										<?php if($product->getId()){ ?>
+										<a href="<?php echo $product->getProductUrl(); ?>" target="_blank">
+											<span><?= $block->escapeHtml($product->getName()) ?></span>
+										</a>
+										<?php } else{ ?>
+										<span><?= $block->escapeHtml($quote_item->getSku()) ?></span>
+										<?php } ?>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($quote_item->getSku()) ?></span>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($quote_item->getQty()) ?></span>
+									</td>
+ 									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($quote_item->getFinalPrice()) ?></span>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($quote_item->getFinalPrice() * $quote_item->getQty()) ?></span>
+									</td>
+ 								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+ 			</tbody>
+		</table>
+	</div>
+	<?php if ($block->getPagerHtml()): ?>
+	<div class="order-products-toolbar toolbar bottom">
+		<?= $block->getPagerHtml() ?>
+	</div>
+	<?php endif ?>
+	<?php } else { ?>
+	<div class="message info empty">
+		<span><?= $block->escapeHtml('You have no data.') ?></span>
+	</div>
+	<?php  } ?>
+</fieldset>

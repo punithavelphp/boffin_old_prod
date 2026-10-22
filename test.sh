@@ -1,0 +1,16 @@
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Magento_TwoFactorAuth
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Extendware_CacheWarmer
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Extendware_Core
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Lof_Autosearch
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Lof_LayeredNavigation
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable MageMe_HidePrice
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Magecomp_Extrafee
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Magepow_SpeedOptimizer
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Mageprince_Base
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Mageprince_Paymentfee
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable MiniOrange_OtpVerification
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Thecoachsmb_OwlSlider
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable Ves_Brand
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable WeSupply_Toolbox
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable WeltPixel_Backend
+/opt/php81/bin/php -dmemory_limit=6G  bin/magento mod:disable WeltPixel_LayeredNavigation

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="gst_institute" resource="default" engine="innodb" comment="GST Institute Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="institute_id" padding="11" unsigned="false" nullable="false" comment="Institute ID"/>
+        <column xsi:type="varchar" name="gst_number" nullable="true" length="30" comment="GST Number"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="GST_INSTITUTE_INSTITUTE_ID">
+            <column name="institute_id"/>
+        </constraint>
+    </table>
+</schema>

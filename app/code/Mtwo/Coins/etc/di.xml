@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Mtwo\Coins\Api\CatalogRepositoryInterface" type="Mtwo\Coins\Model\CatalogRepository"/>
+	<preference for="Mtwo\Coins\Api\Data\CatalogInterface" type="Mtwo\Coins\Model\Catalog"/>
+	<preference for="Mtwo\Coins\Api\Data\CatalogSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Mtwo\Coins\Model\ResourceModel\Catalog\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mtwo_coins_catalog</argument>
+			<argument name="resourceModel" xsi:type="string">Mtwo\Coins\Model\ResourceModel\Catalog\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="mtwo_coins_catalog_listing_data_source" xsi:type="string">Mtwo\Coins\Model\ResourceModel\Catalog\Grid\Collection</item>
+				<item name="mtwo_coins_orders_listing_data_source" xsi:type="string">Mtwo\Coins\Model\ResourceModel\Orders\Grid\Collection</item>
+				<item name="mtwo_coins_coins_listing_data_source" xsi:type="string">Mtwo\Coins\Model\ResourceModel\Coins\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<preference for="Mtwo\Coins\Api\OrdersRepositoryInterface" type="Mtwo\Coins\Model\OrdersRepository"/>
+	<preference for="Mtwo\Coins\Api\Data\OrdersInterface" type="Mtwo\Coins\Model\Orders"/>
+	<preference for="Mtwo\Coins\Api\Data\OrdersSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Mtwo\Coins\Model\ResourceModel\Orders\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mtwo_coins_orders</argument>
+			<argument name="resourceModel" xsi:type="string">Mtwo\Coins\Model\ResourceModel\Orders\Collection</argument>
+		</arguments>
+	</virtualType>
+	<preference for="Mtwo\Coins\Api\CoinsRepositoryInterface" type="Mtwo\Coins\Model\CoinsRepository"/>
+	<preference for="Mtwo\Coins\Api\Data\CoinsInterface" type="Mtwo\Coins\Model\Coins"/>
+	<preference for="Mtwo\Coins\Api\Data\CoinsSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Mtwo\Coins\Model\ResourceModel\Coins\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mtwo_coins_coins</argument>
+			<argument name="resourceModel" xsi:type="string">Mtwo\Coins\Model\ResourceModel\Coins\Collection</argument>
+		</arguments>
+	</virtualType>
+</config>

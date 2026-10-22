@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+ 	<head>
+		 <css src="Mtwo_Analytics::css/chart.css"/>
+        <!-- Include jqPlot CSS -->
+         <!--      <script src="Mtwo_Analytics/js/chart.js"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/jquery.jqplot.min.js" src_type="url"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.barRenderer.min.js" src_type="url"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.categoryAxisRenderer.min.js" src_type="url"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.pointLabels.min.js" src_type="url"></script> 
+-->
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Mtwo\Analytics\Block\Adminhtml\Graph" name="analytics_graph_block" template="Mtwo_Analytics::graph.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

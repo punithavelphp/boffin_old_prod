@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Mtwo_Coins::freebies" title="freebies" sortOrder="10">
+					<resource id="Mtwo_Coins::index_index" title="index index" sortOrder="10"/>
+				</resource>
+				<resource id="Mtwo_Coins::catalog" title="catalog" sortOrder="10">
+					<resource id="Mtwo_Coins::catalog_save" title="Save catalog" sortOrder="10"/>
+					<resource id="Mtwo_Coins::catalog_delete" title="Delete catalog" sortOrder="20"/>
+					<resource id="Mtwo_Coins::catalog_update" title="Update catalog" sortOrder="30"/>
+					<resource id="Mtwo_Coins::catalog_view" title="View catalog" sortOrder="40"/>
+				</resource>
+				<resource id="Mtwo_Coins::orders" title="orders" sortOrder="10">
+					<resource id="Mtwo_Coins::orders_save" title="Save orders" sortOrder="10"/>
+					<resource id="Mtwo_Coins::orders_delete" title="Delete orders" sortOrder="20"/>
+					<resource id="Mtwo_Coins::orders_update" title="Update orders" sortOrder="30"/>
+					<resource id="Mtwo_Coins::orders_view" title="View orders" sortOrder="40"/>
+				</resource>
+				<resource id="Mtwo_Coins::coins" title="coins" sortOrder="10">
+					<resource id="Mtwo_Coins::coins_save" title="Save coins" sortOrder="10"/>
+					<resource id="Mtwo_Coins::coins_delete" title="Delete coins" sortOrder="20"/>
+					<resource id="Mtwo_Coins::coins_update" title="Update coins" sortOrder="30"/>
+					<resource id="Mtwo_Coins::coins_view" title="View coins" sortOrder="40"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

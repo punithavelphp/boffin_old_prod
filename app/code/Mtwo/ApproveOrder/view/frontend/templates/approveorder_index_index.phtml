@@ -1,0 +1,260 @@
+<?php
+// get custom data
+
+$customer_id = $block->getCustomerId();
+$custom_data = $block->getCustomData();
+$customer_group_id = $block->getCurrentCustomerGroupId();
+
+$has_purchase_dept = false;
+if($customer_group_id == 2){
+	$has_purchase_dept = $block->getInstitutePurchaseDept();
+}
+$isApprover = $block->getIsApprover();
+//$approvers = $block->getApprovers();
+//print_r($approvers);die;
+$next = 0;
+$approver = false;
+$priority = 0;
+$approvers_id = array();
+$approvers = array();
+/*
+ foreach($approvers as $key=>$approver){
+	$approvers_id[$approver['employee_id']] =  $approver['employee_id'];
+ 	$approversData[$approver['employee_id']] =  $approver;
+	 if($approver['employee_id']  == $customer_id){
+		 // $approver = true;
+		 // $priority = $key;
+  	 }
+ } */
+
+
+?>
+<fieldset class="fieldset">
+	<?php
+	if (count($custom_data)) {
+	?>
+	<div class="table-wrapper custom-data ">
+		<table class="data table table-data-items ">
+			<thead>
+				<tr>
+					<th scope="col" class="col name"><?= $block->escapeHtml('Order ID') ?></th>
+					<th scope="col" class="col orders"><?= $block->escapeHtml('Email') ?></th>
+					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Name') ?></th>
+					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Total') ?></th>
+
+					<th scope="col" class="col orderitem"><?= $block->escapeHtml('Action') ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+		foreach ($custom_data as $item): 
+		$next = 0;
+		$doAction = false;
+		/*	if(count($approvers_id)) {
+							$approvers_arr_temp = $approvers_id;
+							$approvedBy = $block->getApprovedBy($item->getId(),array_values($approvers_id));
+
+ 							foreach($approvedBy as $key=>$manager){
+								if(isset($approvers_arr_temp[$manager])){
+									//$approvedBy = $manager;
+									unset($approvers_arr_temp[$manager]);
+ 								}
+   							}
+
+ 							$approvers_arr = array_values($approvers_arr_temp);
+							if(isset($approvers_arr[0]) && $approvers_arr[0] == $customer_id){
+								unset($approvers_arr_temp[$customer_id]);
+ 								$doAction = true;
+							} else{
+
+
+								if(isset($approvers_arr[0]) ){
+									$next = $approvers_arr[0];
+								}
+							}
+					} */
+		if($item->getData('order_approval_status') == 0){
+			//$approvedBy = $block->getApprovedBy($item->getId());
+			$approvers = $block->getApproverByOrderCustomer($item->getCustomerId());
+
+			$approverTArr = array();
+			$approverMArr = array();
+			if(count($approvers)){
+				foreach($approvers as $approverT){
+					$approverTArr[] = $approverT['manager_id'];
+					$approverMArr[$approverT['manager_id']] = $approverT['manager_id'];
+					$allApproverSession[$item->getId()][$approverT['manager_id']] = $approverT['manager_id'];
+				}
+
+				$approvedBy = $block->getApprovedBy($item->getId(),$approverTArr);
+
+				if(empty($approvedBy)){
+					if($approverTArr[0] == $customer_id) {
+						$doAction = true; 
+						$approverSession[$item->getId()] = $item->getId();
+
+					}else{
+						$next = $approverTArr[0];
+					}
+				}else {
+					foreach($approvedBy as $k=>$a){
+						unset($approverMArr[$a]);
+					}
+					if(count($approverMArr)){
+						$approverMArrKeys = array_values($approverMArr);
+						if($approverMArrKeys[0] == $customer_id) {
+							$doAction = true; 
+							$approverSession[$item->getId()] = $item->getId();
+
+						}else if(isset($approverMArrKeys[1])){
+							$next = $approverMArrKeys[1];
+						}
+					}
+
+				}
+			}else{
+				if($isApprover) {
+					$doAction = true; 
+					$approverSession[$item->getId()] = $item->getId();
+				}
+			}
+		}
+				?>
+				<tr>
+					<td data-th="Orders" class="col name" >
+						<span><a target="blank" href="<?php echo $this->getUrl('sales/order/view/order_id/'.$item->getId().'/'); ?>"><?= $block->escapeHtml($item->getIncrementId()) ?></a></span>
+					</td>
+					<td data-th="Name" class="col orders">
+						<span><?= $block->escapeHtml($item->getCustomerEmail()) ?></span>
+					</td>
+					<td data-th="Items" class="col orderitem">
+						<span><?= $block->escapeHtml($item->getCustomerFirstname().' '.$item->getCustomerLastname()) ?></span>
+					</td>
+					<td data-th="Items" class="col orderitem">
+						<?php echo $item->getData('grand_total'); ?>
+					</td>
+					<td data-th="Name" class="col name" >
+						<?php
+					 
+		if($doAction){ 
+   					if($item->getData('order_approval_status') == 0 ){ ?>
+						<button class="primary"  style="margin-bottom:2px"  ><a class="small-btn "href="<?php echo $this->getUrl('approveorder/index/approve/status/1/order/'.$item->getId()); ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Approve & Pay</a></button> &nbsp; 
+						<?php 
+						
+																	  if($has_purchase_dept){
+						?>
+							<button class="primary"  style="margin-bottom:2px" ><a class="small-btn "  href="<?php echo $this->getUrl('approveorder/index/approve/status/3/order/'.$item->getId()); ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Approve & Pay By Purchase Dept.</a></button> &nbsp; 
+						<?php } ?>
+						<button class="primary warning "  style="margin-bottom:2px" ><a class="small-btn "  href="<?php echo $this->getUrl('approveorder/index/approve/status/2/order/'.$item->getId()); ?>?p=<?php echo $block->getPageSize(); ?>&limit=<?php echo $block->getPageLimit(); ?>">Reject</a></button>
+						<?php } else { ?>
+						<?php echo ($item->getData('order_approval_status') == 1) ?  'Approved' :  'Rejected'; ?>
+						<?php }  ?>
+
+						<?php } else{ ?>
+						<?php
+					
+					if($item->getData('order_approval_status') == 0){
+						$next_customer = $block->getCustomerById($next);
+						echo 'Pending' .$next_customer;
+					}else{
+						echo ($item->getData('order_approval_status') == 1) ?  'Approved' :  'Rejected'; 
+
+						if($item->getData('total_paid') <=  0 && ($item->getData('order_approval_status') == 1)) {
+						?>
+						<?php if($customer_group_id == 2 || $customer_group_id == 3 || $customer_group_id == 7 || $customer_group_id == 6) {
+							$isPdPay = false;
+							if($has_purchase_dept){
+								$isPdPay = $block->isPdPay($item->getId());
+							}
+							if($isPdPay){
+								echo '- Pay By Purchase Dept';
+							}else{
+						?>
+						&nbsp;<a class="small-btn " target="_blank" href="<?php echo $this->getUrl('razorpay'); ?>?order=<?php echo $item->getIncrementId(); ?>">Pay ( <?php echo $item->getData('grand_total'); ?> )</a>
+						<?php }
+						}
+							?>
+						<?php
+
+						}
+
+
+					}
+						?>
+						<?php } ?>
+					</td>
+				</tr>
+				<tr>
+					<td data-th="Name" class="col name" colspan="5">
+
+						<table class="data table table-data-items " border="1">
+							<thead>
+								<tr>
+									<th scope="col" width="40%" class="col name"><?= $block->escapeHtml('Item') ?></th>
+									<th scope="col" width="20%" class="col name"><?= $block->escapeHtml('SKU') ?></th>
+									<th scope="col" width="20%" class="col orders"><?= $block->escapeHtml('Qty') ?></th>
+									<th scope="col" width="20%" class="col orders"><?= $block->escapeHtml('Unit Price') ?></th>
+
+									<th scope="col" width="20%" class="col orders"><?= $block->escapeHtml('Subtotal') ?></th>
+
+								</tr>
+							</thead>
+							<tbody> 
+								<?php foreach ($item->getItems() as $order_item): ?>
+								<tr>
+									<td data-th="Orders" class="col orders">
+										<?php if($order_item->getProduct()){ ?>
+										<a href="<?php echo $order_item->getProduct()->getProductUrl(); ?>" target="_blank">
+											<span><?= $block->escapeHtml($order_item->getName()) ?></span>
+										</a>
+										<?php } else{ ?>
+										<span><?= $block->escapeHtml($order_item->getName()) ?></span>
+										<?php } ?>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($order_item->getSku()) ?></span>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($order_item->getQtyOrdered()) ?></span>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($order_item->getPrice()) ?></span>
+									</td>
+									<td data-th="Orders" class="col orders">
+										<span><?= $block->escapeHtml($order_item->getPrice() * $order_item->getQtyOrdered()) ?></span>
+									</td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<?php endforeach;
+
+
+		if(isset($approverSession) && count($approverSession)) 
+		{
+			$block->setsessionApproveOrder($approverSession);
+		} 
+		if(isset($allApproverSession) && count($allApproverSession)) 
+		{
+			$block->setSessionAllApprovers($allApproverSession);
+		} 
+
+
+				?>
+
+			</tbody>
+		</table>
+	</div>
+	<?php if ($block->getPagerHtml()): ?>
+	<div class="order-products-toolbar toolbar bottom">
+		<?= $block->getPagerHtml() ?>
+	</div>
+	<?php endif ?>
+	<?php } else { ?>
+	<div class="message info empty">
+		<span><?= $block->escapeHtml('You have no data.') ?></span>
+	</div>
+	<?php  } ?>
+</fieldset>

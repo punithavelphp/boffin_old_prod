@@ -1,0 +1,27 @@
+{
+    "magelearn_customform": {
+        "column": {
+            "id": true,
+            "first_name": true,
+            "last_name": true,
+            "email": true,
+            "phone": true,
+            "message": true,
+			 "products": true,
+			 "brand": true,
+            "status": true,
+            "image": true,
+            "created_at": true
+        },
+        "index": {
+            "MAGELEARN_CUSTOMFORM_FIRST_NAME": true,
+            "MAGELEARN_CUSTOMFORM_LAST_NAME": true,
+            "MAGELEARN_CUSTOMFORM_EMAIL": true,
+            "MAGELEARN_CUSTOMFORM_MESSAGE": true,
+            "MAGELEARN_CUSTOMFORM_IMAGE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

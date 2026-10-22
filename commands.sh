@@ -1,0 +1,18 @@
+echo 'Started'; 
+echo 'setup:upgrade Started';
+echo '/opt/php81/bin/php -dmemory_limit=6G  bin/magento setup:upgrade';
+ /opt/php81/bin/php -dmemory_limit=6G  bin/magento setup:upgrade;
+echo 'setup:upgrade Completed';
+echo 'setup:di:compile Started';
+echo '/opt/php81/bin/php -dmemory_limit=6G  bin/magento setup:di:compile';
+ /opt/php81/bin/php -dmemory_limit=6G  bin/magento setup:di:compile ;
+echo 'setup:di:compile Completed';
+echo 'setup:static-content:deploy Started';
+echo '/opt/php81/bin/php -dmemory_limit=6G   magento setup:static-content:deploy -f';
+ /opt/php81/bin/php -dmemory_limit=6G  bin/magento setup:static-content:deploy -f;
+echo 'setup:static-content:deploy Completed';
+echo 'cache:flush Started';
+echo '/opt/php81/bin/php -dmemory_limit=6G  bin/magento cache:flush';
+ /opt/php81/bin/php -dmemory_limit=6G  bin/magento cache:flush;
+echo 'cache:flush Completed';
+echo 'Completed';

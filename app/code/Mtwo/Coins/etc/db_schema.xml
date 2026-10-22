@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="mtwo_coins_catalog" resource="default" engine="innodb" comment="mtwo_coins_catalog Table">
+		<column xsi:type="int" name="catalog_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="catalog_id"/>
+		</constraint>
+		<column name="name" nullable="true" xsi:type="varchar" comment="name" length="255"/>
+		<column name="description" nullable="true" xsi:type="text" comment="description"/>
+		<column name="status" nullable="false" xsi:type="boolean" comment="status" default="0"/>
+		<column name="coins" nullable="true" xsi:type="int" comment="coins"/>
+		<column name="stock" nullable="true" xsi:type="int" comment="stock"/>
+		<column name="image" nullable="true" xsi:type="blob" comment="image"/>
+		<column name="created_at" nullable="false" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="false"/>
+		<column name="updated_at" nullable="true" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="true"/>
+	</table>
+	<table name="mtwo_coins_orders" resource="default" engine="innodb" comment="mtwo_coins_orders Table">
+		<column xsi:type="int" name="orders_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="orders_id"/>
+		</constraint>
+		<column name="customer_id" nullable="true" xsi:type="int" comment="customer id"/>
+		<column name="customer_name" nullable="true" xsi:type="text" comment="customer_name"/>
+		<column name="customer_email" nullable="true" xsi:type="text" comment="customer_email"/>
+		<column name="catalog_id" nullable="false" xsi:type="int" comment="catalog_id" identity="false"/>
+		<column name="coins" nullable="true" xsi:type="int" comment="coins"/>
+		<column name="quantity" nullable="true" xsi:type="int" comment="quantity" identity="false"/>
+		<column name="is_approved" nullable="false" xsi:type="boolean"  default="0"  comment="is_approved"/>
+		<column name="current_status" nullable="false" xsi:type="smallint" comment="current_status" default="0" identity="false"/>
+		<column name="shipping_address" nullable="true" xsi:type="text" comment="shipping_address"/>
+		<column name="billing_address" nullable="true" xsi:type="text" comment="billing_address"/>
+		<column name="created_at" nullable="false" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="false"/>
+		<column name="updated_at" nullable="true" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="true"/>
+	</table>
+	<table name="mtwo_coins_coins" resource="default" engine="innodb" comment="mtwo_coins_coins Table">
+		<column xsi:type="int" name="coins_id" padding="10" unsigned="true"   identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="coins_id"/>
+		</constraint>
+		<column name="customer_id" nullable="false" xsi:type="smallint" comment="customer_id" identity="false"/>
+		<index referenceId="MTWO_COINS_COINS_CUSTOMER_ID" indexType="btree">
+			<column name="customer_id"/>
+		</index>
+		<column name="order_id" nullable="true" xsi:type="int" comment="order_id" identity="false"/>
+		<column name="order_increment_id" nullable="true" xsi:type="varchar" comment="order_increment_id" length="255"/>
+		<column name="is_approved" nullable="false" default="0" xsi:type="boolean" comment="is_approved"/>
+		<column name="coins" nullable="true" xsi:type="int" comment="coins"/>
+		<column name="comments" nullable="true" xsi:type="varchar" comment="comments" length="255"/>
+		<column name="code" nullable="true" xsi:type="varchar" comment="code" length="20"/>
+		<column name="is_debit" nullable="false" xsi:type="boolean"  default="0"  comment="is_debit"/>
+		<column name="approved_by" nullable="true" xsi:type="text" comment="approved_by" />
+		<column name="created_at" nullable="false" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="false"/>
+		<column name="updated_at" nullable="true" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="true"/>
+	</table>
+</schema>

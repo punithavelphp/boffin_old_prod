@@ -1,0 +1,137 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">mtwo_coins_coins_listing.mtwo_coins_coins_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>mtwo_coins_coins_columns</spinner>
+		<deps>
+			<dep>mtwo_coins_coins_listing.mtwo_coins_coins_listing_data_source</dep>
+		</deps>
+		 
+	</settings>
+	<dataSource name="mtwo_coins_coins_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">coins_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Mtwo_Coins::coins</aclResource>
+		<dataProvider name="mtwo_coins_coins_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>coins_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="mtwo_coins_coins_columns">
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>coins_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="coins_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="customer_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">customer_id</label>
+			</settings>
+		</column>
+		<column name="customer_name">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">customer_name</label>
+			</settings>
+		</column>
+		<column name="customer_mobile">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">customer_mobile</label>
+			</settings>
+		</column>
+		 <column name="total_coins" class="Mtwo\Coins\Ui\Component\Listing\Column\TotalCoins">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+ 
+                    <item name="label" xsi:type="string" translate="true">total_coins</item>
+                </item>
+            </argument>
+        </column>
+		 
+		<column name="order_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">order_id</label>
+			</settings>
+		</column>
+		<column name="order_increment_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">order_increment_id</label>
+			</settings>
+		</column>
+		 
+		<column name="is_approved">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">is_approved</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<actionsColumn name="actions" class="Mtwo\Coins\Ui\Component\Listing\Column\CoinsActions">
+			<settings>
+				<indexField>coins_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+		<column name="coins">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">coins</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="approved_by">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">approved_by</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+	</columns>
+</listing>

@@ -1,0 +1,60 @@
+<?php $collection = $block->getCustomformCollection(); ?>
+<?php if($collection->count() > 0): ?>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+    <table class="data table" id="customform-data-table">
+        <caption class="table-caption">Magelearn Customform Data</caption>
+        <thead>
+            <tr>
+                <th scope="col" class="col first_name">First Name</th>
+                <th scope="col" class="col last_name">Last Name</th>
+                <th scope="col" class="col email">Email</th>
+                <th scope="col" class="col image">Image</th>
+                <th scope="col" class="col phone">Phone</th>
+                <th scope="col" class="col message">Message</th>
+                <th scope="col" class="col status">Status</th>
+                <th scope="col" class="col created_at">Created At</th>
+                <th scope="col" class="col actions">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($collection as $key => $data): ?>
+                <tr>
+                    <td data-th="first_name" class="col first_name"><?php echo $data->getFirstName(); ?></td>
+                    <td data-th="last_name" class="col last_name"><?php echo $data->getLastName(); ?></td>
+                    <td data-th="Email" class="col email"><?php echo $data->getEmail(); ?></td>
+                    <td data-th="Image" class="col image">
+                        <?php if($data->getImage()): ?>
+                            <img width="70" height="70" src="<?php echo $block->getBaseUrl().'/media/'.$data->getImage(); ?>">
+                        <?php else: ?>
+                            <p>No Image</p>
+                        <?php endif; ?>
+                    </td>
+                    <td data-th="Phone" class="col phone"><?php echo $data->getPhone(); ?></td>
+                    <td data-th="Message" class="col message"><?php echo $data->getMessage(); ?></td>
+                    <td data-th="Status" class="col status">
+                        <?php if($data->getStatus() == 1): ?>
+                            <p>Enable</p>
+                        <?php else: ?>
+                            <p>Disable</p>
+                        <?php endif; ?>
+                    </td>
+                    <td data-th="Date" class="col created_at"><?php echo $data->getCreatedAt(); ?></td>
+                    <td data-th="Actions" class="col actions">
+                        <?php $id = ($data->getId()) ? $data->getId() : $data['id']; ?>
+                        <!-- "$data->getTesting13Id()" was not working when I generated Vky_Testing13 module. That's why I had to place above line. -->
+                        <a href="<?php echo $block->getBaseUrl().'customform/index/view/id/'.$id; ?>" class="action view">
+                            <span>View</span>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <h2>We couldn't find any records</h2>
+<?php endif; ?>

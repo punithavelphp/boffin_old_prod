@@ -1,0 +1,241 @@
+<?php
+$products = $this->getCoinProducts();
+
+$media_url = $this->getMediaUrl().'/wysiwyg/coins/';
+
+
+
+?>
+<div class="products wrapper grid products-grid">
+	<ol class="products list items product-items">
+		<?php foreach($products as $product){ ?>
+		<li class="item product product-item">
+			<div class="product-item-info productdata" id="" data-container="product-grid">
+				<a href="javascript:void(0);" class="product photo product-item-photo " tabindex="-1">
+					<span class="product-image-container product-image-container-2069" style="width: 240px;">
+						<span class="product-image-wrapper" style="padding-bottom: 125%;">
+							<img class="product-image-photo pimage" data-image="<?php echo $media_url.''.$product->getImage(); ?>" src="<?php echo $media_url.''.$product->getImage(); ?>" loading="lazy" width="240" height="300" alt="<?php echo $product->getName(); ?>"></span>
+					</span>
+				</a>
+				<div class="desc" style="display:none;"><?php echo $product->getDescription(); ?></div>
+				<div class="pname" data-name="<?php echo $product->getName(); ?>" data-catalog="<?php echo $product->getCatalogId (); ?>">
+					<strong class="product name product-item-name">
+						<a class="product-item-link" href="javascript:void(0);"><?php echo $product->getName(); ?></a>
+					</strong>
+					<div class="pcoins" data-role="priceBox" data-coins="<?php echo $product->getCoins(); ?>">
+  						 <span class="price"><?php echo $product->getCoins(); ?> Coins</span> 
+ 					</div>
+				</div>
+			</div>
+			<div class="product actions product-item-actions">
+				<div class="actions-primary" data-bind="scope: 'customer'">
+					 <!-- ko if: customer().firstname  -->
+					   <form  action="<?php echo $this->getUrl('freebies/index/'); ?>" method="post">
+						   <input type="hidden" name="product" value="<?php echo $product->getCatalogId (); ?>">
+						   <input name="form_key" type="hidden" value="<?php $this->getFormKey(); ?>">
+						   <button type="button" title="Redeem"  class="action redeem tocart primary" ><span>Redeem</span></button>
+						</form>
+					<!-- /ko -->
+					<!-- ko ifnot: customer().firstname  -->
+    					<button type="button" title="Redeem"  class="action proceed-to-checkout primary" ><span>Redeem</span></button>
+					<!-- /ko -->
+ 				</div>
+			</div>
+		</li>
+		<?php } ?>
+	</ol>
+</div>
+
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+
+<div id="modal">
+	<div class="modal-body-content">
+		<h2 id="product_title"></h2> 
+ 		<div><img id="modal_image" class=""  src="" loading="lazy" width="240" height="300" alt="">
+ 			<p  id="product_content"></p>
+ 		</div>
+	</div>
+</div>
+<div id="modal_order">
+		<div class="modal-body-content">
+		<h2 id="order_title"></h2>
+		
+ 		<div> 
+			<div  id="order_content"></div>
+			<form id="freebie_order" method="POST">
+					<input type="hidden" name="product_id" id="product_id" value="" />
+				 <input name="form_key" type="hidden" value="<?php $this->getFormKey(); ?>">
+				<button id="confirm_order" type="button">Confirm</button>
+			</form>
+ 			
+ 		</div>
+	</div>
+</div>
+<div id="modal_success">
+		<div class="modal-body-content">
+		<h2 id="order_success_title">Thanks for shopping</h2>
+		
+ 		<div> 
+			<div  id="order_success_content">You will recieve your order once we confirmed</div>
+			 
+ 			
+ 		</div>
+	</div>
+</div>
+<script>
+	require(
+		[
+			'jquery',
+			'Magento_Ui/js/modal/modal'
+		],
+		function (
+		$,
+		 modal
+		) {
+			var modaloption = {
+				type: 'popup',
+				responsive: false,
+				innerScroll: true,
+				clickableOverlay: true,
+				buttons: []
+			};
+				var modaloptionSuccess = {
+				type: 'popup',
+				responsive: false,
+				innerScroll: true,
+				clickableOverlay: true,
+				buttons: [],
+					backdrop: 'static',
+					keyboard: false
+
+			};
+			
+			var modaloptionSuccess = {
+            autoOpen: false,
+            responsive: true,
+            clickableOverlay: false,
+          
+             buttons: [{
+                text: $.mage.__('Close'),
+                class: 'action close-popup wide',
+                click: function () {
+                    window.location.href = '/freebies';
+                }
+            }],
+            opened: function($Event) {
+                $('.modal-header button.action-close', $Event.srcElement).hide();
+            },
+            keyEventHandlers: {
+                escapeKey: function () { return; }
+            }
+        }
+			
+			
+			var popup = modal(modaloption, $('#modal'));
+			$(".productdata").on('click',function(){ 
+				$('#modal_image').attr('src',$(this).find('img.pimage').data('image'));
+				$('#product_title').html($(this).find('div.pname').data('name'));
+				
+				$('#product_coins').html($(this).find('div.pcoins').data('coins'));
+				$('#product_content').html($(this).find('.desc').html());
+				$("#modal").modal("openModal");
+			});
+			var popup = modal(modaloption, $('#modal_order'));
+			var popup2 = modal(modaloptionSuccess, $('#modal_success'));
+			
+			 
+			
+			
+		 	$(document).on("click",".redeem",function() {
+				$(this).attr('disabled',true).find('span').text('Loading...');
+				reedemBtn = $(this);
+				var customurl = "<?php echo $this->getUrl().'freebies/index/reedem'?>";
+				$.ajax({
+					url: customurl,
+					type: 'GET',
+				 
+					complete: function(response) {             
+						data = response.responseJSON;
+  						if(data.status == true){
+						 	
+ 							name = reedemBtn.parents('li.product').find('div.pname').data('name')+ ' -  '+reedemBtn.parents('li.product').find('div.pcoins').data('coins')+ ' Coins' ;
+							$('#order_title').html(name);
+//			alert(reedemBtn.parents('li.product').find('div.pname').data('catalog'));
+							$('#product_id').val(reedemBtn.parents('li.product').find('div.pname').data('catalog'));
+						//	$('#order_coins').html(reedemBtn.parents('li.product').find('div.pcoins').data('coins'));
+							$('#order_content').html('<p><b>Shipping Address</b></p>'+data.address);
+ 							$("#modal_order").modal("openModal");
+						}else{
+							 location.href = location.href;
+						}
+						
+						reedemBtn.attr('disabled',false).find('span').text('Reedem');
+					},
+					error: function (xhr, status, errorThrown) {
+						console.log('Error happens. Try again.');
+						reedemBtn.attr('disabled',false).find('span').text('Reedem');
+					}
+				});
+
+				
+				
+				
+			});
+			
+			
+			$(document).on("click","#confirm_order",function() {
+				confirmTxt = $(this).html();
+				confirmBtn = $(this);
+				confirmBtn.attr('disabled',true).html('Loading...');
+				var customurl = "<?php echo $this->getUrl().'freebies/index/order'?>";
+				var datastring = $("#freebie_order").serialize();
+				$.ajax({
+					url: customurl,
+					type: 'POST',
+				   data: datastring,
+
+					complete: function(response) {        
+						
+						console.log(response);
+						data = response.responseJSON;
+						console.log(data);
+  						if(data.status == true){
+  						/*	name = reedemBtn.parents('li.product').find('div.pname').data('name')+ ' -  '+reedemBtn.parents('li.product').find('div.pcoins').data('coins')+ ' Coins' ;
+							$('#order_title').html(name);
+						//	$('#order_coins').html(reedemBtn.parents('li.product').find('div.pcoins').data('coins'));
+							$('#order_content').html(data.address);
+ 							*/
+							$("#modal_order").modal("closeModal");   
+ 							$("#modal_success").modal("openModal");
+						}
+					//	location.href = location.href;
+ 						confirmBtn.attr('disabled',false).html(confirmTxt);
+					},
+					error: function (xhr, status, errorThrown) {
+						console.log('Error happens. Try again.');
+						confirmBtn.attr('disabled',false).html(confirmTxt);
+					}
+				});
+
+				
+				
+				
+			});
+		}
+	);
+</script>

@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">mtwo_coins_orders_form.orders_form_data_source</item>
+		</item>
+		<item name="label" xsi:type="string" translate="true">General Information</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button name="back" class="Mtwo\Coins\Block\Adminhtml\Orders\Edit\BackButton"/>
+			<button name="delete" class="Mtwo\Coins\Block\Adminhtml\Orders\Edit\DeleteButton"/>
+			<button name="save" class="Mtwo\Coins\Block\Adminhtml\Orders\Edit\SaveButton"/>
+			<button name="save_and_continue" class="Mtwo\Coins\Block\Adminhtml\Orders\Edit\SaveAndContinueButton"/>
+		</buttons>
+		<namespace>mtwo_coins_orders_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>mtwo_coins_orders_form.orders_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="orders_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider name="orders_form_data_source" class="Mtwo\Coins\Model\Orders\DataProvider">
+			<settings>
+				<requestFieldName>orders_id</requestFieldName>
+				<primaryFieldName>orders_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="general">
+		<settings>
+			<label>General</label>
+		</settings>
+		<field name="is_approved" formElement="select" sortOrder="110">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">orders</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">is_approved</label>
+				<dataScope>is_approved</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			 <formElements>
+        	<select>
+				<settings>
+					<options class="\Magento\Config\Model\Config\Source\Yesno"/>
+				</settings>
+			</select>
+    		</formElements>
+		</field>
+		<field name="current_status" formElement="select" sortOrder="120">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">orders</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">current_status</label>
+				<dataScope>current_status</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			    <formElements>
+        	<select>
+				<settings>
+					<options class="\Mtwo\Coins\Model\Config\Source\Status"/>
+				</settings>
+			</select>
+    		</formElements>
+
+		</field>
+	</fieldset>
+</form>

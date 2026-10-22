@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Try different block references 
+        <referenceContainer name="content">
+            <block class="Mtwo\InvoiceHsn\Block\Adminhtml\Order\Invoice\ValidationScript" 
+                   name="invoice.hsn.validation" 
+                   template="Mtwo_InvoiceHsn::order/invoice/validation_compact.phtml" 
+                   after="page.main.actions" />
+        </referenceContainer>-->
+        
+        <!-- Try overriding the invoice items template -->
+        <referenceBlock name="order_items">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Mtwo_InvoiceHsn::order/invoice/create/items.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

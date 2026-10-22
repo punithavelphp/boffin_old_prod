@@ -1,0 +1,27 @@
+<?php $customersApprovers = $block->getApproversForOrder();
+if($customersApprovers) { ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong>Approvers Information</strong>
+    </div>
+    <div class="block-content">
+		<table style="width:50%">
+			<tr>
+				<th>Name</th>
+				<th>Approved Date</th>
+			</tr>
+                   
+<?php 
+
+	$customers = $customersApprovers['customers'];
+	$approvedby = $customersApprovers['approvedby'];
+	foreach($customers as $customer){
+		echo "<tr><td>".$customer->getFirstname()." ".$customer->getLastname()."</td>";	
+		echo "<td>".date('d-m-Y',strtotime($approvedby[$customer->getId()]->getCreatedAt()))."</td></tr>";	
+	}
+}
+?>
+
+         </table>
+          </div>
+    </div>

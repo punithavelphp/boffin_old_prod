@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Mtwo_OtpGrid::parent" title="OtpGrid" module="Mtwo_OtpGrid" sortOrder="100" resource="Mtwo_OtpGrid::parent"/>
+		<add id="Mtwo_OtpGrid::otp" title="OtpGrid Otp" module="Mtwo_OtpGrid" sortOrder="20" parent="Mtwo_OtpGrid::parent" action="otpgrid/otp" resource="Mtwo_OtpGrid::otp"/>
+
+    </menu>
+</config>

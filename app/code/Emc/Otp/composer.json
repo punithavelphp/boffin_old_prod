@@ -1,0 +1,24 @@
+{
+  "name": "emc/module-otp",
+  "description": "Generates Otp on Registration and Login",
+  "type": "magento2-module",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "email": "sairam@egrovesystems.com",
+      "name": "sairam"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "7.0.2|7.0.4|~7.0.6|~7.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Emc\\Otp\\": ""
+    },
+    "files": [
+      "registration.php"
+    ]
+  }
+}

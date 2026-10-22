@@ -1,0 +1,54 @@
+<?php
+ 
+if(!$this->getEnabled()) return;
+$selector = 'alo-content-'.uniqid();
+$testimonials = $this->getTestimonials();
+ 
+if(!count($testimonials)) return;
+?>
+<div class="<?php echo $selector ?>" data-check="1" >
+   <div class="block-testimonial">
+        <?php echo $this->getTitle() ? '<h3 class="block-title title item">' . '<span>  ' . $this->getTitle() . '</span>' . '</h3>' : '' ?>
+	</div>
+   <div class="block-content">
+		<div class="<?php echo $selector ?>testimonial testimonial center-mode grid-slider" >
+			<?php $i=0; 
+	 	foreach ($testimonials as $testimonial) :?>
+				<div class="item">
+					 
+					<div class="testimonial_text" style="display: block;">
+						<div class="content sub-text zoomIn"><?php echo $testimonial->getText(); ?>
+						<br><?php echo $testimonial->getData('name').' '.$testimonial->getData('job').' of '.$testimonial->getData('company'); ?>
+						</div>
+						<div class="product-reviews-summary short">
+					        <div class="rating-summary">
+						        <span class="label"><span><?php echo __('Rating')?>:</span></span>
+						        <div class="rating-result" title="<?php echo ceil($testimonial->getRatingSummary() * 20) ?>%">
+						            <span style="width:<?php echo ceil($testimonial->getRatingSummary() * 20) ?>%"><span><?php echo ceil($testimonial->getRatingSummary() * 20) ?>%</span></span>
+						        </div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			<?php endforeach ?>
+		</div>
+		<div class="testimonial-caption center-mode"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'slick'], function($){
+		
+		 
+        $(".<?php echo $selector ?>testimonial").slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+			autoplay: true
+        });
+    
+		
+		 
+    });
+</script>

@@ -1,0 +1,189 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Productslider
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */ 
+ 
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+    $cart = $this->helper('\Magento\Checkout\Helper\Cart'); 
+     if($cart->getQuote()->getId()){ 
+		 $items = $cart->getQuote()->getItems();
+		 foreach($items as $item) {
+		 $productIds[] = $item->getProductId();
+			 $qtyArray[$item->getProductId()] = $item->getQty();
+	 }
+ 		 
+$productCollection =$objectManager->get('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory')->create()
+				->addIdFilter(array('in' => $productIds))
+	->addAttributeToSelect('*')
+			 ->addMinimalPrice()
+            ->addFinalPrice()
+            ->addTaxPercents()
+            ;
+		 
+		  
+	 
+
+
+?> 
+
+<div id="quote_modal_cart_content">
+	<div id="form_div">
+		<form method="POST" name="quoteFrm" id="quoteFrm">
+			<table>
+				<tr><th>Name</th>
+ 				<th>Qty</th>				 
+ 				<th>Brand</th><th>Price</th></tr>
+				<?php foreach ($productCollection as $_item): if($_item->getFinalPrice() > 0) { ?>
+				<tr >
+						<td><label ><?php echo $_item->getName(); ?></label>
+					<input type="hidden" id="ck_<?php echo $_item->getId(); ?>" class="ck" name="ck[]" value="<?php echo $_item->getId(); ?>" />
+					</td>
+			  			<td><label><input type="number" class="qty_quote" id="qty_quote" max="3" name="ck_qty[<?php echo $_item->getId(); ?>]" min="1" size="3" value="<?php echo $qtyArray[$_item->getId()]; ?>"/> </label></td>
+
+ 
+						<td><label><?php echo $_item->getAttributeText('brand'); ?></label></td>
+						<td><label>&#8377; <?php echo $_item->getFinalPrice(); ?></label></td>
+					 
+				</tr>
+			<?php }
+				
+				endforeach; ?>
+				<tr style="display:none"><td colspan="4" align="right">Requested Qty</td><td align="left"> zd</td></tr>
+ 			</table>
+			</form>
+	</div>
+	<div id="message_div">
+		<div class="" id="messagebox">
+ 		</div>
+	</div>
+</div>
+
+<script > 
+	
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Request Quote',
+                buttons: [{
+                    text: $.mage.__('Submit'),
+                    class: 'modal_ok',
+					 id: 'modal_ok',
+                    click: function (e) {
+						e.preventDefault();
+						var checked = true;
+						$('.qty_quote').each(function(){
+							if($(this).val() == '' || $(this).val() == 0){
+								if(checked) {
+									checked = false;
+								}
+							}
+						});
+						
+ 						if(checked){
+							
+						}else{
+							alert('Please enter required qty');
+							return false;
+						}
+						if($('#qty_quote').val() == '' || $('#qty_quote').val() == 0){
+							alert('Quantity is required.');
+							return false;
+						}
+						$('.modal_ok').attr('disabled',true);
+						btn = $(this);
+						var modalthis = this;
+						  var customurl = "<?php echo $this->getUrl('quoterequest/index/Cart'); ?>";
+						$.ajax({
+							url: customurl,
+							type: 'POST',
+							dataType: 'json',
+							data: $('#quoteFrm').serialize(),
+						complete: function(response) { 
+							responseJSON = response.responseJSON;
+						   console.log('response.message');
+ 							console.log(responseJSON);
+ 							$("#message_div").show();
+							$("#form_div").hide();
+							$('.modal_ok').hide();
+ 							$("#messagebox").html(responseJSON.message);
+							//modalthis.closeModal();
+							//country = response.responseJSON.default_country;
+							// state = response.responseJSON.state;         
+							//console.log(state+' '+country);   
+							},
+							error: function (xhr, status, errorThrown) {
+								$('.modal_ok').attr('disabled',false);
+								console.log('Error happens. Try again.');
+							}
+						});
+						
+						
+                        
+                    }
+                },
+				{
+                    text: $.mage.__('Close'),
+                    class: 'modal_close hide',
+					 id: 'modal_close',
+                    click: function () { 
+						this.closeModal();
+                        
+                    }
+                }]
+            };
+ 
+            var popup = modal(options, $('#quote_modal_cart_content'));
+				
+				$("#cart_modal_btn").click(function() {
+					
+					
+					
+					$("#message_div").hide();
+							$("#form_div").show();
+					$('.modal_ok').show();
+					$('.modal_ok').attr('disabled',false);
+					$( '#quoteFrm' ).each(function(){
+						this.reset();
+					});
+
+				 $('#quote_modal_cart_content').modal('openModal');
+					$('.modal-inner-wrap').css('width','100% !important;')
+				});
+					
+           $('.modal-inner-wrap').css('width','100% !important;');
+				<?php if($this->getRequest()->getParam('quote',false)) { ?>
+ 		$('#quote_modal_cart_content').modal('openModal');
+				<?php } ?>
+        }	
+		
+    );
+</script>
+<?php
+	 }
+?>

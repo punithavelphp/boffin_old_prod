@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
+    <menu>
+<add id="Mtwo_Analytics::parent" title="Analytics" module="Mtwo_Analytics" sortOrder="100" resource="Mtwo_Analytics::parent"/>
+		<add id="Mtwo_Analytics::quote" title="Analytics Graph" module="Mtwo_Analytics" sortOrder="20" parent="Mtwo_Analytics::parent" action="analytics/index/index" resource="Mtwo_Analytics::analytics"/>
+		
+		 
+    </menu>
+</config>

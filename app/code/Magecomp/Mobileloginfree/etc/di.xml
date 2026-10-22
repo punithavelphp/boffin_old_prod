@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Api\AccountManagementInterface" type="Magecomp\Mobileloginfree\Model\AccountManagement" />
+    <preference for="Magento\Customer\Block\Form\Login" type="Magecomp\Mobileloginfree\Block\Form\Login"/>
+    <type name="Magento\Customer\Model\ResourceModel\Customer">
+        <plugin name="mobileloginfree_validate_uniquenumber" type="Magecomp\Mobileloginfree\Plugin\Model\ResourceModel\Customer\Validateuniquenumber" sortOrder="10" disabled="false" />
+    </type>
+</config>

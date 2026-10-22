@@ -1,0 +1,324 @@
+<?php
+$sellerid = $this->getIsSeller();
+$sellerOrder = $this->getOrder(); 
+$sellerinvoice = $this->getInvoice();
+
+$sellerDetails = $this->getSellerDetails($sellerid);
+/**  PUNI CODE STARTS HERE **/
+$productBySeller = array();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+// $customersession = $objectManager->get('Magento\Customer\Model\Session');
+//	$customerid = $customersession->getCustomer()->getId();
+
+$addressRenderer = $objectManager->get('Magento\Sales\Model\Order\Address\Renderer');
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$tableName = $resource->getTableName('marketplace_saleslist');
+$query = "Select * FROM " . $tableName."  where order_id = '".$sellerOrder->getId()."' and seller_id = '".$sellerid."'"; 
+$result = $connection->fetchAll($query); 
+foreach($result as $res){
+	$productBySeller[$res['mageproduct_id']] = $res['mageproduct_id'];
+}
+
+
+$orderRegion = $sellerOrder->getShippingAddress()->getRegionId();
+$sellerRegion = $sellerDetails->getRegionId();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+
+$URL_TYPE_MEDIA = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+	->getStore()
+	->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$signImage = '';
+if($sellerDetails->getSignPic() != ''){
+	$signImage = $URL_TYPE_MEDIA.'avatar/'.$sellerDetails->getSignPic();
+}
+?> <div >
+	<table>
+		<tr>
+			<td>
+				<div style="text-align:left;">
+					<?php $logo = $this->insertLogo($sellerid); if($logo) {  ?>
+					<img src="<?php echo $logo; ?>" style="height:120px; width:auto;">
+					<?php } ?>
+				</div>
+			</td>
+
+			<td colspan="2">
+				<div style="text-align:right;">
+					<?php echo $this->insertAddress($sellerid); ?>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div style="background-color:#6e6e6e; color:#fff;">
+		<table style="" >
+			<tr>
+				<th style="text-align: left;width:100px"><b>Invoice #</b></th>
+				<td style="text-align: left;width:200px"><?php echo $sellerinvoice->getIncrementId(); ?></td>
+				
+				<th style="text-align: right;width:100px"><b>Invoice #</b></th>
+				<td style="text-align: right;width:200px"><?php echo $sellerinvoice->getIncrementId(); ?></td>
+			</tr>
+			<tr>
+				<th><b>Order #</b></th>
+				<td><?php echo  $sellerOrder->getIncrementId(); ?></td>
+			</tr>
+			<tr>
+				<th><b>Order Date :</b></th>
+				<td><?php echo  date('d, F Y',strtotime($sellerOrder->getCreatedAt()));   ?></td>
+			</tr>
+		</table>
+	</div>
+	<table style="line-height:2; padding:2px 4px; width:100%">
+		<tr style="font-weight: bold;border:1px solid #cccccc;background-color:#f2f2f2;">
+			<td style="border:1px solid #cccccc;  font-size: 12px;">Sold to:</td>
+			<td style = "text-align:left;border:1px solid #cccccc;  font-size: 12px;">Ship to:</td>
+		</tr>
+		<tr> 
+			<td style="border:1px solid #cccccc; border:1px solid #cccccc; border: 1px solid #cccccc; line-height: 15px;font-size: 11px;word-break: break-word; padding:10px;">
+				<?php  $billingAddress = $this->_formatAddress(
+	$addressRenderer->format($sellerOrder->getBillingAddress(), 'pdf' ) 
+); ?>
+				<span> 
+					<?php foreach($billingAddress as $key=> $billingAddres) { ?>
+					<?php if(trim($billingAddres) == '') continue; if($key > 0) echo '<br>'; ?>
+					<?php echo $billingAddres; ?>
+					<?php } ?></span>
+			</td>
+			<td style = "text-align:left; border:1px solid #cccccc; border: 1px solid #cccccc; line-height: 15px;font-size: 11px;word-break: break-word; padding:10px;">
+				<?php   	$shippingAddress = $this->_formatAddress(
+	$addressRenderer->format(
+		$sellerOrder->getShippingAddress(),
+		'pdf'
+	)
+); ?><span> 
+				<?php foreach($shippingAddress as $key=> $billingAddres) { ?>
+				<?php if(trim($billingAddres) == '') continue; if($key > 0) echo '<br>'; ?>
+				<?php echo $billingAddres; ?>
+				<?php } ?></span>
+			</td>
+		</tr>
+	</table>
+	<span style="margin:none;line-height:0.5;  font-size:5px;"></span>
+	<div style="margin-top:10px;">
+		<table style="line-height: 2; padding:2px 4px;width:100%; margin-top:10px;">
+			<tr style="font-weight: bold;border:1px solid #cccccc;background-color:#f2f2f2;">
+				<td style="border:1px solid #cccccc;">Payment Method:</td>
+				<td style = "text-align:left;border:1px solid #cccccc;">Shipping Method:</td>
+			</tr>
+			<tr> 
+				<td style="border:1px solid #cccccc; border:1px solid #cccccc; border: 1px solid #cccccc; line-height: 15px;font-size: 12px;word-break: break-word; padding:10px;">
+					<?php 
+					$payment = $sellerOrder->getPayment();
+					$method = $payment->getMethodInstance();
+
+					echo $method->getTitle(); ?>
+				</td>
+				<td style = "text-align:left; border:1px solid #cccccc; border: 1px solid #cccccc; line-height: 15px;font-size: 12px;word-break: break-word; padding:10px;">
+					<?php echo $sellerOrder->getShippingDescription(); ?>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="margin-bottom:10px;">
+		<table>
+			<tr style="font-weight: bold;border:1px solid #cccccc;background-color:#f2f2f2;">
+				<td style="border:1px solid #cccccc;line-height: 15px;word-break: break-word; width:35%; font-size:10px;">Item Description</td>
+				<td style="border:1px solid #cccccc; width:11%; font-size:10px;">SKU</td>
+				<td style = "text-align:right;border:1px solid #cccccc;width:14%; font-size:10px;">Price (₹)</td>
+				<?php if($orderRegion == $sellerRegion) { ?>
+				<td style = "text-align:center;border:1px solid #cccccc;width:8%;font-size:10px;">Quantity</td>
+				<td style = "text-align:center;border:1px solid #cccccc;width:7%;font-size:10px;">CGST</td>
+				<td style = "text-align:center;border:1px solid #cccccc;width:7%;font-size:10px;">SGST</td>
+
+				<?php } else{ ?>
+				<td style = "text-align:center;border:1px solid #cccccc;width:11%;font-size:10px;">Quantity</td>
+				<td style = "text-align:center;border:1px solid #cccccc;width:11%;font-size:10px;">IGST</td>
+				<?php } ?>
+				<td style = "text-align:right;border:1px solid #cccccc;width:18%;font-size:10px;">Subtotal (₹)</td>
+			</tr>
+			<?php
+			$discount = $sub_total = $row_total = $tax_amount  = $grant_total =$shipping_charge = $shipping_charge_tax = $shipping_charges = $shipping_charges_tax =  $shippingDivider = 0;
+			foreach ($sellerinvoice->getAllItems() as $item) {
+				if ($item->getOrderItem()->getParentItem()) {
+					continue;
+				}
+				$shippingDivider  += $item->getData('base_row_total_incl_tax');
+			}
+			foreach ($sellerinvoice->getAllItems() as $item) {
+				if ($item->getOrderItem()->getParentItem()) {
+					continue;
+				}
+				if(isset($productBySeller[$item->getProductId()]))
+				{
+					$discount += $item->getDiscountAmount();
+					$tax_amount += $item->getTaxAmount();
+					$row_total += $item->getRowTotal();
+					$sub_total += $item->getData('base_row_total_incl_tax');
+
+					$shipping_charge = ($sellerOrder->getData('shipping_amount') / ($shippingDivider)) * $item->getData('base_row_total_incl_tax');
+
+					$shipping_charges += $shipping_charge;
+					$shipping_charge_tax = ($sellerOrder->getData('shipping_tax_amount') / ($shippingDivider)) * $item->getData('base_row_total_incl_tax');
+
+					$shipping_charges_tax += $shipping_charge_tax;
+				 $grant_item_total = $item->getRowTotal() + $item->getTaxAmount() - $item->getDiscountAmount() + $item->getData('discount_tax_compensation_amount') + $shipping_charge + $shipping_charge_tax;
+					// $grant_item_total = $item->getData('base_row_total_incl_tax') ;
+					$grant_total += $grant_item_total;
+				}else {
+					continue;	
+				}
+
+
+				//  - $item->getData('tax_amount') - $item->getData('discount_tax_compensation_amount')
+			?>
+			<tr> 
+				<td style="border:1px solid #cccccc; line-height: 15px;word-break: break-word; padding:1px 3px;  font-size:10px;"><?php echo $item->getData('name'); ?></td>
+				<td style="border:1px solid #cccccc; padding:1px 3px; font-size:10px;"><?php echo $item->getData('sku'); ?></td>
+				<td style = "text-align:right; border:1px solid #cccccc; padding:1px 3px;font-size:10px;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($item->getData('base_price') ); ?></td>
+				<td style = "text-align:center; border:1px solid #cccccc; padding:1px 3px;font-size:10px;"><?php echo $item->getData('qty'); ?></td>
+				<?php if($orderRegion == $sellerRegion) { ?>
+				<td style = "text-align:right; border:1px solid #cccccc;padding:1px 3px;font-size:10px;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt(($item->getData('tax_amount') + $item->getData('discount_tax_compensation_amount'))/2); ?></td>
+				<td style = "text-align:right; border:1px solid #cccccc;padding:1px 3px;font-size:10px;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt(($item->getData('tax_amount') + $item->getData('discount_tax_compensation_amount'))/2); ?></td>
+				<?php } else{ ?>
+				<td style = "text-align:right; border:1px solid #cccccc;padding:1px 3px;font-size:10px;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt(($item->getData('tax_amount') + $item->getData('discount_tax_compensation_amount'))); ?></td>
+				<?php } ?>
+
+				<td style = "text-align:right; border:1px solid #cccccc;padding:1px 3px;font-size:10px;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($item->getData('row_total')  + ($item->getData('tax_amount') + $item->getData('discount_tax_compensation_amount'))); ?></td>
+			</tr>
+			<?php }    ?> 
+		</table>
+		<table>
+			
+		
+			<tr style = "font-weight: bold; font-size:12px;">
+				<td></td><td></td>
+				<td style = "text-align:right;">Total Price</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total); ?></td>
+			</tr>
+			
+			
+			<tr style = "">
+				<td></td><td></td>
+				<td style = "text-align:right;">Discount</td>
+				<td style = "text-align:right;">-<?php echo $sellerinvoice->getOrder()->formatPriceTxt($discount); ?></td>
+			</tr>
+			<?php if($discount > 0) { ?>
+			<tr style = "">
+				<td></td><td></td>
+				<td style = "text-align:right;">Total Price After Discount</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total - $discount); ?></td>
+			</tr>
+			<?php } ?>
+			<?php if($orderRegion == $sellerRegion) { ?>
+			<tr style = "font-weight: bold; font-size:12px;">
+				<td></td><td></td>
+				<td style = "text-align:right;">Total Price Excl.Tax</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total-$tax_amount-$discount); ?></td>
+			</tr>
+			<tr style = "">
+				<td colspan="3" style = "text-align:right;">CGST</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($tax_amount/2); ?></td>
+			</tr>
+			<tr style = "">
+				<td colspan="3" style = "text-align:right;">SGST</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($tax_amount/2); ?></td>
+			</tr>
+				 
+				
+			<tr style = "font-weight: bold; font-size:12px;">
+				<td></td><td></td>
+				<td style = "text-align:right;">Total Price Incl.Tax </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total-$discount); ?></td>
+			</tr>
+				<tr style = "">
+				<td></td><td></td>
+				<td style = "text-align:right;">Shipping &amp; Handling </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges); ?></td>
+			</tr>
+			<tr style = "">
+
+				<td colspan="3" style = "text-align:right;">Shipping &amp; Handling CGST </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charge_tax/2); ?></td>
+			</tr>
+			<tr style = "">
+				<td colspan="3" style = "text-align:right;">Shipping &amp; Handling SGST </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charge_tax/2); ?></td>
+			</tr>
+			
+			<?php } else{ ?>
+				<tr style = "font-weight: bold; font-size:12px;">
+				<td></td><td></td>
+				<td style = "text-align:right;">Total Price Excl.Tax</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total-$tax_amount-$discount); ?></td>
+			</tr>
+			<tr style = "">
+				<td colspan="3" style = "text-align:right;">IGST</td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($tax_amount); ?></td>
+			</tr>
+			
+			<tr style = "font-weight: bold; font-size:12px;">
+				<td></td><td></td>
+				<td style = "text-align:right;">Total Price Incl.Tax </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($sub_total-$discount); ?></td>
+			</tr>
+				<tr style = "">
+				<td></td><td></td>
+				<td style = "text-align:right;">Shipping &amp; Handling </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges); ?></td>
+			</tr>
+			
+			<tr style = "">
+				<td colspan="3" style = "text-align:right;">Shipping &amp; Handling IGST </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($shipping_charges_tax); ?></td>
+			</tr>
+			<?php } ?>
+			
+		
+			<!-- <tr style = "font-weight: bold; font-size:12px;">
+ <td></td><td></td>
+ <td style = "text-align:right;">Total Inc.Tax </td>
+ <td style = "text-align:right;"><?php //echo $sellerinvoice->getOrder()->formatPriceTxt($row_total + $tax_amount); ?></td>
+   </tr> -->
+			
+			
+			
+			
+		
+	
+			
+			
+			<tr style = "font-weight: bold;">
+				<td></td><td></td>
+				<td style = "text-align:right;">Grand Total </td>
+				<td style = "text-align:right;"><?php echo $sellerinvoice->getOrder()->formatPriceTxt($grant_total); ?></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<table>
+			<tr>
+				<td></td><td></td>
+				<td></td>
+				<td style = "text-align:center;">Authorized person</td>
+			</tr>
+			<?php if($signImage != '') { ?>
+			<tr style = "font-weight: bold; padding:10px;">
+				<td></td><td></td>
+				<td></td>
+				<td style = "text-align:center;">
+					<img  src="<?php echo $signImage; ?>" width="100">
+				</td>
+			</tr>
+			<?php } ?>
+			<tr style = " font-size:12px;">
+				<td></td><td></td>
+				<td></td>
+				<td style = "text-align:center;"><?php echo $sellerDetails->getAuthorityName(); ?></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+	</div>
+</div>

@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Emc_PayNow
+ * @author  Sai Ram sairam@egrovesystems.com
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+		 <tab id="mtwo_tab" translate="label" sortOrder="50">
+            <label>Mtwo Extensions</label>
+        </tab>
+       <section id="otp_settings" translate="label" sortOrder="505" showInDefault="1" showInStore="1" showInWebsite="1">
+            <class>separator-top</class>
+            <label>OTP Settings</label>
+		    <tab>mtwo_tab</tab>
+            <resource>Emc_Otp::config_otp</resource>
+           <group id="general_configuration" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="1">
+               <label>General Configuration</label>
+               
+               <field id="interval" type="text" translate="label" sortOrder="2" showInDefault="1" showInStore="1" showInWebsite="1">
+                   <label>Interval Time</label>
+                   <comment>e.g. 30 / 60 / 120 in sec</comment>
+               </field>
+			    <field id="max_count" type="text" translate="label" sortOrder="2" showInDefault="1" showInStore="1" showInWebsite="1">
+                   <label>Max OTP send</label>
+                   <comment>e.g. 2/3/4</comment>
+               </field>
+			    <field id="reset_interval" type="text" translate="label" sortOrder="2" showInDefault="1" showInStore="1" showInWebsite="1">
+                   <label>Reset Max OTP Count - Interval</label>
+                   <comment>e.g. 20/30/60/90 in minutes</comment>
+               </field>
+           </group>
+       </section>
+		<section id="smsgateway" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>SmsGateway Configuration</label>
+            <tab>mtwo_tab</tab>
+            <resource>Emc_Otp::config_otp</resource>
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Module Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable/Disable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+               
+                <field id="log" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Log Sms </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>			
+                <group id="template_settings" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Template Settings</label>
+                    <field id="order_placed" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Trigger on Order Placed</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="order_placed_message" translate="label" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Order Message</label>
+                    </field>
+                    <field id="registration" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Trigger on Registration - Not in use</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="registration_message" translate="label" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Registration Message</label>
+                    </field>
+                    <field id="order" translate="label" type="select" sortOrder="5" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Other SMS than OTP</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="otp_message" translate="label" type="textarea" sortOrder="6" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>OTP Message</label>
+                        <comment>Available variable otp</comment>
+                    </field>
+					<field id="payment_sms" translate="label" type="textarea" sortOrder="6" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Payment Sms</label>
+                        <comment>Available variable paymentlink,amount,orderid</comment>
+                    </field>
+					<field id="order_sms" translate="label" type="textarea" sortOrder="6" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Order Pending Sms</label>
+                        <comment>Available variable orderid,first_name,last_name</comment>
+                    </field>
+					<field id="order_confirmed_sms" translate="label" type="textarea" sortOrder="6" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Confirmed Order Sms</label>
+                        <comment>Available variable orderid,first_name,last_name</comment>
+                    </field>
+					<field id="delivery_sms" translate="label" type="textarea" sortOrder="6" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Delivery Sms</label>
+                        <comment>Available variable  orderid, customer</comment>
+                    </field>
+					
+					<field id="cancelled_sms" translate="label" type="textarea" sortOrder="6" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Cancelled Sms</label>
+                        <comment>Available variable  orderid, customer</comment>
+                    </field>
+                </group>
+                <group id="text_settings" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Text Formats</label>
+			
+                    <field id="allow_unicode" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Allow UNICODE</label>
+                        <comment>Allow {,},\\,[,],~,|,^ Characters</comment>
+                    </field>
+                    <field id="allow_gsm_character" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Allow Extended GSM Characters</label>
+                        <comment>Maximum Number Of Characters Per Message</comment>			   
+                    </field>
+                    <field id="chars_per_message" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Characters Per Message</label>
+                    </field>
+                </group>
+				 
+                <group id="general_settings" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>General Settings</label>
+
+                    <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Enable/Disable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="route_api" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Route Api</label>
+                     </field>
+                     
+                    <field id="auth_key" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Authentication Key</label>
+                    </field>
+					
+					 <field id="auth_token" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Authentication Token</label>
+                    </field>
+                   
+                    <field id="senderid_91" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>India Sender Id</label>
+                    </field>
+					 <field id="senderid_974" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>QATAR Sender Id</label>
+                    </field>
+                </group>
+            </group>
+           
+         
+        </section>
+    </system>
+</config>

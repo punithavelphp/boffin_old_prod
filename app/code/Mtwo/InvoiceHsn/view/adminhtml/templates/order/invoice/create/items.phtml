@@ -1,0 +1,552 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Sales\Block\Adminhtml\Order\Invoice\Create\Items $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<section class="admin__page-section">
+	<div class="admin__page-section-title">
+		<?php $_itemsGridLabel = $block->getForcedShipmentCreate() ? 'Items to Invoice and Ship' : 'Items to Invoice';?>
+		<span class="title"><?= $block->escapeHtml(__('%1', $_itemsGridLabel)) ?></span>
+	</div>
+	<div class="admin__page-section-content grid">
+		<div class="admin__table-wrapper">
+			<table class="data-table admin__table-primary order-invoice-tables">
+				<thead>
+					<tr class="headings">
+						<th class="col-total last"><span><?= $block->escapeHtml(__('HSN CODE')) ?></span></th>
+						<th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
+						<th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+						<th class="col-ordered-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+						<th class="col-qty-invoice"><span><?= $block->escapeHtml(__('Qty to Invoice')) ?></span></th>
+						<th class="col-subtotal"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+						<th class="col-tax"><span><?= $block->escapeHtml(__('Tax Amount')) ?></span></th>
+						<th class="col-discount"><span><?= $block->escapeHtml(__('Discount Amount')) ?></span></th>
+						<th class="col-total last"><span><?= $block->escapeHtml(__('Row Totals')) ?></span></th>
+					</tr>
+				</thead>
+				<?php if ($block->canEditQty()): ?>
+				<tfoot>
+					<tr>
+						<td colspan="3">&nbsp;</td>
+						<td><?= $block->getUpdateButtonHtml() ?></td>
+						<td colspan="4">&nbsp;</td>
+					</tr>
+				</tfoot>
+				<?php endif; ?>
+				<?php $_items = $block->getInvoice()->getAllItems()  ; 
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+				$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+
+				$_i = 0; foreach ($_items as $_item): ?>
+				<?php if ($_item->getOrderItem()->getParentItem()):
+				continue;
+				else:
+				$_i++;
+				endif; ?>
+				<tbody class="<?= /* @noEscape */ $_i%2 ? 'even' : 'odd' ?>">
+					<?php 
+	$product = $productRepository->getById($_item->getProductId());
+					   $hsnCode = $product->getData('hsncode');
+					   ; ?> <td><?php echo $hsnCode; ?></td>
+					<?= $block->getItemHtml($_item) ?>
+					<?= $block->getItemExtraInfoHtml($_item->getOrderItem()) ?>
+				</tbody>
+				<?php endforeach; ?>
+			</table>
+		</div>
+	</div>
+</section>
+
+<?php $orderTotalBar = $block->getChildHtml('order_totalbar'); ?>
+
+<?php if (!empty($orderTotalBar)): ?>
+<section class="admin__page-section">
+	<?= /* @noEscape */ $orderTotalBar ?>
+</section>
+<?php endif; ?>
+
+<section class="admin__page-section">
+	<div class="admin__page-section-title">
+		<span class="title"><?= $block->escapeHtml(__('Order Total')) ?></span>
+	</div>
+	<div class="admin__page-section-content">
+		<div class="admin__page-section-item order-comments-history">
+			<div class="admin__page-section-item-title">
+				<span class="title"><?= $block->escapeHtml(__('Invoice History')) ?></span>
+			</div>
+			<div id="history_form" class="admin__page-section-item-content order-history-form">
+				<div class="admin__field">
+					<label for="invoice_comment_text" class="admin__field-label">
+						<span><?= $block->escapeHtml(__('Invoice Comments')) ?></span>
+					</label>
+					<div class="admin__field-control">
+						<textarea id="invoice_comment_text"
+								  name="invoice[comment_text]"
+								  class="admin__control-textarea"
+								  rows="3"
+								  cols="5"><?= $block->escapeHtml($block->getInvoice()->getCommentText())?></textarea>
+					</div>
+				</div>
+			</div>
+
+
+			<?php 
+	// Add HSN validation check
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+			$hsnHelper = $objectManager->get(\Mtwo\InvoiceHsn\Helper\Data::class);
+			$order = $block->getOrder();
+			$itemsWithoutHsn = $hsnHelper->getOrderItemsWithoutHsn($order);
+
+
+			?>
+
+			<?php if (!empty($itemsWithoutHsn)): ?>
+			<!-- HSN Code Validation Warning -->
+			<div class="admin__fieldset hsn-validation-fieldset" id="hsn-validation-warning">
+				<div class="admin__legend">
+					<span><?= __('HSN Code Validation') ?></span>
+				</div>
+				<div class="admin__field-set-columns">
+					<div class="admin__field-column">
+						<div class="admin__field">
+							 
+							<div class="admin__field-control">
+								<div class="admin__field-note">
+									<span class="hsn-warning-icon">⚠️</span>
+									<strong><?= __('Warning:') ?></strong> 
+									<?= __('The following products are missing HSN codes and will prevent invoice creation:') ?>
+								</div>
+								<ul class="hsn-missing-products">
+									<?php foreach ($itemsWithoutHsn as $item): ?>
+									<?php 
+									$editUrl = $this->getUrl('catalog/product/edit', [
+										'id' => $item['product_id'],
+										'_fragment' => 'product_form_tab_attributes'
+									]);
+									?>
+									<li class="hsn-product-item">
+										<a href="<?= $this->escapeUrl($editUrl) ?>" 
+										   target="_blank" 
+										   class="hsn-product-link"
+										   title="<?= __('Click to open product and add HSN code') ?>">
+											<span class="product-name"><?= $this->escapeHtml($item['name']) ?></span>
+											<span class="product-sku">(SKU: <?= $this->escapeHtml($item['sku']) ?>)</span>
+											<span class="edit-icon">✎</span>
+										</a>
+									</li>
+									<?php endforeach; ?>
+								</ul>
+								<div class="admin__field-note">
+									<?= __('Click on product links above to open and assign HSN codes before creating the invoice.') ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script type="text/javascript">
+				require([
+					'jquery',
+					'mage/url',
+					'Magento_Ui/js/modal/alert'
+				], function ($, urlBuilder, alert) {
+					'use strict';
+
+					$(document).ready(function() {
+						// HSN validation data
+						var itemsWithoutHsn = <?= json_encode($itemsWithoutHsn) ?>;
+
+						if (itemsWithoutHsn.length > 0) {
+							// Disable submit button initially
+							var submitButton = $('#submit_invoice_button, .action-default.scalable.primary, [data-ui-id*="submit"]');
+							if (submitButton.length) {
+								submitButton.prop('disabled', true)
+									.addClass('disabled')
+									.css({'opacity': '0.5', 'cursor': 'not-allowed'});
+
+								// Add disabled message
+								submitButton.attr('title', '<?= __("Cannot create invoice - missing HSN codes") ?>');
+
+								if (!$('.hsn-submit-error').length) {
+									submitButton.after('<div class="hsn-submit-error" style="color: #e22626; font-size: 12px; margin-top: 5px; font-weight: bold;">' +
+													   '<?= __("Cannot create invoice - missing HSN codes") ?></div>');
+								}
+							}
+
+							// Show validation warning at top of items section
+							if (!$('#hsn-top-warning').length) {
+								$('.order-invoice-tables').prepend(
+									 
+									'<div id="hsn-top-warning" class="message message-error" style="margin-bottom: 1px;">' +
+									'<?= __("HSN is Required") ?>' +
+									
+									'</div>'
+									 
+									 
+								);
+							}
+						}
+
+						// Enhanced form submission blocking
+						function blockInvoiceCreation(e) {
+							if (itemsWithoutHsn.length > 0) {
+								e.preventDefault();
+								e.stopPropagation();
+								e.stopImmediatePropagation();
+
+								var itemLinksHtml = '';
+								$.each(itemsWithoutHsn, function(index, item) {
+									var editUrl = urlBuilder.build('catalog/product/edit/id/' + item.product_id + '/#product_form_tab_attributes');
+									itemLinksHtml += '<li style="margin: 8px 0;"><a href="' + editUrl + 
+										'" target="_blank" style="color: #007bdb; text-decoration: none; font-weight: 500;">' +
+										item.name + ' (SKU: ' + item.sku + ')</a> ' +
+										'<span style="color: #666; font-size: 11px;">- Click to edit</span></li>';
+								});
+
+								alert({
+									title: '<?= __("Cannot Create Invoice") ?>',
+									content: '<div style="margin-bottom: 15px; font-size: 14px;">' +
+									'<strong style="color: #e22626;"><?= __("HSN codes missing for the following products:") ?></strong></div>' +
+									'<ul style="margin: 10px 0; padding-left: 20px; max-height: 200px; overflow-y: auto;">' + 
+									itemLinksHtml + '</ul>' +
+									'<div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 3px;">' +
+									'<strong><?= __("Instructions:") ?></strong><br>' +
+									'1. <?= __("Click on any product link above") ?><br>' +
+									'2. <?= __("Navigate to the Attributes tab") ?><br>' +
+									'3. <?= __("Add the HSN Code value") ?><br>' +
+									'4. <?= __("Save the product") ?><br>' +
+									'5. <?= __("Return here to create the invoice") ?></div>',
+									actions: {
+										always: function() {}
+									}
+								});
+
+								return false;
+							}
+						}
+
+						// Block multiple submission methods
+						$(document).on('submit', '#edit_form, form[data-role="edit-form"], .order-invoice-tables form', blockInvoiceCreation);
+						$(document).on('click', '#submit_invoice_button, .action-default.scalable.primary, .submit-invoice', blockInvoiceCreation);
+
+						// Block any AJAX requests that might submit invoice
+						var originalAjax = $.ajax;
+						$.ajax = function(options) {
+							if (itemsWithoutHsn.length > 0 && options.url && options.url.indexOf('invoice') > -1) {
+								blockInvoiceCreation({preventDefault: function(){}, stopPropagation: function(){}, stopImmediatePropagation: function(){}});
+								return false;
+							}
+							return originalAjax.apply(this, arguments);
+						};
+					});
+				});
+			</script>
+
+			<style>
+				/* HSN Validation Styling */
+				.hsn-validation-fieldset {
+					margin: 20px 0;
+					border: 2px solid #ffcc02 !important;
+					border-radius: 5px;
+					background: linear-gradient(135deg, #fff8e6 0%, #fffbf0 100%);
+					box-shadow: 0 3px 10px rgba(255, 204, 2, 0.2);
+				}
+
+				.hsn-validation-fieldset .admin__legend {
+					background: #ffcc02;
+					color: #333;
+					font-weight: bold;
+					padding: 8px 15px;
+					margin: 0;
+					border-radius: 3px 3px 0 0;
+				}
+
+				.hsn-validation-fieldset .admin__field-note {
+					margin: 10px 0;
+					color: #333;
+				}
+
+				.hsn-warning-icon {
+					font-size: 16px;
+					margin-right: 5px;
+				}
+
+				.hsn-missing-products {
+					list-style: none;
+					padding: 0;
+					margin: 15px 0;
+					background: white;
+					border-radius: 3px;
+					border: 1px solid #ddd;
+					max-height: 200px;
+					overflow-y: auto;
+				}
+
+				.hsn-product-item {
+					padding: 0;
+					border-bottom: 1px solid #f0f0f0;
+				}
+
+				.hsn-product-item:last-child {
+					border-bottom: none;
+				}
+
+				.hsn-product-link {
+					display: block;
+					padding: 12px 15px;
+					text-decoration: none;
+					color: #007bdb;
+					transition: all 0.2s ease;
+					position: relative;
+				}
+
+				.hsn-product-link:hover {
+					background: #f8f8f8;
+					text-decoration: none;
+					color: #005a9b;
+				}
+
+				.hsn-product-link .product-name {
+					font-weight: 600;
+					display: block;
+					margin-bottom: 3px;
+				}
+
+				.hsn-product-link .product-sku {
+					font-size: 12px;
+					color: #666;
+					font-style: italic;
+				}
+
+				.hsn-product-link .edit-icon {
+					position: absolute;
+					right: 15px;
+					top: 50%;
+					transform: translateY(-50%);
+					font-size: 16px;
+					color: #007bdb;
+				}
+
+				.hsn-submit-error {
+					color: #e22626 !important;
+					font-size: 12px !important;
+					margin-top: 5px !important;
+					font-weight: bold !important;
+					padding: 5px 10px;
+					background: #ffeaea;
+					border: 1px solid #e22626;
+					border-radius: 3px;
+				}
+
+				/* Disabled button styling */
+				button[disabled].disabled,
+				input[disabled].disabled {
+					opacity: 0.5 !important;
+					cursor: not-allowed !important;
+					pointer-events: none !important;
+				}
+
+				#hsn-top-warning {
+					animation: hsn-pulse 2s infinite;
+				}
+
+				@keyframes hsn-pulse {
+					0%, 100% { border-color: #e22626; }
+					50% { border-color: #ff4444; }
+				}
+			</style>
+			<?php endif; ?>
+
+
+
+			<div class="admin__page-section-item-title">
+				<span class="title"><?= $block->escapeHtml(__('Invoice Fields dd')) ?></span>
+			</div>
+			<div id="Xhistory_form" class="admin__page-section-item-content order-history-form">
+				<div class="admin__field">
+					<label for="shipped_from_text" class="admin__field-label">
+						<span><?= $block->escapeHtml(__('Shipped From')) ?></span>
+					</label>
+					<div class="admin__field-control">
+						<select name="invoice[shipped_from]">
+							<option value="">Select Shipped By Address</option>
+							<option value="bangalore">Bangalore</option>
+							<option value="chennai">Chennai</option>
+						</select>
+					</div>
+				</div>
+				<div class="admin__field">
+					<label for="invoice_date_text" class="admin__field-label">
+						<span><?= $block->escapeHtml(__('Invoice Date')) ?></span>
+					</label>
+					<div class="admin__field-control">
+						<input type="date" id="invoice_date"
+							   name="invoice[invoice_date]"
+							   class="admin__control-textarea"
+							   />
+					</div>
+				</div>
+				<div class="admin__field">
+					<label for="invoice_number_text" class="admin__field-label">
+						<span><?= $block->escapeHtml(__('Invoice Number')) ?></span>
+					</label>
+					<div class="admin__field-control">
+						<input type="text"  id="invoice_number"
+							   name="invoice[invoice_number]"
+							   class="admin__control-textarea"
+							   />
+					</div>
+				</div>
+				<div class="admin__field">
+					<label for="po_date_text" class="admin__field-label">
+						<span><?= $block->escapeHtml(__('PO Date')) ?></span>
+					</label>
+					<div class="admin__field-control">
+						<input type="date" id="po_date"
+							   name="invoice[po_date]"
+							   class="admin__control-textarea"
+							   />
+					</div>
+				</div>
+				<div class="admin__field">
+					<label for="po_number_text" class="admin__field-label">
+						<span><?= $block->escapeHtml(__('Po Number')) ?></span>
+					</label>
+					<div class="admin__field-control">
+						<input type="text"  id="po_number"
+							   name="invoice[po_number]"
+							   class="admin__control-textarea"
+							   />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="invoice_totals" class="admin__page-section-item order-totals">
+			<div class="admin__page-section-item-title">
+				<span class="title"><?= $block->escapeHtml(__('Invoice Totals')) ?></span>
+			</div>
+			<div class="admin__page-section-item-content order-totals-actions">
+				<?= $block->getChildHtml('invoice_totals') ?>
+				<?php if ($block->isCaptureAllowed()): ?>
+				<?php if ($block->canCapture()): ?>
+				<div class="admin__field">
+					<label for="invoice_do_capture" class="admin__field-label">
+						<?= $block->escapeHtml(__('Amount')) ?>
+					</label>
+					<select class="admin__control-select" name="invoice[capture_case]">
+						<option value="online"><?= $block->escapeHtml(__('Capture Online')) ?></option>
+						<option value="offline"><?= $block->escapeHtml(__('Capture Offline')) ?></option>
+						<option value="not_capture"><?= $block->escapeHtml(__('Not Capture')) ?></option>
+					</select>
+				</div>
+				<?php elseif ($block->isGatewayUsed()):?>
+				<input type="hidden" name="invoice[capture_case]" value="offline"/>
+				<div>
+					<?= $block->escapeHtml(__(
+	'The invoice will be created offline without the payment gateway.'
+)) ?>
+				</div>
+				<?php endif; ?>
+				<?php endif; ?>
+				<div class="admin__field admin__field-option field-append">
+					<input id="notify_customer" name="invoice[comment_customer_notify]" value="1" type="checkbox"
+						   class="admin__control-checkbox" />
+					<label class="admin__field-label" for="notify_customer">
+						<?= $block->escapeHtml(__('Append Comments')) ?>
+					</label>
+				</div>
+				<?php if ($block->canSendInvoiceEmail()): ?>
+				<div class="admin__field admin__field-option field-email">
+					<input id="send_email" name="invoice[send_email]" value="1" type="checkbox"
+						   class="admin__control-checkbox" />
+					<label class="admin__field-label" for="send_email">
+						<?= $block->escapeHtml(__('Email Copy of Invoice')) ?>
+					</label>
+				</div>
+				<?php endif; ?>
+				<?= $block->getChildHtml('submit_before') ?>
+				<div class="actions">
+					<?= $block->getChildHtml('submit_button') ?>
+					<?= $block->getChildHtml('submit_after') ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<?php
+	$enableSubmitButton = (int) !$block->getDisableSubmitButton();
+				$scriptString = <<<script
+
+require(['jquery'], function(jQuery){
+
+//<![CDATA[
+var submitButtons = jQuery('.submit-button');
+var updateButtons = jQuery('.update-button');
+var enableSubmitButtons = {$enableSubmitButton};
+var fields = jQuery('.qty-input');
+
+function enableButtons(buttons) {
+    buttons.removeClass('disabled').prop('disabled', false);
+}
+
+function disableButtons(buttons) {
+    buttons.addClass('disabled').prop('disabled', true);
+}
+
+disableButtons(updateButtons);
+
+fields.on('keyup', checkButtonsRelation);
+fields.each(function (i, elem) {
+    elem.baseValue = elem.value;
+});
+
+function checkButtonsRelation() {
+    var hasChanges = false;
+    fields.each(function (i, elem) {
+        if (elem.baseValue != elem.value) {
+            hasChanges = true;
+        }
+    }.bind(this));
+    if (hasChanges) {
+        disableButtons(submitButtons);
+        enableButtons(updateButtons);
+    }
+    else {
+        if (enableSubmitButtons) {
+            enableButtons(submitButtons);
+        }
+        disableButtons(updateButtons);
+    }
+}
+
+var sendEmailCheckbox = jQuery('#send_email');
+if (sendEmailCheckbox.length) {
+    var notifyCustomerCheckbox = jQuery('#notify_customer');
+    sendEmailCheckbox.on('change', bindSendEmail);
+    bindSendEmail();
+}
+function bindSendEmail()
+{
+    if (sendEmailCheckbox.prop('checked') == true) {
+        notifyCustomerCheckbox.prop('disabled', false);
+    }
+    else {
+        notifyCustomerCheckbox.prop('disabled', true);
+    }
+}
+
+window.bindSendEmail = bindSendEmail;
+window.checkButtonsRelation = checkButtonsRelation;
+//]]>
+
+});
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    
+    <!-- Observer for invoice save before event -->
+    <event name="sales_order_invoice_save_before">
+        <observer name="mtwo_invoice_hsn_validate" 
+                  instance="Mtwo\InvoiceHsn\Observer\ValidateInvoiceHsnCodes" />
+    </event>
+    
+    <!-- Observer for invoice register event -->
+    <event name="sales_order_invoice_register">
+        <observer name="mtwo_invoice_hsn_validate_register" 
+                  instance="Mtwo\InvoiceHsn\Observer\ValidateInvoiceHsnCodes" />
+    </event>
+    
+</config>

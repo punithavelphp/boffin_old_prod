@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>   
+    
+     <referenceBlock name="customer_account_navigation">
+		  <block class="Magento\Framework\View\Element\Html\Link\Current" name="my_custom_quote">
+                <arguments>
+                    <argument name="path" xsi:type="string">quoterequest/quote/quotelist</argument>
+                    <argument name="label" xsi:type="string">My Quote Request</argument>
+                    <argument name="sortOrder" xsi:type="number">150</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+		 
+        </referenceBlock>
+
+  </body>
+</page>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+ 		 <add id="Mtwo_ApproveCustomer::upload" title="Manage Uploads" module="Mtwo_ApproveCustomer" sortOrder="66" parent="Magento_Customer::customer" action="customer/upload" resource="Mtwo_ApproveCustomer::region"/>
+    </menu>
+</config>

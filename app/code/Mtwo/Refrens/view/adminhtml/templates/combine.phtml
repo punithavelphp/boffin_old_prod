@@ -1,0 +1,62 @@
+<?php 
+$post = $this->getRequest()->getPostValue();
+//print_r($post);
+
+if(isset($post['invoice_numbers']) && !empty($post['invoice_numbers'])) {
+	$custom_invoice_id = $post['custom_invoice_number'];
+	$custom_invoice_date = $post['custom_invoice_date'];
+ 
+	$invoiceData = $block->getInvoiceData($post['invoice_numbers']);
+	//echo count($invoiceData);
+	if( isset($invoiceData) &&  (count($invoiceData) > 0)){
+		// go refrens now
+		//$refrens_invoice = $this->getRefrensInvoice();
+		echo '<table>';
+		$invoiceIds = ''; ?>
+		<tr>
+				<td>Invoice numbers</td>
+ 			</tr> <?php 
+		foreach($invoiceData as $invoice){
+			$invoiceIds .= $invoice->getEntityId().','; ?>
+ 			<tr>
+				<td><?php echo $invoice->getIncrementId(); ?></td>
+ 			</tr>
+			<?php } echo '</table>'; ?>
+ 				<a href="<?php echo $this->getUrl('refrens/index/generate'); ?>?custom_invoice_id=<?php echo $custom_invoice_id; ?>&invoice_ids=<?php echo rtrim($invoiceIds,','); ?>&invoice_date=<?php echo $custom_invoice_date; ?>" >Confirm Generate</a>
+			<?php } else{
+				echo 'Invalid Invoice Numbers';	
+			}
+}else{ 
+	$formKey = $block->getFormKey(); 
+?>
+<form method="POST" action="<?php echo $this->getUrl('refrens/index/combine'); ?>">
+	<input name="form_key" type="hidden" value="<?= $formKey ?>" />
+	<table><tr><td>Custom Invoice Number: </td><td><input name="custom_invoice_number" id="custom_invoice_number" value="" required /></td></tr>
+	<tr><td>Date: </td><td><input type="date" name="custom_invoice_date" id="custom_invoice_date" value="" required /></td></tr>
+	<tr><td>Invoice Numbers :</td><td><textarea name="invoice_numbers" rows="3" required cols="35"></textarea><br><i>(commo seperated 001002,0001120)</i></td></tr></table><br><br>
+	<button type="submit">Generate Invoice</button>
+</form>
+<?php }  ?>
+
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
