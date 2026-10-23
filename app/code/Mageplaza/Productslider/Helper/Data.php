@@ -56,6 +56,11 @@ class Data extends AbstractData
     protected $sliderFactory;
 
     /**
+     * @var \Magento\Catalog\Model\CategoryFactory
+     */
+    protected $categoryFactory;
+
+    /**
      * Data constructor.
      *
      * @param Context $context
