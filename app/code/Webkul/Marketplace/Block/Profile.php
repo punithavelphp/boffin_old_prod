@@ -26,6 +26,10 @@ use Webkul\Marketplace\Model\ResourceModel\SellerFlagReason\CollectionFactory as
 
 class Profile extends AbstractProduct
 {
+    public $Customer;
+    public $Session;
+    public $filterProvider;
+
     public const FLAG_REASON_ENABLE = 1;
     public const FLAG_REASON_DISABLE = 0;
     /**

@@ -13,6 +13,10 @@ use Magento\Quote\Model\Quote\Validator\MinimumOrderAmount\ValidationMessage;
 
 class MinimumAmountValidationRule
 {
+    public $logger;
+    public $_scopeConfig;
+    public $checkoutSession;
+
      /**
       * @var string
       */

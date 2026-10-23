@@ -19,6 +19,8 @@ use Magento\Eav\Api\AttributeRepositoryInterface;
  */
 class Delete extends \Magento\Customer\Controller\AbstractAccount
 {
+    public $attributeRepository;
+
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */

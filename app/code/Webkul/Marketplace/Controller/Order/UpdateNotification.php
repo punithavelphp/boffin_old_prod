@@ -18,6 +18,8 @@ use Webkul\Marketplace\Helper\Data as MpHelper;
 
 class UpdateNotification extends \Magento\Framework\App\Action\Action
 {
+    public $session;
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */

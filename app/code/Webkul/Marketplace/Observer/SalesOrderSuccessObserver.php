@@ -34,6 +34,8 @@ use Webkul\Marketplace\Model\SaleperpartnerFactory;
  */
 class SalesOrderSuccessObserver implements ObserverInterface
 {
+	public $eavConfig;
+
 	/**
      * @var eventManager
      */

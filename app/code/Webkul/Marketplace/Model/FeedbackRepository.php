@@ -19,6 +19,9 @@ use Webkul\Marketplace\Api\Data\FeedbackSearchResultInterfaceFactory as SearchRe
  */
 class FeedbackRepository implements \Webkul\Marketplace\Api\FeedbackRepositoryInterface
 {
+    public $collectionProcessor;
+    public $searchResultFactory;
+
     /**
      * @var \Webkul\Marketplace\Model\FeedbackFactory
      */

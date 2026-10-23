@@ -20,6 +20,10 @@ use Magento\Framework\Stdlib\DateTime\DateTimeFormatterInterface;
 
 class DateDetails extends Column
 {
+    public $localeResolver;
+    public $_localeDate;
+    public $dateTimeFormatter;
+
     /**
      * @var string
      */

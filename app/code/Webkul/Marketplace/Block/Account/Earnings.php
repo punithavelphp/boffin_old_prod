@@ -15,6 +15,9 @@ use Webkul\Marketplace\Model\SaleslistFactory;
 
 class Earnings extends \Magento\Framework\View\Element\Template
 {
+    public $mpHelper;
+    public $saleslistFactory;
+
     /**
      * Construct
      *

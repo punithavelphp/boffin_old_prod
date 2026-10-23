@@ -29,6 +29,8 @@ use Magento\Framework\Filesystem\Io\File as FilesystemIo;
  */
 class AdminhtmlCustomerSaveAfterObserver implements ObserverInterface
 {
+    public $_mediaDirectory;
+
     /**
      * Media Storage File Uploader factory.
      *

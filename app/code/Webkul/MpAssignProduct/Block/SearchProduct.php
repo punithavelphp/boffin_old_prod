@@ -17,6 +17,8 @@ use Webkul\Marketplace\Helper\Data as marketplaceHelper;
 
 class SearchProduct extends \Magento\Framework\View\Element\Template
 {
+    public $product;
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */

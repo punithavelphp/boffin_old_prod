@@ -19,6 +19,8 @@ use Webkul\Marketplace\Model\SaleperpartnerFactory as MpSalesPartner;
  */
 class Editprofile extends \Magento\Framework\View\Element\Template
 {
+    public $wysiwygImages;
+
     /**
      * @var \Magento\Directory\Model\ResourceModel\Country\CollectionFactory
      */

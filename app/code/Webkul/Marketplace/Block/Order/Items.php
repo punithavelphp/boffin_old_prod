@@ -21,6 +21,9 @@ use Magento\Downloadable\Model\ResourceModel\Link\Purchased\Item\CollectionFacto
 
 class Items extends \Webkul\Marketplace\Block\Order\View
 {
+    public $itemsPerPage;
+    public $itemCollection;
+
 
     /**
      * Set collection to pager

@@ -20,6 +20,9 @@ use Webkul\Marketplace\Helper\Data as HelperData;
  */
 class Runuploads extends Action
 {
+    public $productBuilder;
+    public $saveuploads;
+
     /**
      * @var \Magento\Customer\Model\Session
      */

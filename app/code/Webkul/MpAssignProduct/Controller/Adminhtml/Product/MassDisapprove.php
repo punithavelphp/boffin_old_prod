@@ -21,6 +21,8 @@ use Webkul\MpAssignProduct\Model\Items;
  */
 class MassDisapprove extends \Magento\Backend\App\Action
 {
+    public $connection;
+
     /**
      * @var Filter
      */

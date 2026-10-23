@@ -5,6 +5,8 @@ namespace Emc\Otp\Controller\Validate;
 use Magento\Store\Model\ScopeInterface;
 
 class Update extends \Magento\Framework\App\Action\Action {
+    public $customerRepository;
+
 
     protected $_generateOtp;
     protected $_customerSession;

@@ -16,6 +16,8 @@ use Webkul\Marketplace\Helper\Data as MpHelper;
 
 class Profile implements \Magento\Framework\View\Element\Block\ArgumentInterface
 {
+    public $mpHelpder;
+
     /**
      * @var SaleslistFactory
      */

@@ -6,6 +6,8 @@ use Magento\Checkout\Block\Checkout\LayoutProcessor;
 
 class BillingAddressLayoutProcessor
 {
+    public $result;
+
 
     public function afterProcess(
         LayoutProcessor $subject,

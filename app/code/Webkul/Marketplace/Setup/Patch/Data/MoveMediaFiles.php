@@ -17,6 +17,10 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 
 class MoveMediaFiles implements DataPatchInterface
 {
+    public $filesystem;
+    public $file;
+    public $reader;
+
     /**
      * @var ModuleDataSetupInterface $moduleDataSetup
      */

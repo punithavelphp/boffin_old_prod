@@ -22,6 +22,9 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class MarketplaceConfigProvider
 {
+    public $adminHelper;
+    public $orderHelper;
+
 
     /**
      * @var CustomerRepository

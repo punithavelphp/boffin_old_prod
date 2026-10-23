@@ -17,6 +17,13 @@ use Magento\Framework\App\RequestInterface;
 
 class Profile extends Action
 {
+    public $profileFactory;
+    public $jsonHelper;
+    public $productRepository;
+    public $mpProductFactory;
+    public $saveController;
+    public $assignItemsFactory;
+
     /**
      * @var PageFactory
      */

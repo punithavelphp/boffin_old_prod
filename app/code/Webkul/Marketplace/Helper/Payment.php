@@ -23,6 +23,10 @@ use Magento\Sales\Model\Order\Payment\Transaction;
  */
 class Payment extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    public $helper;
+    public $logger;
+    public $orderItemRepository;
+
     /**
      * @var \Magento\Customer\Model\Address
      */

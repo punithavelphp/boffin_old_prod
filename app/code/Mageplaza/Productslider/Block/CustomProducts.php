@@ -39,6 +39,7 @@ use Mageplaza\Productslider\Helper\Data;
  */
 class CustomProducts extends AbstractSlider
 {
+    public $helperData;
 
 	protected $sliderID;
     /**

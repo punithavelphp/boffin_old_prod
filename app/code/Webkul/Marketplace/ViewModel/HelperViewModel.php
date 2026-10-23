@@ -12,6 +12,10 @@ namespace Webkul\Marketplace\ViewModel;
 
 class HelperViewModel implements \Magento\Framework\View\Element\Block\ArgumentInterface
 {
+    public $categoryhelper;
+    public $notificationHelper;
+    public $zendUri;
+
     /**
      * @var \Webkul\Marketplace\Helper\Data
      */

@@ -21,6 +21,10 @@ use Magento\Sales\Model\Order\Creditmemo;
 
 class History extends \Magento\Framework\View\Element\Template
 {
+    public $Customer;
+    public $Order;
+    public $_customerSession;
+
     /**
      * @var \Magento\Customer\Model\Customer
      */

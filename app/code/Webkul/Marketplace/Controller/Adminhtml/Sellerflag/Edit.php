@@ -15,6 +15,8 @@ use Webkul\Marketplace\Api\Data\SellerFlagReasonInterfaceFactory;
 
 class Edit extends \Webkul\Marketplace\Controller\Adminhtml\Sellerflag
 {
+    public $coreRegistry;
+
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */

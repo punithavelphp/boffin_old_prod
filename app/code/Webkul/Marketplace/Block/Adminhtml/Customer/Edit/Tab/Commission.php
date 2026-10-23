@@ -12,6 +12,8 @@ namespace Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tab;
 
 class Commission extends \Magento\Config\Block\System\Config\Form\Field
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Framework\Registry
      */

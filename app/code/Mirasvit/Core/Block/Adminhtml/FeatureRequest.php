@@ -23,6 +23,8 @@ use Mirasvit\Core\Service\FeatureService;
 
 class FeatureRequest extends Template
 {
+    public $featureService;
+
     private $request;
 
     public function __construct(

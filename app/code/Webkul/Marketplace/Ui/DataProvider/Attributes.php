@@ -16,6 +16,9 @@ use Webkul\Marketplace\Helper\Data as HelperData;
 
 class Attributes extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
+    public $mappingColl;
+    public $helperData;
+
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Product\Attribute\Collection
      */

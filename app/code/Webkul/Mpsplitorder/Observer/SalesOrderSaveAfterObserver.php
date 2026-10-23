@@ -15,6 +15,10 @@ use Magento\Framework\Session\SessionManager;
 
 class SalesOrderSaveAfterObserver implements ObserverInterface
 {
+    public $splitorderLogger;
+    public $_objectManager;
+    public $session;
+
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Webkul\Mpsplitorder\Logger\Mpsplitorder $splitorderLogger,

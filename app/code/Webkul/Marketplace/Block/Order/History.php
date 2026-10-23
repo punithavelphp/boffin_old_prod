@@ -23,6 +23,10 @@ use Webkul\Marketplace\Model\OrdersFactory as MpOrderModel;
 
 class History extends \Magento\Framework\View\Element\Template
 {
+    public $Customer;
+    public $Order;
+    public $mpOrderModel;
+
     /**
      * @var \Magento\Customer\Model\Customer
      */

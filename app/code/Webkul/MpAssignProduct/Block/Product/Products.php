@@ -12,6 +12,8 @@ namespace Webkul\MpAssignProduct\Block\Product;
 
 class Products extends \Magento\Framework\View\Element\Template
 {
+    public $_imageHelper;
+
     /**
      * @var Magento\Framework\Registry
      */

@@ -12,6 +12,8 @@ namespace Webkul\Marketplace\Plugin\Catalog\Model\Layer;
 
 class FilterList
 {
+    public $request;
+
     /**
      * @var \Magento\Framework\ObjectManagerInterface
      */

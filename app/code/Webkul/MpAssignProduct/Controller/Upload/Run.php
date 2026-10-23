@@ -17,6 +17,9 @@ use Magento\Framework\App\RequestInterface;
 
 class Run extends Action
 {
+    public $saveController;
+    public $jsonHelper;
+
     /**
      * @var PageFactory
      */

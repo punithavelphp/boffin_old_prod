@@ -20,6 +20,8 @@ use Magento\Framework\DB\Select as DBSelect;
  */
 abstract class AbstractCollection extends DbAbstractCollection
 {
+    public $storeManager;
+
     /**
      * @var array
      */

@@ -14,6 +14,8 @@ use Magento\Framework\App\Action\Context;
 
 class Finish extends \Magento\Framework\App\Action\Action
 {
+    public $profileFactory;
+
     /**
      * @var \Webkul\MpMassUpload\Helper\Data $massUploadHelper
      */

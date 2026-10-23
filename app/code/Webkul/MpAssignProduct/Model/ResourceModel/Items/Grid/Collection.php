@@ -16,6 +16,8 @@ use Webkul\MpAssignProduct\Model\ResourceModel\Items\Collection as ItemsCollecti
 
 class Collection extends ItemsCollection implements SearchResultInterface
 {
+    public $attributeFactory;
+
     /**
      * @var AggregationInterface
      */

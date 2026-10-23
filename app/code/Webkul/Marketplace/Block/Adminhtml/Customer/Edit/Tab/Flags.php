@@ -12,6 +12,8 @@ namespace Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tab;
 
 class Flags extends \Magento\Backend\Block\Widget\Grid\Extended
 {
+    public $flagsFactory;
+
     /**
      * @var \Magento\Framework\Registry
      */

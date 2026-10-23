@@ -19,6 +19,8 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Post extends \Magento\Framework\App\Action\Action
 {
+    public $_fileUploaderFactory;
+
     
     /**
      * @var DataPersistorInterface

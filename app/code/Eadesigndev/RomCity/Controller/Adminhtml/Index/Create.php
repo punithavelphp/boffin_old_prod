@@ -7,6 +7,8 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Create extends \Magento\Backend\App\Action
 {
+    public $resultPageFactory;
+
     /**
      * @var PageFactory
      */

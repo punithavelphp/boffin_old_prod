@@ -20,6 +20,8 @@ use Magento\Ui\Component\Layout\Tabs\TabWrapper;
  */
 class FlagsTab extends TabWrapper
 {
+    public $customerEdit;
+
     /**
      * @var Registry
      */

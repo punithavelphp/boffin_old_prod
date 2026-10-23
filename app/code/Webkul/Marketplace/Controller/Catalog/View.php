@@ -16,6 +16,8 @@ use Magento\Framework\Url\DecoderInterface;
 
 class View extends \Magento\Catalog\Controller\Product\View
 {
+    public $urlDecoder;
+
     /**
      * @var \Magento\Security\Model\AdminSessionInfo
      */

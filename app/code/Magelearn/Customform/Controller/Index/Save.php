@@ -11,6 +11,8 @@ use Magento\Framework\Filesystem;
 use Ves\Brand\Model\Brand;
 class Save extends \Magento\Framework\App\Action\Action
 {
+    public $brand;
+
 	/**
      * @var Customform
      */

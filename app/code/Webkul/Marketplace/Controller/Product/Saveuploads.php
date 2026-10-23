@@ -33,6 +33,22 @@ use Magento\Framework\Filter\FilterInput;
 	*/
 class Saveuploads extends \Magento\Customer\Controller\AbstractAccount
 {
+	public $_linkResolver;
+	public $_mpProductFactory;
+	public $_mpProductCollectionFactory;
+	public $_stockRegistryProvider;
+	public $_stockConfiguration;
+	public $_jsonHelper;
+	public $_fileUploaderFactory;
+	public $_directoryList;
+	public $_customerSession;
+	public $_storeManager;
+	public $_ioAdapter;
+	public $_csvProcessor;
+	public $_productResourceModel;
+	public $_resources;
+	public $_connection;
+
 	/**
 			* @var \Magento\Framework\Stdlib\DateTime\DateTime
 		*/

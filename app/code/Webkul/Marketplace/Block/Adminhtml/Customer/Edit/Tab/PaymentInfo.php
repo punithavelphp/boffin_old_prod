@@ -13,6 +13,8 @@ namespace Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tab;
 
 class PaymentInfo extends \Magento\Config\Block\System\Config\Form\Field
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Framework\Registry
      */

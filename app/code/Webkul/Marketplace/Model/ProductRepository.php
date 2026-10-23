@@ -18,6 +18,9 @@ use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
  */
 class ProductRepository implements \Webkul\Marketplace\Api\ProductRepositoryInterface
 {
+    public $searchResultFactory;
+    public $collectionProcessor;
+
     /**
      * @var \Webkul\Marketplace\Model\ProductFactory
      */

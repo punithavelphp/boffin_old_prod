@@ -27,6 +27,8 @@ use Webkul\Marketplace\Helper\Data as HelperData;
  */
 class Create extends Action
 {
+    public $_resultPageFactory;
+
     /**
      * @var \Magento\Customer\Model\Session
      */

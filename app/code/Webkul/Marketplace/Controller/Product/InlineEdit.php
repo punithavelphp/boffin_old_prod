@@ -13,6 +13,11 @@ namespace Webkul\Marketplace\Controller\Product;
 
 class InlineEdit extends \Magento\Framework\App\Action\Action
 {
+    public $productRepository;
+    public $_stockRegistry;
+    public $mpHelper;
+    public $productAction;
+
 
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory

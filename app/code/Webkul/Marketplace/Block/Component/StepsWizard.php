@@ -17,6 +17,8 @@ use Magento\Framework\View\Element\Template\Context;
  */
 class StepsWizard extends \Magento\Ui\Block\Component\StepsWizard
 {
+    public $jsonHelper;
+
     /**
      * @var string
      */

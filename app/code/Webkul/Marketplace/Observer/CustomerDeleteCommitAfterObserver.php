@@ -21,6 +21,8 @@ use Webkul\Marketplace\Helper\Data as MarketplaceHelperData;
  */
 class CustomerDeleteCommitAfterObserver implements ObserverInterface
 {
+    public $productAction;
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */

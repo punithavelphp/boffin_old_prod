@@ -14,6 +14,10 @@ use Magento\Catalog\Model\ResourceModel\Eav\Attribute;
 
 class Front
 {
+    public $_yesNo;
+    public $attributeFactory;
+    public $_coreRegistry;
+
 
    /**
     * @param Yesno $yesNo

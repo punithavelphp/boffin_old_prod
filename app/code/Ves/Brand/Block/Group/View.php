@@ -22,6 +22,8 @@ namespace Ves\Brand\Block\Group;
 
 class View extends \Magento\Framework\View\Element\Template
 {
+    public $_collection;
+
     /**
      * Core registry
      *

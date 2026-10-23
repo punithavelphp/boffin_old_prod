@@ -24,6 +24,8 @@ use Mtwo\Approver\Model\SellerCityFactory;
  */
 class SaveSellerCity extends \Magento\Customer\Controller\AbstractAccount
 {
+    public $sellerCityFactory;
+
     /**
      * @var \Magento\Customer\Model\Session
      */

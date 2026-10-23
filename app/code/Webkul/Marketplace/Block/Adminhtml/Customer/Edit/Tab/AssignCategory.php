@@ -17,6 +17,8 @@ use Webkul\Marketplace\Model\SellerFactory;
 
 class AssignCategory extends \Magento\Config\Block\System\Config\Form\Field
 {
+    public $coreRegistry;
+
 
     /**
      * @var \Magento\Framework\Registry

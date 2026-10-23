@@ -32,6 +32,9 @@ use Magento\Eav\Setup\EavSetupFactory;
 
 class InstallData implements InstallDataInterface
 {
+	public $groupFactory;
+	public $eavSetupFactory;
+
 	/**
 	 * Brand Factory
 	 *

@@ -12,6 +12,8 @@ namespace Webkul\MpAssignProduct\Block\Adminhtml\Product\Edit\Tab;
 
 class Details extends \Magento\Backend\Block\Template
 {
+    public $_mpAssignHelper;
+
     /**
      * @var \Magento\Framework\Registry
      */

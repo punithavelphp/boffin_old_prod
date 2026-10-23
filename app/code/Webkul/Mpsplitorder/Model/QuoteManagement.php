@@ -34,6 +34,26 @@ use Magento\Customer\Api\Data\CustomerInterface;
 
 class QuoteManagement extends \Magento\Quote\Model\QuoteManagement
 {
+    public $_objectManager;
+    public $_messageManager;
+    public $_urlBuilder;
+    public $_date;
+    public $mpProductFactory;
+    public $productFactory;
+    public $mpsplitorderFactory;
+    public $addressFactory;
+    public $splitorderLogger;
+    public $checkoutMethd;
+    public $customr;
+    public $shippingAmount;
+    public $tempDiscount;
+    public $tempBaseDiscount;
+    public $itemIdsMap;
+    public $prevItemIds;
+    public $discounts;
+    public $baseDiscounts;
+    public $priceArr;
+
     /**
      * @var Webkul\Mpmangopay\Helper\Data
      */

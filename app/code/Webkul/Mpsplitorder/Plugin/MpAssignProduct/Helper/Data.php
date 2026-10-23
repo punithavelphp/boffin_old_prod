@@ -14,6 +14,8 @@ use Magento\Framework\Session\SessionManager;
 
 class Data
 {
+    public $_coreSession;
+
     /**
      * Initialize dependencies.
      *

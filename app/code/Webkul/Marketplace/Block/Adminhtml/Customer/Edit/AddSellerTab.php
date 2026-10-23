@@ -21,6 +21,8 @@ use Magento\Backend\Block\Widget\Form\Generic;
  */
 class AddSellerTab extends Generic implements TabInterface
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Store\Model\System\Store
      */

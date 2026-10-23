@@ -28,6 +28,9 @@ use Webkul\Marketplace\Model\VendorAttributeMappingFactory as VendorAttrMappingF
  */
 class Save extends \Magento\Customer\Controller\AbstractAccount
 {
+    public $resultPageFactory;
+    public $vendorAttrMapping;
+
     /**
      * @var \Magento\Customer\Model\Session
      */

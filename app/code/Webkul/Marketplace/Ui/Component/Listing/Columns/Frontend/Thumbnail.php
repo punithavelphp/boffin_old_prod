@@ -17,6 +17,9 @@ use Magento\Catalog\Model\ProductFactory;
 
 class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 {
+    public $urlBuilder;
+    public $productModel;
+
     public const NAME = 'thumbnail';
 
     public const ALT_FIELD = 'name';

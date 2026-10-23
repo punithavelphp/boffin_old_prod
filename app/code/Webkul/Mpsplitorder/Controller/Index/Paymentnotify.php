@@ -19,6 +19,9 @@ use Magento\Framework\Escaper;
 
 class Paymentnotify extends Action
 {
+    public $escper;
+    public $_filesystem;
+
 
     /**
      * @var \Magento\Framework\HTTP\Client\Curl

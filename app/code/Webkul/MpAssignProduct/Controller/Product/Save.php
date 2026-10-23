@@ -18,6 +18,10 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
+    public $productFactory;
+    public $imageProcessor;
+    public $productGallery;
+
     const DEFAULT_STORE_ID = 0;
     /**
      * @var \Magento\Customer\Model\Url

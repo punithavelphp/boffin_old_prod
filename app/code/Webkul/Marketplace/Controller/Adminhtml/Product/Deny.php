@@ -26,6 +26,9 @@ use Webkul\Marketplace\Helper\Email as MpEmailHelper;
  */
 class Deny extends \Magento\Backend\App\Action
 {
+    public $productFactory;
+    public $customerModel;
+
     /**
      * @var Filter
      */

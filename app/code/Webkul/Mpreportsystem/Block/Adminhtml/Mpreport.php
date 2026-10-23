@@ -20,6 +20,8 @@ use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory;
 
 class Mpreport extends \Magento\Framework\View\Element\Template
 {
+    public $_timezone;
+
     /**
      * url to get chart
      *

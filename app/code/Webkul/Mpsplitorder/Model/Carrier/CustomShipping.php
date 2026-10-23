@@ -17,6 +17,10 @@ use Magento\Framework\Xml\Security;
 
 class CustomShipping extends AbstractCarrierOnline implements CarrierInterface
 {
+    public $_checkoutSession;
+    public $logger;
+    public $splitorderLogger;
+
     const CODE = 'splitship';
     protected $_code = self::CODE;
     protected $_result;

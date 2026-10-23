@@ -21,6 +21,8 @@ use Magento\Directory\Model\ResourceModel\Country\Collection as CountryModel;
  */
 class CommissionTab extends Generic implements TabInterface
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Store\Model\System\Store
      */

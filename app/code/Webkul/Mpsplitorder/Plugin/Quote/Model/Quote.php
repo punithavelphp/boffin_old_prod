@@ -12,6 +12,9 @@ namespace Webkul\Mpsplitorder\Plugin\Quote\Model;
 
 class Quote
 {
+    public $_scopeConfig;
+    public $checkoutSession;
+
     /**
      * Initialize dependencies.
      */

@@ -17,6 +17,9 @@ use Magento\Catalog\Model\ProductFactory;
 
 class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 {
+    public $storeManager;
+    public $urlBuilder;
+
     /**
      * @var \Magento\Catalog\Helper\Image
      */

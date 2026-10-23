@@ -35,6 +35,8 @@ use Psr\Log\LoggerInterface;
  */
 class GetUpdate
 {
+    public $notifierPool;
+
     const CHECK_VERSION_URL = 'https://dashboard.mageplaza.com/mageplaza/product/checkversion/?isAjax=true';
     const DASHBOARD_URL = 'https://dashboard.mageplaza.com/license/';
 

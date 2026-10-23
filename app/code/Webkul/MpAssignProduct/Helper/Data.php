@@ -30,6 +30,13 @@ use Webkul\MpAssignProduct\Model\Zip;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    public $eavAttribute;
+    public $mpHelper;
+    public $profile;
+    public $serializerInterface;
+    public $file;
+    public $zip;
+
     protected $_allowedProductTypes = ['simple', 'virtual', 'configurable'];
     /**
      * @var templateId

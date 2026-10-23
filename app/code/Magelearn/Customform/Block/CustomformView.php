@@ -10,6 +10,8 @@ use Magento\Cms\Model\Template\FilterProvider;
  */
 class CustomformView extends \Magento\Framework\View\Element\Template
 {
+    public $_filterProvider;
+
     /**
      * @var Customform
      */

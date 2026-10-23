@@ -21,6 +21,10 @@ use Webkul\Marketplace\Model\ResourceModel\Saleslist\Collection;
 
 class History extends \Magento\Framework\View\Element\Template
 {
+    public $Customer;
+    public $Order;
+    public $_customerSession;
+
     /**
      * @var \Magento\Customer\Model\Customer
      */

@@ -29,6 +29,8 @@ use Magento\Framework\Serialize\SerializerInterface;
 
 class Create extends \Magento\Framework\View\Element\Template
 {
+    public $wysiwygImages;
+
     /**
      * @var \Magento\Catalog\Model\Product
      */

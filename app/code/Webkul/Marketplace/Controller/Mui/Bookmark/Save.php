@@ -31,6 +31,8 @@ use Magento\Ui\Controller\UiActionInterface;
  */
 class Save extends Action implements UiActionInterface, HttpPostActionInterface
 {
+    public $bookmarkFactory;
+
     /**
      * Identifier for current bookmark
      */

@@ -7,6 +7,8 @@ namespace Magelearn\Customform\Block;
  */
 class Customform extends \Magento\Framework\View\Element\Template
 {
+    public $brand;
+
     /**
      * Index constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context

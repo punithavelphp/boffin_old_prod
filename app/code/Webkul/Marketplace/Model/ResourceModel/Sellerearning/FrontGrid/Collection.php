@@ -28,6 +28,8 @@ use Webkul\Marketplace\Helper\Data as HelperData;
  */
 class Collection extends SaleslistCollection implements ApiSearchResultInterface
 {
+    public $_period;
+
     /**
      * @var string
      */

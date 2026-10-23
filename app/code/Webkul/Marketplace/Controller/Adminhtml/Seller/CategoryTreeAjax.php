@@ -19,6 +19,8 @@ use Magento\Framework\Json\Helper\Data as JsonHelper;
  */
 class CategoryTreeAjax extends \Magento\Backend\App\Action
 {
+    public $jsonHelper;
+
     /**
      * @var \Magento\Catalog\Api\CategoryRepositoryInterface
      */

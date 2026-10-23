@@ -19,6 +19,8 @@ use Webkul\Marketplace\Helper\Data as HelperData;
 
 class AttributeAction extends Column
 {
+    public $helperData;
+
     public const URL_EDIT = 'marketplace/product_attribute/new';
     public const URL_DELETE = 'marketplace/product_attribute/delete';
 

@@ -17,6 +17,8 @@ use Webkul\Marketplace\Api\Data\WysiwygImageInterfaceFactory;
 
 class Delete extends Action
 {
+    public $jsonResultFactory;
+
     /**
      * @var PageFactory
      */

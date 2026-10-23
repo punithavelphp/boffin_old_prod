@@ -23,6 +23,8 @@ use Webkul\Marketplace\Model\FeedbackFactory;
  */
 class Feedbackcollection extends \Magento\Framework\View\Element\Template
 {
+    public $helper;
+
     /**
      * @var \Magento\Customer\Model\Customer
      */

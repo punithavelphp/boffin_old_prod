@@ -12,6 +12,8 @@ namespace Webkul\Marketplace\Plugin\Helper;
 
 class Category
 {
+    public $_customerRepositoryInterface;
+
     /**
      * @var array
      */

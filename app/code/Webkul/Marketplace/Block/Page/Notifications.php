@@ -18,6 +18,8 @@ use Webkul\Marketplace\Model\Notification;
 
 class Notifications extends \Magento\Framework\View\Element\Template
 {
+    public $collectionFactory;
+
     /**
      * @var string
      */

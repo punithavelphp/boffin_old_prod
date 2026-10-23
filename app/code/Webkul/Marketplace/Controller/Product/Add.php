@@ -20,6 +20,8 @@ use Webkul\Marketplace\Helper\Data as HelperData;
  */
 class Add extends Action
 {
+    public $productBuilder;
+
     /**
      * @var \Magento\Customer\Model\Session
      */

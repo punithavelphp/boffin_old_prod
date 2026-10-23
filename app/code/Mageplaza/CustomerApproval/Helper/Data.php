@@ -52,6 +52,8 @@ use Mageplaza\CustomerApproval\Model\Config\Source\TypeAction;
  */
 class Data extends AbstractData
 {
+	public $_storeManager;
+
 	const CONFIG_MODULE_PATH = 'mpcustomerapproval';
 	const XML_PATH_EMAIL     = 'email';
 

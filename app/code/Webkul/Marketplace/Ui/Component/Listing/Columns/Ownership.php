@@ -19,6 +19,8 @@ use Webkul\Marketplace\Helper\Data as HelperData;
 
 class Ownership extends Column
 {
+    public $helperData;
+
     /**
      * @var UrlInterface
      */

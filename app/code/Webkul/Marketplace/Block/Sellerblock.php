@@ -21,6 +21,9 @@ use Webkul\Marketplace\Model\ResourceModel\ProductFlagReason\CollectionFactory;
 
 class Sellerblock extends \Magento\Framework\View\Element\Template
 {
+    public $Customer;
+    public $Session;
+
     public const FLAG_REASON_ENABLE = 1;
     public const FLAG_REASON_DISABLE = 0;
 

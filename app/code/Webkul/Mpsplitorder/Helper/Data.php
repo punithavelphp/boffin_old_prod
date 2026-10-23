@@ -19,6 +19,10 @@ use Webkul\Marketplace\Model\ResourceModel\Saleperpartner;
  */
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    public $_customerSession;
+    public $_date;
+    public $_storeManager;
+
     /**
      * @var \Webkul\Marketplace\Model\ResourceModel\Saleperpartner\CollectionFactory
      */

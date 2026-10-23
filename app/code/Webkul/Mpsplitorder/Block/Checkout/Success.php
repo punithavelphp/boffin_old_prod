@@ -17,6 +17,9 @@ use Magento\Framework\App\ObjectManager;
 
 class Success extends \Magento\Checkout\Block\Onepage\Success
 {
+    public $customerSession;
+    public $orderFactory;
+
     /**
      * @var SessionManager
      */

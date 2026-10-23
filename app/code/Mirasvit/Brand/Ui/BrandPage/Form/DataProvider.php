@@ -49,6 +49,10 @@ use Mirasvit\Brand\Ui\BrandPage\Form\Modifier\NewBrandModifier;
  */
 class DataProvider extends AbstractDataProvider
 {
+    public $productCollectionFactory;
+    public $generalConfig;
+    public $fieldFactory;
+
     private $imageUploader;
 
     private $mime;

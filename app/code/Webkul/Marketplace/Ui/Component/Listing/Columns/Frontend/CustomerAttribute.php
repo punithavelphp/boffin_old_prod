@@ -17,6 +17,8 @@ use Magento\Customer\Api\CustomerMetadataInterface as CustomerMetadata;
 
 class CustomerAttribute extends \Magento\Ui\Component\Listing\Columns
 {
+    public $columnFactory;
+
     /**
      * @var int
      */

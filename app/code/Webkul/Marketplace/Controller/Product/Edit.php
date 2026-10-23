@@ -23,6 +23,8 @@ use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory;
  */
 class Edit extends Action
 {
+    public $productBuilder;
+
     /**
      * @var \Magento\Customer\Model\Session
      */

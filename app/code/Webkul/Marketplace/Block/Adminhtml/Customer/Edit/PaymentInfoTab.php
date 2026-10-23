@@ -21,6 +21,8 @@ use Magento\Backend\Block\Widget\Form\Generic;
  */
 class PaymentInfoTab extends Generic implements TabInterface
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Framework\Registry
      */

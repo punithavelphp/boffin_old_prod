@@ -22,6 +22,11 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 
 class Upload extends Action
 {
+    public $cityFactory;
+    public $_fileUploaderFactory;
+    public $_ioAdapter;
+    public $_logger;
+
     /**
      * Authorization level of a basic admin session
      *

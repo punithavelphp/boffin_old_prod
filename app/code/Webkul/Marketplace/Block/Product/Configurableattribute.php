@@ -19,6 +19,11 @@ use Magento\Catalog\Model\Product;
  */
 class Configurableattribute extends \Magento\Framework\View\Element\Template
 {
+    public $eavAttribute;
+    public $attributeRepository;
+    public $_attrOptionCollectionFactory;
+    public $jsonHelper;
+
     /**
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Catalog\Model\ResourceModel\Eav\Attribute $eavAttribute

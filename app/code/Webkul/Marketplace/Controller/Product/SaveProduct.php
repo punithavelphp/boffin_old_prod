@@ -30,6 +30,13 @@ use Magento\Catalog\Api\Data\ProductCustomOptionInterfaceFactory;
  */
 class SaveProduct
 {
+    public $_linkResolver;
+    public $_mpProductFactory;
+    public $_mpProductCollectionFactory;
+    public $_stockRegistryProvider;
+    public $_stockConfiguration;
+    public $_jsonHelper;
+
     /**
      * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */

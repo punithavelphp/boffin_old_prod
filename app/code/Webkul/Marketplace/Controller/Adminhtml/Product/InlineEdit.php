@@ -13,6 +13,9 @@ namespace Webkul\Marketplace\Controller\Adminhtml\Product;
 
 class InlineEdit extends \Magento\Backend\App\Action
 {
+    public $productRepository;
+    public $_stockRegistry;
+
 
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory

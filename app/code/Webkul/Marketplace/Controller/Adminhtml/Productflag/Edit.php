@@ -15,6 +15,8 @@ use Webkul\Marketplace\Api\Data\ProductFlagReasonInterfaceFactory;
 
 class Edit extends \Webkul\Marketplace\Controller\Adminhtml\Productflag
 {
+    public $coreRegistry;
+
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */

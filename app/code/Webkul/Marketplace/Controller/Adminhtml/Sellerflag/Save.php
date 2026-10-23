@@ -14,6 +14,8 @@ use Magento\Framework\Exception\LocalizedException;
 
 class Save extends \Magento\Backend\App\Action
 {
+    public $dataPersistor;
+
 
     /**
      * @var \Webkul\Marketplace\Model\SellerFlagReasonFactory

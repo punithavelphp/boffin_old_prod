@@ -15,6 +15,8 @@ use Webkul\Marketplace\Helper\Data as MpHelper;
 
 class Upload implements \Magento\Framework\View\Element\Block\ArgumentInterface
 {
+    public $mpHelpder;
+
     /**
      * MpHelper
      *

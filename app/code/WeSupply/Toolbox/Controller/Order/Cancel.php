@@ -6,6 +6,8 @@ use WeSupply\Toolbox\Model\OrderInfoBuilder;
 
 class Cancel extends \Magento\Framework\App\Action\Action
 {
+    public $guid;
+
     /**
      * @var \WeSupply\Toolbox\Helper\Data
      */

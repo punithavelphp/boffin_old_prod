@@ -24,6 +24,8 @@ use Magento\Framework\Event\ObserverInterface;
 
 class LoadProductBrand implements ObserverInterface
 {
+    public $_resource;
+
     /**
      * Catalog data
      *

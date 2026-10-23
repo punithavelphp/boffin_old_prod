@@ -15,6 +15,8 @@ use Magento\Customer\Controller\RegistryConstants;
 
 class Product extends \Magento\Backend\Block\Template
 {
+    public $customerEdit;
+
     /**
      * Block template.
      *

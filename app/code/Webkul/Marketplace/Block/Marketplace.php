@@ -23,6 +23,8 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductColl
 
 class Marketplace extends \Magento\Framework\View\Element\Template
 {
+    public $filterProvider;
+
     /**
      * @var \Magento\Catalog\Helper\Image
      */

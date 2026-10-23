@@ -32,6 +32,10 @@ use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory as OrderItemC
 
 class View extends \Magento\Framework\View\Element\Template
 {
+    public $Customer;
+    public $Order;
+    public $_customerSession;
+
     /**
      * @var \Magento\Customer\Model\Customer
      */

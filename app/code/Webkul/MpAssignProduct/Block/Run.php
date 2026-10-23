@@ -12,6 +12,16 @@ namespace Webkul\MpAssignProduct\Block;
 
 class Run extends \Magento\Framework\View\Element\Template
 {
+    public $_url;
+    public $marketplaceHelper;
+    public $profileFactory;
+    public $jsonHelper;
+    public $productRepository;
+    public $mpProductFactory;
+    public $saveController;
+    public $assignItemsFactory;
+    public $logger;
+
     /**
      * @var \Webkul\MpAssignProduct\Helper\Data
      */

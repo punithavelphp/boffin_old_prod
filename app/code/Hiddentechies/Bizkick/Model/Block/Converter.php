@@ -10,6 +10,8 @@ namespace Hiddentechies\Bizkick\Model\Block;
  */
 class Converter  
 {
+    public $eavConfig;
+
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
      */

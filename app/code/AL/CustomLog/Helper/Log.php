@@ -5,6 +5,11 @@ namespace AL\CustomLog\Helper;
 use \Magento\Framework\App\Helper\AbstractHelper;
 
 class Log extends AbstractHelper {
+    public $shipmentLogger;
+    public $invoiceLogger;
+    public $shipmentCancelLogger;
+    public $errorLogger;
+
 
     /**
      * 

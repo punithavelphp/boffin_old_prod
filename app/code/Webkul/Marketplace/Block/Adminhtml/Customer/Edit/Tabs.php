@@ -24,6 +24,8 @@ use Webkul\Marketplace\Model\SellerFactory;
  */
 class Tabs extends Generic implements TabInterface
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Store\Model\System\Store
      */

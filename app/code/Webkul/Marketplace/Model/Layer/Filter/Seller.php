@@ -18,6 +18,9 @@ use Magento\Framework\DB\Select as DBSelect;
 
 class Seller extends \Magento\Catalog\Model\Layer\Filter\AbstractFilter
 {
+    public $_resource;
+    public $_request;
+
     /**
      * @var int
      */

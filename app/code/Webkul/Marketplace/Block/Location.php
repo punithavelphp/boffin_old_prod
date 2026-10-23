@@ -20,6 +20,9 @@ use Webkul\Marketplace\Helper\Data as MpHelper;
 
 class Location extends \Magento\Framework\View\Element\Template
 {
+    public $Customer;
+    public $Session;
+
     /**
      * @var \Webkul\Marketplace\Helper\Data
      */

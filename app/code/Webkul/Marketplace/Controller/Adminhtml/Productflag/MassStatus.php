@@ -19,6 +19,8 @@ use Magento\Framework\App\ResourceConnection;
  */
 class MassStatus extends \Magento\Backend\App\Action
 {
+    public $_date;
+
     /**
      * TABLE_NAME table name
      */

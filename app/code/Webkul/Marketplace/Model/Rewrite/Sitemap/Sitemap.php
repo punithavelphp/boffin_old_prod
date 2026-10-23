@@ -17,6 +17,8 @@ use Magento\Sitemap\Model\SitemapConfigReaderInterface;
 
 class Sitemap extends \Magento\Sitemap\Model\Sitemap
 {
+    public $mpHelper;
+
     /**
      * Construct
      *

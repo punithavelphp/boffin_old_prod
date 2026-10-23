@@ -25,6 +25,10 @@ use Magento\Framework\Filesystem\Driver\File;
 class MoveSampleFiles implements
     DataPatchInterface
 {
+    public $_reader;
+    public $_filesystem;
+    public $_fileDriver;
+
     /**
      * @var ModuleDataSetupInterface $moduleDataSetup
      */

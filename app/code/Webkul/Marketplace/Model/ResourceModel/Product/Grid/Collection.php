@@ -21,6 +21,8 @@ use Webkul\Marketplace\Model\ResourceModel\Product\Collection as ProductCollecti
  */
 class Collection extends ProductCollection implements SearchResultInterface
 {
+    public $attribute;
+
     /**
      * @var AggregationInterface
      */

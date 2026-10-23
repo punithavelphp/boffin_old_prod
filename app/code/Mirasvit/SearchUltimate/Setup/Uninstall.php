@@ -31,6 +31,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Uninstall implements UninstallInterface
 {
+    public $deploymentConfig;
+    public $writer;
+    public $loader;
+
 
     private $output;
 

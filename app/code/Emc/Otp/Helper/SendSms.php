@@ -18,6 +18,9 @@ use Emc\Otp\Model\Sms;
  */
 class SendSms extends \Emc\Otp\Helper\SmsData
 {
+    public $logger;
+    public $sms;
+
     const CONFIG_PATH = 'smsgateway/';
     //const MSG91_WEB_API = 'http://api.msg91.com/api/sendhttp.php?';
 

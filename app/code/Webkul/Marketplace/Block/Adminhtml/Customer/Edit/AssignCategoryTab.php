@@ -20,6 +20,8 @@ use Magento\Backend\Block\Widget\Form\Generic;
  */
 class AssignCategoryTab extends Generic implements TabInterface
 {
+    public $customerEdit;
+
     /**
      * @var \Magento\Framework\Registry
      */

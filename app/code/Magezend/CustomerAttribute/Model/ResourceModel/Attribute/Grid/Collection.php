@@ -26,6 +26,8 @@ use Psr\Log\LoggerInterface as Logger;
  */
 class Collection extends SearchResult
 {
+    public $entityModel;
+
  
     /**
      * @param EntityFactory $entityFactory

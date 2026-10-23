@@ -15,6 +15,8 @@ use Webkul\Marketplace\Api\Data\WysiwygImageInterfaceFactory;
 
 class Content extends \Magento\Framework\View\Element\Template
 {
+    public $_fileSizeService;
+
     /**
      * @var \Magento\Framework\File\Size
      */

@@ -21,6 +21,9 @@ use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as customerC
  * @package Emc\Otp\Model
  */
 class GenerateOtp implements GenerateOtpInterface {
+    public $emcOtpCountFactory;
+    public $_scopeConfig;
+
 
     const VALIDATE_TELEPHONE_NUMBER_VALID = 'Please enter valid Mobile number';
     const VALIDATE_TELEPHONE_NUMBER = 'Please enter Mobile number';

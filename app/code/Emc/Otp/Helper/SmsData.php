@@ -17,6 +17,11 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
  */
 class SmsData extends AbstractHelper {
 
+    public $configReader;
+    public $smsLogFactory;
+    public $storeManager;
+    public $timezone;
+
     const CONFIG_PATH = 'smsgateway/';
     const OTP_ON_REGISTRATION_STATUS = 'general/template_settings/otp';
     const ORDER_STATUS = 'general/template_settings/order';

@@ -21,6 +21,8 @@ use Magento\Framework\Url\EncoderInterface;
 
 class Proview extends Column
 {
+    public $urlEncoder;
+
     /**
      * @var UrlInterface
      */
