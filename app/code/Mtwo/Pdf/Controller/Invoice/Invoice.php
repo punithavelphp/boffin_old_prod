@@ -13,6 +13,16 @@ use Mtwo\Pdf\Controller\Mypdf;
 use TCPDF;
 class Invoice extends Action
 {
+	public $helper;
+	public $_coreRegistry;
+	public $_invoiceRepository;
+	public $_orderRepository;
+	public $_customerSession;
+	public $orderHelper;
+	public $date;
+	public $mpSellerModel;
+	public $logger;
+
 	/**
      * @var PageFactory
      */

@@ -6,6 +6,8 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Combine extends \Magento\Backend\App\Action
 {
+    public $resultPageFactory;
+
     /**
      * @var PageFactory
      */

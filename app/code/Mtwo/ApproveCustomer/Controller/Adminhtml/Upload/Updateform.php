@@ -16,6 +16,12 @@ use \Magento\Framework\Event\ManagerInterface;
 use \Mageplaza\CustomerApproval\Helper\Data as MageplazaHelper;
 
 class Updateform extends \Magento\Framework\App\Action\Action {
+	public $resultPageFactory;
+	public $customerSession;
+	public $romcity;
+	public $eavConfig;
+	public $mageplazaHelper;
+
 
     protected $_fileUploaderFactory;
     protected $_directoryList;

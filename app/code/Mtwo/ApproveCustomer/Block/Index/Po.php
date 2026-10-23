@@ -6,6 +6,9 @@ use Magento\Framework\View\Element\Template;
 
 class Po extends Template
 {
+    public $customerSession;
+    public $group;
+
     protected $customerFactory;
     protected $customerCollection;
 

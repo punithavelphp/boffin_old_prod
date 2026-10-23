@@ -7,6 +7,14 @@ use Razorpay\Magento\Model\PaymentMethod;
 use Magento\Framework\DataObject;
 
 class WebhookOrderCron {
+    public $config;
+    public $order;
+    public $objectManagement;
+    public $quoteManagement;
+    public $quoteRepository;
+    public $storeManagement;
+    public $eventManager;
+
     protected $logger;
 
     public function __construct(

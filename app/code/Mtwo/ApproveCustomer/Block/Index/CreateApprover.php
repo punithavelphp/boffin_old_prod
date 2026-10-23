@@ -6,6 +6,8 @@ use Magento\Framework\View\Element\Template;
 
 class CreateApprover extends Template
 {
+	public $helper;
+
 	protected $customerCollection;
 
 	public function __construct(

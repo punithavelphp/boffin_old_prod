@@ -9,6 +9,13 @@ namespace Mtwo\Coins\Block;
 
 class Coins extends \Magento\Framework\View\Element\Template
 {
+	public $catalogFactory;
+	public $storeManager;
+	public $customerSession;
+	public $coinsOrders;
+	public $coins;
+	public $status;
+
 
     /**
      * Constructor

@@ -23,6 +23,7 @@ use Magento\Customer\Model\Context as CustomerContext;
 
 class Result extends \Magento\Framework\View\Element\Template
 {
+    public $_collection;
 
 	/**
      * Core registry

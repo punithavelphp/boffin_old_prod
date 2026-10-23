@@ -18,6 +18,10 @@ use Magento\Framework\Exception\MailException;
  */
 class Email extends \Magento\Framework\App\Helper\AbstractHelper
 {
+	public $customerFactory;
+	public $_customerSession;
+	public $objectManagement;
+
 	const XML_PATH_EMAIL_PAYMENT_LINK = 'payment_settings/custom/email_template';
 	const XML_PATH_EMAIL_ORDER_DENY = 'payment_settings/custom/deny_email_template';
 	const XML_PATH_EMAIL_FACULTY_INFO = 'payment_settings/custom/faculty_email_template';

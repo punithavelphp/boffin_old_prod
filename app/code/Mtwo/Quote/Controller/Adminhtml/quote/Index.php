@@ -7,6 +7,8 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends \Magento\Backend\App\Action
 {
+    public $resultPageFactory;
+
     /**
      * @var PageFactory
      */

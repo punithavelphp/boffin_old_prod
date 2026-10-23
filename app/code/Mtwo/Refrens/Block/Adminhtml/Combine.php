@@ -9,6 +9,8 @@ use Magento\Sales\Model\ResourceModel\Order\Invoice\CollectionFactory as Invoice
 
 class Combine extends Template
 {
+	public $invoiceRepository;
+
 	protected $formKey;
 	protected $invoiceCollectionFactory;
 

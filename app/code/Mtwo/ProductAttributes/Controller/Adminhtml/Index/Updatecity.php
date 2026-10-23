@@ -5,6 +5,9 @@ use Magento\Backend\App\Action;
 use Mtwo\ProductAttributes\Helper\Data;
 class Updatecity extends \Magento\Backend\App\Action
 { 
+    public $_coreRegistry;
+    public $helper;
+
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */

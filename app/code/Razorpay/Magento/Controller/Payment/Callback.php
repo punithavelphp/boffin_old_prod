@@ -10,6 +10,11 @@ use Magento\Framework\App\RequestInterface;
 
 class Callback extends \Razorpay\Magento\Controller\BaseController
 {
+    public $quoteRepository;
+    public $quoteManagement;
+    public $customerFactory;
+    public $objectManagement;
+
     protected $quote;
 
     protected $checkoutSession;

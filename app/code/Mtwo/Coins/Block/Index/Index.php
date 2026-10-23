@@ -9,6 +9,9 @@ namespace Mtwo\Coins\Block\Index;
 
 class Index extends \Magento\Framework\View\Element\Template
 {
+	public $catalogFactory;
+	public $storeManager;
+
 
     /**
      * Constructor

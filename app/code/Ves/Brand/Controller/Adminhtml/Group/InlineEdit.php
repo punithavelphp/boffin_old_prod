@@ -29,6 +29,7 @@ use Ves\Brand\Model\Group as GroupModel;
 
 class InlineEdit extends \Magento\Backend\App\Action
 {
+    public $pageRepository;
 
     /** @var PageRepository  */
     protected $groupRepository;

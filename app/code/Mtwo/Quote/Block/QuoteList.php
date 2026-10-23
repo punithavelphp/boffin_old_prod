@@ -6,6 +6,11 @@ use Magento\Framework\View\Element\Template;
 
 class QuoteList extends Template
 {
+    public $customQuoteItemsFactory;
+    public $customQuoteFactory;
+    public $productFactory;
+    public $customerSession;
+
  
     public function __construct(
         Template\Context $context

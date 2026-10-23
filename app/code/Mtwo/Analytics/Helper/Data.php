@@ -8,6 +8,9 @@ use Magento\Eav\Model\Config as EavConfig;
 
 class Data extends AbstractHelper
 {
+	public $customerFactory;
+	public $eavConfig;
+
 	protected $orderCollectionFactory;
 	protected $customerArray=[];
 	public function __construct(

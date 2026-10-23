@@ -29,6 +29,8 @@ class Image extends \Magento\Ui\Component\Listing\Columns\Column
 {
     const NAME = 'image';
 
+    public $imageHelper;
+    public $urlBuilder;
     const ALT_FIELD = 'name';
 
     /**

@@ -13,6 +13,17 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 use TCPDF;
 class PdfString  
 {
+	public $helper;
+	public $_coreRegistry;
+	public $_invoiceRepository;
+	public $_orderRepository;
+	public $_customerSession;
+	public $orderHelper;
+	public $date;
+	public $mpSellerModel;
+	public $logger;
+	public $layoutFactory;
+
 	/**
      * @var PageFactory
      */

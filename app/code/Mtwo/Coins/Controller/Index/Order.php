@@ -17,6 +17,16 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Order extends Action
 {
+	public $customerFactory;
+	public $addressFactory;
+	public $customerSession;
+	public $jsonFactory;
+	public $storeManager;
+	public $coinsFactory;
+	public $ordersFactory;
+	public $catalogactory;
+	public $_messageManager;
+
 
 	/**
 			* @var PageFactory

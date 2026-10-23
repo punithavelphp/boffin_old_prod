@@ -9,6 +9,8 @@ use Mtwo\Pdf\Helper\Data;
 
  class Request extends Action
 {
+	public $helper;
+
 	/**
      * @var PageFactory
      */

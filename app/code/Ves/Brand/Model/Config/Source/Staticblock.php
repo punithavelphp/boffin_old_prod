@@ -23,6 +23,7 @@ class Staticblock implements \Magento\Framework\Option\ArrayInterface
 {
 	protected  $_blockModel;
 
+    public $_groupModel;
     /**
      * @param \Magento\Cms\Model\Block $blockModel
      */

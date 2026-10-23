@@ -1,5 +1,19 @@
 <?php
 
+	public $_coreRegistry;
+	public $_invoiceRepository;
+	public $_orderRepository;
+	public $orderHelper;
+	public $helper;
+	public $date;
+	public $mpSellerModel;
+	public $logger;
+	public $resourceConnection;
+	public $customer;
+	public $url;
+	public $refrensFactory;
+	public $gstStates;
+
 namespace Mtwo\Refrens\Controller\Index;
 
 use Magento\Framework\App\Action\Action;

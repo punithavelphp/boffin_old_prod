@@ -8,6 +8,8 @@ namespace Mtwo\ProductAttributes\Helper;
  */
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
+	public $resourceConnection;
+
      
     public function __construct(
        \Magento\Framework\App\Helper\Context $context

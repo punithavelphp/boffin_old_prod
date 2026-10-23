@@ -27,6 +27,7 @@ use Magento\Framework\View\Result\PageFactory;
 
 class View extends \Magento\Framework\App\Action\Action
 {
+    public $resultPageFactory;
 
     /**
      * @var \Magento\Framework\App\RequestInterface

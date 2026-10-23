@@ -27,6 +27,7 @@ use Magento\Framework\Escaper;
 
 class WysiwygEditor extends Template implements RendererInterface
 {
+    public $_wysiwygConfig;
 
     /**
      * @var \Magento\Framework\Data\Form\Element\CollectionFactory

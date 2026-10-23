@@ -35,6 +35,8 @@ class InstallData implements InstallDataInterface
 	/**
 	 * Brand Factory
 	 *
+		public $groupFactory;
+		public $eavSetupFactory;
 	 * @var BrandFactory
 	 */
 	private $brandFactory;

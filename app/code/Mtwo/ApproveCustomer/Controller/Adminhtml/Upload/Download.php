@@ -3,6 +3,9 @@
 namespace Mtwo\ApproveCustomer\Controller\Adminhtml\Upload;
 use Magento\Framework\App\Filesystem\DirectoryList;
 class Download extends \Magento\Backend\App\Action {
+    public $_directoryList;
+    public $fileFactory;
+
 
     protected $resultPageFactory;
 

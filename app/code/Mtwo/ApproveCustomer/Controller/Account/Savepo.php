@@ -8,6 +8,9 @@ use Magento\Customer\Model\Session;
 
  class Savepo extends ActionProcessor
 {
+	public $helper;
+	public $customerSession;
+
 	protected $customerFactory;
 	protected $helperData;
     public function __construct(

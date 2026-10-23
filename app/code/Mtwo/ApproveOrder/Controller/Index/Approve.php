@@ -5,6 +5,10 @@ use Magento\Framework\App\Action\Context;
 use Mtwo\ApproveCustomer\Controller\ActionProcessor;
 class Approve extends ActionProcessor
 {
+	public $emailHelper;
+	public $customerSession;
+	public $approved;
+
 	protected $orderFactory;
 
 	public function __construct(

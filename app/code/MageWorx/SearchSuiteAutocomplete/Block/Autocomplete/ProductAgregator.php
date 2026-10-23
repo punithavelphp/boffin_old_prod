@@ -20,6 +20,8 @@ use Magento\Catalog\Helper\ImageFactory;
  */
 class ProductAgregator extends \Magento\Framework\DataObject
 {
+    public $string;
+
     /**
      * @var \MageWorx\SearchSuiteAutocomplete\Block\Product
      */

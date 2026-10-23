@@ -5,6 +5,8 @@ use Magento\Backend\Block\Context;
 use Magento\Customer\Model\CustomerFactory;
 class Customer extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer
 {
+  public $customerFactory;
+
 	
 	public function __construct(Context $context, CustomerFactory $customerFactory, array $data = [])
     {

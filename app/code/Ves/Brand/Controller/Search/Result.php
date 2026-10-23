@@ -35,6 +35,8 @@ class Result extends \Magento\Framework\App\Action\Action
      */
     protected $_request;
 
+    public $resultPageFactory;
+    public $_coreRegistry;
     /**
      * @var \Magento\Framework\App\ResponseInterface
      */

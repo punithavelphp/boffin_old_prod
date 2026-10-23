@@ -20,6 +20,11 @@ use Magento\Catalog\Model\Session;
  */
 class PaymentMethod extends \Magento\Payment\Model\Method\AbstractMethod
 {
+    public $key_id;
+    public $key_secret;
+    public $rzp;
+    public $order;
+
     const CHANNEL_NAME                  = 'Magento';
     const METHOD_CODE                   = 'razorpay';
     const CONFIG_MASKED_FIELDS          = 'masked_fields';

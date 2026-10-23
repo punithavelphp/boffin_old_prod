@@ -3,6 +3,8 @@
 namespace Razorpay\Magento\Block;
  class Order extends \Magento\Framework\View\Element\Template {
 
+    public $orderFactory;
+
     protected $coreSession;
 
     public function __construct(

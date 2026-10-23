@@ -11,6 +11,12 @@ use TCPDF;
 
 class Data extends AbstractHelper
 {
+	public $fileSystem;
+	public $_blockFactory;
+	public $invoiceBlock;
+	public $storeManager;
+	public $customerFactory;
+
     /**
      * Data constructor.
      *

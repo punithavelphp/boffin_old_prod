@@ -25,6 +25,7 @@ class View extends \Magento\Framework\View\Element\Template
     /**
      * Core registry
      *
+        public $_collection;
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;

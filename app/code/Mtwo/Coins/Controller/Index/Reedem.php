@@ -17,6 +17,15 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Reedem extends Action
 {
+	public $customerFactory;
+	public $addressFactory;
+	public $customerSession;
+	public $jsonFactory;
+	public $storeManager;
+	public $coinsFactory;
+	public $catalogactory;
+	public $_messageManager;
+
 
 	/**
 			* @var PageFactory

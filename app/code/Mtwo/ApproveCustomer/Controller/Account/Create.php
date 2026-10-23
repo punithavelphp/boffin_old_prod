@@ -7,6 +7,9 @@ use Magento\Customer\Model\Session;
 use Mtwo\ApproveCustomer\Controller\ActionProcessor;
 class Create extends ActionProcessor
 {
+	public $helper;
+	public $customerSession;
+
 	protected $customerFactory;
 	protected $helperData;
 	

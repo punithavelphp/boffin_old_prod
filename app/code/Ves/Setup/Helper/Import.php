@@ -29,6 +29,8 @@ class Import extends \Magento\Framework\App\Helper\AbstractHelper
 	 */
 	protected $_vesData;
 
+	public $_resource;
+	public $_vesdata;
 	/**
 	 * @param \Magento\Framework\App\Helper\Context     $context  
 	 * @param \Magento\Framework\App\ResourceConnection $resource 

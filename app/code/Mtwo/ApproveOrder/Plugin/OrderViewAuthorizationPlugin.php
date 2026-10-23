@@ -5,6 +5,9 @@ use \Magento\Customer\Model\Session;
 class OrderViewAuthorizationPlugin
 {
 
+	public $customerSession;
+	public $orderConfig;
+
 
 	public function __construct(
 		\Magento\Customer\Model\Session $customerSession,

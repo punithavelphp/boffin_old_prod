@@ -4,6 +4,8 @@ namespace MageWorx\SearchSuiteAutocomplete\Model\Source;
 
 class AutocompleteFields
 {
+    public $options;
+
     const SUGGEST = 'suggest';
 
     const PRODUCT = 'product';

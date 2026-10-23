@@ -6,6 +6,8 @@ use Magento\Framework\View\Element\Template;
 
 class CreatePD extends Template
 {
+	public $helper;
+
 	protected $customerCollection;
 
 	public function __construct(

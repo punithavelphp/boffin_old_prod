@@ -29,6 +29,7 @@ class Save extends \Magento\Backend\App\Action
      */
     protected $_fileSystem;
 
+    public $jsHelper;
     /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\ObjectManagerInterface $objectManager

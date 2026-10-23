@@ -33,6 +33,9 @@ class Market extends \Magento\Config\Block\System\Config\Form\Field
     protected $_resource;
 
     protected $_key_path;
+    public $_helper;
+    public $_remoteAddress;
+    public $_license;
 
     /**
      * [__construct description]

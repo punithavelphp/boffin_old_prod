@@ -8,6 +8,8 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Order extends \Razorpay\Magento\Controller\BaseController
 {
+    public $objectManagement;
+
     protected $quote;
 
     protected $checkoutSession;

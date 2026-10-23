@@ -34,6 +34,8 @@ class CheckLicense implements ObserverInterface
     /**
      * @var \Magento\Framework\Message\ManagerInterface
      */
+		public $_storeManager;
+		public $licenseHelper;
     protected $messageManager;
 
 	/**

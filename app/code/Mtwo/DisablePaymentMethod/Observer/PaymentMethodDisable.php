@@ -3,6 +3,8 @@ namespace Mtwo\DisablePaymentMethod\Observer;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 class PaymentMethodDisable implements ObserverInterface {
+	public $state;
+
 	protected $_customerSession;
 	public function __construct(
 		\Magento\Customer\Model\Session $customerSession,

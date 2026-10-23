@@ -10,6 +10,14 @@ use Mtwo\Approver\Model\EmployeeApproverFactory;
 
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper {
+	public $customerFactory;
+	public $_addressFactory;
+	public $_groupFactory;
+	public $customerSession;
+	public $mageplazaHelper;
+	public $approverFactory;
+	public $employeeApproverFactory;
+
 
 	protected $_storeManager;
 	const XML_PATH_APPROVER_COUNT = 'customer/custom/approval';

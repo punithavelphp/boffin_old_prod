@@ -27,6 +27,9 @@ class ListLicense extends \Magento\Config\Block\System\Config\Form\Field
 
     const API_URL      = 'https://landofcoder.com/api/soap/?wsdl=1';
     const SITE_URL      = 'https://landofcoder.com';
+    public $_helper;
+    public $_remoteAddress;
+    public $_license;
     const API_USERNAME = 'checklicense';
     const API_PASSWORD = 'n2w3z2y0kc';
 

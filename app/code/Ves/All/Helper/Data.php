@@ -34,6 +34,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var array
      */
+        public $_license;
+        public $_moduleReader;
     protected $_config = [];
 
     /**

@@ -45,6 +45,16 @@ class Seller extends \Magento\Catalog\Model\Layer\Filter\AbstractFilter
     protected $_coreRegistry;
 
     /**
+     * @var \\Webkul\\Marketplace\\Model\\ResourceModel\\Product\\CollectionFactory
+     */
+    protected $_mpProductCollectionFactory;
+
+    /**
+     * @var \\Webkul\\Marketplace\\Helper\\Data
+     */
+    protected $_mpHelper;
+
+    /**
      * @var CategoryDataProvider
      */
     private $dataProvider;

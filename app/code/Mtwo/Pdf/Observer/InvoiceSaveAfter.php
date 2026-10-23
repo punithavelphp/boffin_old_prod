@@ -7,6 +7,8 @@ use Psr\Log\LoggerInterface;
 
 class InvoiceSaveAfter implements ObserverInterface
 {
+	public $_request;
+
 	protected $logger;
 
 	public function __construct(LoggerInterface $logger,\Magento\Framework\App\RequestInterface $request)

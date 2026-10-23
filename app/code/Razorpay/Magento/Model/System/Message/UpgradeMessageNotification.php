@@ -28,6 +28,8 @@ catch (\Exception $e)
 
 class UpgradeMessageNotification implements MessageInterface {
 
+  public $config;
+
    /**
     * Message identity
     */

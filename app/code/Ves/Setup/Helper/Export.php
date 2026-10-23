@@ -27,6 +27,7 @@ class Export extends \Magento\Framework\App\Helper\AbstractHelper
 	/** @var \Magento\Framework\Xml\Parser */
 	protected $parser;
 
+	public $_resource;
 	/** @var \Magento\Store\Model\StoreManagerInterface */
 	protected $_storeManager;
 

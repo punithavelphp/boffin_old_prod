@@ -15,6 +15,9 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class AfterPlaceOrderObserver implements ObserverInterface
 {
+	public $checkoutSession;
+	public $config;
+	public $rzpMethod;
 
 	/**
      * Store key

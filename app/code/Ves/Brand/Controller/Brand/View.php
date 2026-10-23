@@ -30,6 +30,7 @@ class View extends \Magento\Framework\App\Action\Action
      */
     protected $resultLayoutFactory;
 
+    public $resultPageFactory;
     /**
      * @var JsonFactory
      */

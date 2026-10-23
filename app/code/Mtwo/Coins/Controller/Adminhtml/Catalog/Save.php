@@ -11,6 +11,8 @@ use Magento\Framework\Exception\LocalizedException;
 use Mtwo\Coins\Model\ImageUploader;
 class Save extends \Magento\Backend\App\Action
 {
+    public $imageUploaderModel;
+
 
     protected $dataPersistor;
 

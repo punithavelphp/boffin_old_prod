@@ -14,6 +14,11 @@ use Magento\Framework\App\RequestInterface;
  */
 abstract class BaseController extends \Magento\Framework\App\Action\Action
 {
+    public $config;
+    public $key_id;
+    public $key_secret;
+    public $rzp;
+
     /**
      * @var \Razorpay\Magento\Model\CheckoutFactory
      */

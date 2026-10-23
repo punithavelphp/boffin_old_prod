@@ -34,4 +34,5 @@ class Separator extends \Magento\Backend\Block\Template implements \Magento\Fram
         $this->_element = $element;
         return $this->toHtml();
     }
+        public $_element;
 }

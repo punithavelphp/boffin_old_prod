@@ -18,6 +18,9 @@ use Razorpay\Magento\Model\PaymentMethod;
  */
 class SetRzpPaymentDetailsOnCart implements ResolverInterface
 {
+
+    public $rzp;
+
     /**
      * @var GetCartForUser
      */

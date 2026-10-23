@@ -8,6 +8,8 @@ use Mtwo\Analytics\Helper\Data;
 
 class Analytics implements AnalyticsInterface {
 
+	public $helper;
+
 
 	public function __construct( \Mtwo\Analytics\Helper\Data $helper
 

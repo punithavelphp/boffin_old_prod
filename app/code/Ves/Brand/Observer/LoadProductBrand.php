@@ -27,6 +27,7 @@ class LoadProductBrand implements ObserverInterface
     /**
      * Catalog data
      *
+        public $_resource;
      * @var \Magento\Catalog\Helper\Data
      */
     protected $catalogData;

@@ -21,6 +21,9 @@ use Magento\Catalog\Helper\Image as ImageHelper;
  */
 class  ImageFactory extends \Magento\Catalog\Block\Product\ImageFactory
 {
+	public $resourceConnection;
+	public $storeManager;
+
 	/**
      * @var ConfigInterface
      */

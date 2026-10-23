@@ -27,6 +27,7 @@ class Collection extends AbstractCollection
     const SORT_ORDER_ASC = 'asc';
     const SORT_ORDER_DESC = 'desc';
 
+    public $_previewFlag;
     protected $store_filter_added = false;
 	/**
      * @var string

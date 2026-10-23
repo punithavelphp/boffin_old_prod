@@ -6,6 +6,12 @@ use Magento\Customer\Model\CustomerFactory;
 
 class RestrictAddToCart implements ObserverInterface
 {
+	public $messageManager;
+	public $mhelper;
+	public $sellerCity;
+	public $customerFactory;
+	public $request;
+
 	protected $responseFactory;
 
 	protected $url;

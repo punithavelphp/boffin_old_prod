@@ -14,6 +14,9 @@ use Razorpay\Subscription\Helper\SubscriptionWebhook;
 use Razorpay\Magento\Helper\Data as UpdatePaymentStatus;
 class Webhook extends \Razorpay\Magento\Controller\BaseController
 {
+    public $storeManagement;
+    public $updatePaymentStatus;
+
     /**
      * @var \Magento\Checkout\Model\Session
      */

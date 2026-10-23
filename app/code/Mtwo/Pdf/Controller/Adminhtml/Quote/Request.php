@@ -10,6 +10,8 @@ use Mtwo\Pdf\Helper\Data;
 
 class Request extends \Magento\Backend\App\Action
 {
+  public $helper;
+
     /**
      * Core registry
      *

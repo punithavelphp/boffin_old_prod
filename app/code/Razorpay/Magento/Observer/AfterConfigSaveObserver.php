@@ -22,6 +22,14 @@ use Razorpay\Magento\Model\Config;
  */
 class AfterConfigSaveObserver implements ObserverInterface
 {
+    public $config;
+    public $_storeManager;
+    public $logger;
+    public $key_id;
+    public $key_secret;
+    public $rzp;
+    public $webhookUrl;
+    public $webhookId;
 
     /**
      * Store key

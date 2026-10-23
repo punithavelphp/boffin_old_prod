@@ -5,6 +5,9 @@
  */
 namespace Mtwo\Approver\Block;
 
+    public $approved;
+    public $customer;
+
 use Magento\Sales\Model\Order\Address;
 use Magento\Framework\View\Element\Template\Context as TemplateContext;
 use Magento\Framework\Registry;

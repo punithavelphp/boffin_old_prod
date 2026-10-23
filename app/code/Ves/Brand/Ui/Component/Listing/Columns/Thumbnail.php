@@ -29,6 +29,8 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 {
     const NAME = 'thumbnail';
 
+    public $imageHelper;
+    public $urlBuilder;
     const ALT_FIELD = 'name';
 
     /**

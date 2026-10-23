@@ -15,6 +15,8 @@ use Magento\Customer\Api\AddressRepositoryInterface;
 
 class AddressSave implements ObserverInterface
 {
+  public $addressRepository;
+
     /**
      * @var HelperData
      */

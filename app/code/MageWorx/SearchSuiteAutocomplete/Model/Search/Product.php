@@ -17,6 +17,9 @@ use \Magento\Review\Model\ResourceModel\Review\SummaryFactory;
  */
 class Product implements \MageWorx\SearchSuiteAutocomplete\Model\SearchInterface
 {
+    public $request;
+    public $_categoryModel;
+
     /**
      * @var \MageWorx\SearchSuiteAutocomplete\Helper\Data
      */

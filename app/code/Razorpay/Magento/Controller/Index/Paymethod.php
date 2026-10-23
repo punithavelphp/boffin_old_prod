@@ -10,6 +10,9 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Paymethod extends Action
 { 
+    public $customerSession;
+    public $orderFactory;
+
 	/**
      * @var PageFactory
      */

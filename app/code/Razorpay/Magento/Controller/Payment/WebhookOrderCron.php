@@ -13,6 +13,8 @@ use Magento\Framework\DataObject;
 
 class WebhookOrderCron extends \Razorpay\Magento\Controller\BaseController
 {
+	public $storeManagement;
+
     /**
      * @var \Magento\Checkout\Model\Session
      */

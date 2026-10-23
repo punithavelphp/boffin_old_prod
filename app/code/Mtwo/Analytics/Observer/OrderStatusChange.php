@@ -14,6 +14,9 @@ use Mtwo\Coins\Model\CoinsFactory;
 
 class OrderStatusChange implements ObserverInterface
 {
+	public $customer;
+	public $coinsFactory;
+
 	protected $orderRepository;
 	protected $transportBuilder;
 	protected $inlineTranslation;

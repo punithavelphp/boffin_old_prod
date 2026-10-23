@@ -15,6 +15,9 @@ use Razorpay\Magento\Model\PaymentMethod;
 class PlaceRazorpayOrder implements ResolverInterface
 {
 
+    public $getCartForUser;
+    public $rzp;
+
     protected $scopeConfig;
 
     protected $cartManagement;

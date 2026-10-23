@@ -29,6 +29,7 @@ use Ves\Brand\Model\Brand as BrandModel;
 
 class InlineEdit extends \Magento\Backend\App\Action
 {
+    public $pageRepository;
 
     /** @var PageRepository  */
     protected $brandRepository;

@@ -4,6 +4,8 @@ namespace MageWorx\SearchSuiteAutocomplete\Model\Source;
 
 class ProductFields
 {
+    public $options;
+
     const NAME = 'name';
 
     const SKU = 'sku';

@@ -29,6 +29,8 @@ class Save extends \Magento\Backend\App\Action
      */
     protected $_coreRegistry = null;
 
+    public $_resource;
+    public $mediaConfig;
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */

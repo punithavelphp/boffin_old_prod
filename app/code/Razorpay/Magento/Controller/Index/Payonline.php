@@ -8,6 +8,11 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Payonline extends \Razorpay\Magento\Controller\BaseController
 {
+	public $orderIncrementId;
+	public $mobilenumber;
+	public $email;
+	public $objectManagement;
+
 	protected $quote;
 
 	protected $checkoutSession;

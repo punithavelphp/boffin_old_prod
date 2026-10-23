@@ -14,6 +14,10 @@ use Magento\Payment\Model\InfoInterface;
 use Razorpay\Magento\Controller\Payment\Webhook;
 class Data extends AbstractHelper
 {
+	public $checkoutSession;
+	public $config;
+	public $rzpMethod;
+	public $paymentMethod;
 
 	protected $scopeConfig;
 	protected $_storeManager;

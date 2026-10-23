@@ -28,6 +28,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
 	protected $_filterProvider;
 
+    public $_coreRegistry;
+    public $_themeModel;
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */

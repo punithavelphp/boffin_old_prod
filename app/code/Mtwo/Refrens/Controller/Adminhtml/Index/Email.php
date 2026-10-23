@@ -9,6 +9,8 @@ namespace Mtwo\Refrens\Controller\Adminhtml\Index;
  
 class Email extends \Magento\Backend\App\Action
 {
+	public $refrensFactory;
+
     /**
      * Authorization level of a basic admin session
      *

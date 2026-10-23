@@ -8,6 +8,11 @@ use Magento\Checkout\Model\ConfigProviderInterface;
 
 class ConfigProvider implements ConfigProviderInterface
 {
+    public $assetRepo;
+    public $request;
+    public $logger;
+    public $method;
+
     /**
      * @var string[]
      */

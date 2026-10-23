@@ -6,6 +6,9 @@ use Mtwo\ApproveCustomer\Helper\Data;
 use Mtwo\Productupload\Model\Hsnupdate as HsnupdateModel;
 class Hsnupdate extends ActionProcessor
 {
+	public $helper;
+	public $hsnupdateModel;
+
 	protected $customerFactory;
 	protected $helperData;
 	

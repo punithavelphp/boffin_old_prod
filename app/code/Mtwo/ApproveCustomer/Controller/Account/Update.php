@@ -7,6 +7,9 @@ use Magento\Customer\Model\Session;
 
 class Update extends ActionProcessor
 {
+	public $helper;
+	public $customerSession;
+
 	protected $customerFactory;
 	protected $helperData;
 	

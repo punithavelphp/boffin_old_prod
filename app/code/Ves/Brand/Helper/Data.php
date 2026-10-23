@@ -27,6 +27,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     protected $_groupCollection;
 
+    public $_attributeFactory;
     /** @var \Magento\Store\Model\StoreManagerInterface */
     protected $_storeManager;
 

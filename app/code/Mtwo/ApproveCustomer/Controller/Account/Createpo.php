@@ -8,6 +8,9 @@ use Mtwo\ApproveCustomer\Controller\ActionProcessor;
 
 class Createpo extends ActionProcessor
 {
+    public $helper;
+    public $customerSession;
+
 	protected $customerFactory;
 	protected $helperData;
 	

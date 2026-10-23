@@ -6,6 +6,11 @@ use Magento\Framework\View\Element\Template;
 
 class Orders extends Template
 {
+	public $approvers;
+	public $approved;
+	public $customerFactory;
+	public $employeeApprover;
+
 	protected $orderFactory;
 	protected $orderCollection;
 	protected $customerSession;

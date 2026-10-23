@@ -5,6 +5,8 @@ use Magento\Framework\App\Helper;
 
 class Data extends Helper\AbstractHelper
 {
+    public $serializer;
+
     const CACHE_TAG = 'MTWO_CACHE';
     const CACHE_ID = 'mtwo_cache';
     const CACHE_LIFETIME = 86400;
