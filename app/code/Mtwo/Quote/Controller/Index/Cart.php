@@ -1,15 +1,4 @@
 <?php
-
-	public $_customerSession;
-	public $logger;
-	public $quote;
-	public $quoteItems;
-	public $resultJsonFactory;
-	public $product;
-	public $mproduct;
-	public $mailHelper;
-	public $urlInterface;
-
 namespace Mtwo\Quote\Controller\Index;
 
 use Magento\Framework\App\Action\Action;
@@ -23,6 +12,16 @@ class Cart extends Action
      * @var PageFactory
      */
 	protected $_resultPageFactory;
+	
+	public $_customerSession;
+	public $logger;
+	public $quote;
+	public $quoteItems;
+	public $resultJsonFactory;
+	public $product;
+	public $mproduct;
+	public $mailHelper;
+	public $urlInterface;
 
 
 	/**
