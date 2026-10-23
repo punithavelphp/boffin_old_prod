@@ -90,7 +90,15 @@ class Data extends AbstractData
      */
 	protected $customerRegistry;
 
-	protected $addressFactory;
+	/**
+	 * @var \Magento\Customer\Model\AddressFactory
+	 */
+	protected $_addressFactory;
+
+	/**
+	 * @var \Mtwo\CustomAddress\Model\Customaddress
+	 */
+	protected $customaddress;
 
 	/**
      * Data constructor.
