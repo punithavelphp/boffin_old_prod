@@ -42,6 +42,10 @@ class QuoteManagement extends \Magento\Quote\Model\QuoteManagement
     public $productFactory;
     public $mpsplitorderFactory;
     public $addressFactory;
+    /**
+     * @var \Magento\Customer\Api\AddressRepositoryInterface
+     */
+    public $addressRepository;
     public $splitorderLogger;
     public $checkoutMethd;
     public $customr;
