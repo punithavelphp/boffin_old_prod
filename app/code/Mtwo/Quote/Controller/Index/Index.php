@@ -1,5 +1,13 @@
 <?php
+namespace Mtwo\Quote\Controller\Index;
 
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\Result\JsonFactory;
+ 
+class Index extends Action
+{
 	public $_customerSession;
 	public $logger;
 	public $quote;
@@ -10,15 +18,6 @@
 	public $mailHelper;
 	public $urlInterface;
 
-namespace Mtwo\Quote\Controller\Index;
-
-use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\View\Result\PageFactory;
-use Magento\Framework\Controller\Result\JsonFactory;
- 
-class Index extends Action
-{
 	/**
      * @var PageFactory
      */

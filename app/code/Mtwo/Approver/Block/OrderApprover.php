@@ -5,9 +5,6 @@
  */
 namespace Mtwo\Approver\Block;
 
-    public $approved;
-    public $customer;
-
 use Magento\Sales\Model\Order\Address;
 use Magento\Framework\View\Element\Template\Context as TemplateContext;
 use Magento\Framework\Registry;
@@ -24,7 +21,8 @@ use Magento\Customer\Model\Customer;
  */
 class OrderApprover extends \Magento\Sales\Block\Order\Info
 {
-    
+    public $approved;
+    public $customer;
 
     /**
      * Core registry

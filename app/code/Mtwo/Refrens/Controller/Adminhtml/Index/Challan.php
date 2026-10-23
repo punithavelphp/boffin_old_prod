@@ -1,20 +1,6 @@
 <?php
 namespace Mtwo\Refrens\Controller\Adminhtml\Index;
 	
-	public $_coreRegistry;
-	public $_invoiceRepository;
-	public $_orderRepository;
-	public $orderHelper;
-	public $helper;
-	public $date;
-	public $mpSellerModel;
-	public $logger;
-	public $resourceConnection;
-	public $customer;
-	public $url;
-	public $refrensFactory;
-	public $gstStates;
-
 	use Magento\Backend\App\Action;
 	use Magento\Backend\App\Action\Context;
 	use Magento\Framework\View\Result\PageFactory;
@@ -25,6 +11,20 @@ namespace Mtwo\Refrens\Controller\Adminhtml\Index;
 	use Magento\Framework\Controller\ResultFactory;
 	class Challan extends Action
 	{
+		public $_coreRegistry;
+		public $_invoiceRepository;
+		public $_orderRepository;
+		public $orderHelper;
+		public $helper;
+		public $date;
+		public $mpSellerModel;
+		public $logger;
+		public $resourceConnection;
+		public $customer;
+		public $url;
+		public $refrensFactory;
+		public $gstStates;
+
 		/**
 			* @var PageFactory
 		*/

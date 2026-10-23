@@ -1,5 +1,16 @@
 <?php
+namespace Mtwo\Refrens\Controller\Index;
 
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\Sales\Api\OrderRepositoryInterface;
+use Webkul\Marketplace\Helper\Data as HelperData;
+use Webkul\Marketplace\Model\SellerFactory as MpSellerModel;
+use Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\Framework\Controller\ResultFactory;
+class Index extends Action
+{
 	public $_coreRegistry;
 	public $_invoiceRepository;
 	public $_orderRepository;
@@ -14,18 +25,6 @@
 	public $refrensFactory;
 	public $gstStates;
 
-namespace Mtwo\Refrens\Controller\Index;
-
-use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\View\Result\PageFactory;
-use Magento\Sales\Api\OrderRepositoryInterface;
-use Webkul\Marketplace\Helper\Data as HelperData;
-use Webkul\Marketplace\Model\SellerFactory as MpSellerModel;
-use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\Framework\Controller\ResultFactory;
-class Index extends Action
-{
 	/**
 			* @var PageFactory
 		*/
